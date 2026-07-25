@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Gallery of academic presentations, research activities, and selected moments from the career of Ahmed E. Elshal."
+  >
+
+  <meta name="theme-color" content="#8a1f2d">
+
+  <title>Gallery | Ahmed E. Elshal</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="Ahmed_Black_Logo.png"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .gallery-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 5.5rem 0 4.5rem;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(201, 145, 39, 0.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 10% 80%,
+          rgba(138, 31, 45, 0.08),
+          transparent 32%
+        ),
+        var(--surface);
+    }
+
+    .gallery-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.25;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(23, 32, 42, 0.12) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+    }
+
+    .gallery-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 840px;
+    }
+
+    .gallery-hero h1 {
+      margin-bottom: 1.25rem;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+    }
+
+    .gallery-hero p {
+      max-width: 720px;
+      margin-bottom: 0;
+      font-size: 1.1rem;
+    }
+
+    .gallery-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .gallery-filter {
+      min-height: 44px;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 800;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .gallery-filter:hover {
+      transform: translateY(-1px);
+      border-color: rgba(138, 31, 45, 0.35);
+      color: var(--primary);
+    }
+
+    .gallery-filter.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #ffffff;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery-item {
+      grid-column: span 4;
+      overflow: hidden;
+      margin: 0;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: 0 14px 40px rgba(23, 32, 42, 0.06);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .gallery-item.featured {
+      grid-column: span 8;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 50px rgba(23, 32, 42, 0.11);
+    }
+
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    .gallery-image-button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+    }
+
+    .gallery-image {
+      display: block;
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.45s ease;
+    }
+
+    .gallery-item.featured .gallery-image {
+      height: 500px;
+      object-position: center top;
+    }
+
+    .gallery-image-button:hover .gallery-image {
+      transform: scale(1.025);
+    }
+
+    .gallery-caption {
+      padding: 1.35rem 1.4rem 1.5rem;
+    }
+
+    .gallery-category {
+      display: block;
+      margin-bottom: 0.45rem;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .gallery-caption h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .gallery-caption p {
+      margin-bottom: 0;
+      font-size: 0.94rem;
+    }
+
+    .gallery-note {
+      margin-top: 3rem;
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface-alt);
+    }
+
+    .gallery-note h2 {
+      margin-bottom: 0.55rem;
+      font-size: 1.25rem;
+    }
+
+    .gallery-note p {
+      margin-bottom: 0;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(8, 12, 17, 0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-content {
+      position: relative;
+      width: min(100%, 1100px);
+      max-height: calc(100vh - 4rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-image {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 9rem);
+      border-radius: 16px;
+      object-fit: contain;
+    }
+
+    .lightbox-caption {
+      margin: 1rem 0 0;
+      color: rgba(255, 255, 255, 0.85);
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -1.2rem;
+      right: -1.2rem;
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 1.4rem;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    body.lightbox-active {
+      overflow: hidden;
+    }
+
+    @media (max-width: 920px) {
+      .gallery-item,
+      .gallery-item.featured {
+        grid-column: span 6;
+      }
+
+      .gallery-item.featured .gallery-image,
+      .gallery-image {
+        height: 390px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-hero {
+        padding: 4.5rem 0 3.5rem;
+      }
+
+      .gallery-item,
+      .gallery-item.featured {
+        grid-column: 1 / -1;
+      }
+
+      .gallery-item.featured .gallery-image,
+      .gallery-image {
+        height: 390px;
+      }
+
+      .lightbox {
+        padding: 1rem;
+      }
+
+      .lightbox-close {
+        top: 0.7rem;
+        right: 0.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Ahmed E. Elshal homepage"
+      >
+
+        <img
+          class="site-logo"
+          src="Ahmed_Black_Logo.png"
+          alt="Ahmed Elshal logo"
+        >
+
+        <span class="brand-name">
+          Ahmed E. Elshal
+        </span>
+
+      </a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="site-nav" aria-label="Main navigation">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a class="active" href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <main id="main">
+
+    <section class="gallery-hero">
+
+      <div class="container">
+
+        <div class="gallery-hero-content">
+
+          <div class="eyebrow">
+            Gallery
+          </div>
+
+          <h1>
+            Research, presentations, and selected moments
+          </h1>
+
+          <p>
+            A visual record of my academic journey, scientific presentations,
+            research activities, and personal milestones.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="gallery-controls" aria-label="Gallery filters">
+
+          <button
+            class="gallery-filter active"
+            type="button"
+            data-filter="all"
+          >
+            All
+          </button>
+
+          <button
+            class="gallery-filter"
+            type="button"
+            data-filter="presentation"
+          >
+            Presentations
+          </button>
+
+          <button
+            class="gallery-filter"
+            type="button"
+            data-filter="academic"
+          >
+            Academic journey
+          </button>
+
+          <button
+            class="gallery-filter"
+            type="button"
+            data-filter="personal"
+          >
+            Personal archive
+          </button>
+
+        </div>
+
+        <div class="gallery-grid">
+
+          <figure
+            class="gallery-item featured"
+            data-category="presentation"
+          >
+
+            <button
+              class="gallery-image-button"
+              type="button"
+              data-image="Ahmed_Presenting.jpg"
+              data-caption="Scientific presentation by Ahmed E. Elshal."
+              aria-label="Open scientific presentation image"
+            >
+
+              <img
+                class="gallery-image"
+                src="Ahmed_Presenting.jpg"
+                alt="Ahmed E. Elshal presenting at a scientific event"
+              >
+
+            </button>
+
+            <figcaption class="gallery-caption">
+
+              <span class="gallery-category">
+                Presentation
+              </span>
+
+              <h2>
+                Scientific presentation
+              </h2>
+
+              <p>
+                Presenting research in a formal academic setting.
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+          <figure
+            class="gallery-item"
+            data-category="personal"
+          >
+
+            <button
+              class="gallery-image-button"
+              type="button"
+              data-image="Baby_Ahmed.JPG"
+              data-caption="A selected photograph from Ahmed's early life archive."
+              aria-label="Open early life archive image"
+            >
+
+              <img
+                class="gallery-image"
+                src="Baby_Ahmed.JPG"
+                alt="Selected photograph from Ahmed's early life archive"
+              >
+
+            </button>
+
+            <figcaption class="gallery-caption">
+
+              <span class="gallery-category">
+                Personal archive
+              </span>
+
+              <h2>
+                Early life
+              </h2>
+
+              <p>
+                A selected photograph from my personal archive.
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+          <figure
+            class="gallery-item"
+            data-category="academic"
+          >
+
+            <button
+              class="gallery-image-button"
+              type="button"
+              data-image="IMG_5211.JPG"
+              data-caption="A selected moment from Ahmed E. Elshal's academic journey."
+              aria-label="Open academic journey image"
+            >
+
+              <img
+                class="gallery-image"
+                src="IMG_5211.JPG"
+                alt="Selected moment from Ahmed E. Elshal's academic journey"
+              >
+
+            </button>
+
+            <figcaption class="gallery-caption">
+
+              <span class="gallery-category">
+                Academic journey
+              </span>
+
+              <h2>
+                Selected moment
+              </h2>
+
+              <p>
+                A photograph documenting part of my academic and professional journey.
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+        </div>
+
+        <div class="gallery-note">
+
+          <h2>
+            Gallery expansion
+          </h2>
+
+          <p>
+            Additional research figures, laboratory photographs, conference
+            presentations, awards, and academic events will be added as the
+            gallery develops.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <div
+    class="lightbox"
+    id="gallery-lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Expanded gallery image"
+  >
+
+    <div class="lightbox-content">
+
+      <button
+        class="lightbox-close"
+        type="button"
+        aria-label="Close image"
+      >
+        ×
+      </button>
+
+      <img
+        class="lightbox-image"
+        src=""
+        alt=""
+      >
+
+      <p class="lightbox-caption"></p>
+
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <span>
+        © <span data-year></span> Ahmed E. Elshal
+      </span>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+
+  <script>
+    const filterButtons = document.querySelectorAll(".gallery-filter");
+    const galleryItems = document.querySelectorAll(".gallery-item");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const selectedFilter = button.dataset.filter;
+
+        filterButtons.forEach((filterButton) => {
+          filterButton.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        galleryItems.forEach((item) => {
+          const category = item.dataset.category;
+
+          const shouldShow =
+            selectedFilter === "all" ||
+            selectedFilter === category;
+
+          item.classList.toggle("hidden", !shouldShow);
+        });
+      });
+    });
+
+    const lightbox = document.querySelector("#gallery-lightbox");
+    const lightboxImage = document.querySelector(".lightbox-image");
+    const lightboxCaption = document.querySelector(".lightbox-caption");
+    const lightboxClose = document.querySelector(".lightbox-close");
+    const imageButtons = document.querySelectorAll(".gallery-image-button");
+
+    let lastFocusedElement = null;
+
+    function openLightbox(button) {
+      lastFocusedElement = button;
+
+      const imagePath = button.dataset.image;
+      const imageCaption = button.dataset.caption;
+
+      lightboxImage.src = imagePath;
+      lightboxImage.alt = imageCaption;
+      lightboxCaption.textContent = imageCaption;
+
+      lightbox.classList.add("open");
+      document.body.classList.add("lightbox-active");
+
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      document.body.classList.remove("lightbox-active");
+
+      lightboxImage.src = "";
+      lightboxCaption.textContent = "";
+
+      if (lastFocusedElement) {
+        lastFocusedElement.focus();
+      }
+    }
+
+    imageButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        openLightbox(button);
+      });
+    });
+
+    lightboxClose.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lightbox.classList.contains("open")) {
+        closeLightbox();
+      }
+    });
+  </script>
+
+</body>
+
+</html>
