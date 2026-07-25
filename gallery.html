@@ -11,7 +11,7 @@
 
   <meta
     name="description"
-    content="Gallery of academic presentations, research activities, and selected moments from the career of Ahmed E. Elshal."
+    content="Gallery of academic presentations, research activities, and selected moments from the journey of Ahmed E. Elshal."
   >
 
   <meta name="theme-color" content="#8a1f2d">
@@ -78,51 +78,24 @@
       font-size: 1.1rem;
     }
 
-    .gallery-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-bottom: 2.5rem;
+    .gallery-introduction {
+      max-width: 760px;
+      margin-bottom: 3rem;
     }
 
-    .gallery-filter {
-      min-height: 44px;
-      padding: 0.65rem 1rem;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--muted);
-      cursor: pointer;
-      font: inherit;
-      font-size: 0.88rem;
-      font-weight: 800;
-      transition:
-        color 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease,
-        transform 0.2s ease;
-    }
-
-    .gallery-filter:hover {
-      transform: translateY(-1px);
-      border-color: rgba(138, 31, 45, 0.35);
-      color: var(--primary);
-    }
-
-    .gallery-filter.active {
-      border-color: var(--primary);
-      background: var(--primary);
-      color: #ffffff;
+    .gallery-introduction p {
+      margin-bottom: 0;
+      font-size: 1.05rem;
     }
 
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(12, minmax(0, 1fr));
-      gap: 1.25rem;
+      gap: 1.3rem;
     }
 
     .gallery-item {
-      grid-column: span 4;
+      grid-column: span 6;
       overflow: hidden;
       margin: 0;
       border: 1px solid var(--line);
@@ -130,22 +103,17 @@
       background: var(--surface);
       box-shadow: 0 14px 40px rgba(23, 32, 42, 0.06);
       transition:
-        opacity 0.25s ease,
         transform 0.25s ease,
         box-shadow 0.25s ease;
     }
 
     .gallery-item.featured {
-      grid-column: span 8;
+      grid-column: 1 / -1;
     }
 
     .gallery-item:hover {
       transform: translateY(-5px);
       box-shadow: 0 22px 50px rgba(23, 32, 42, 0.11);
-    }
-
-    .gallery-item.hidden {
-      display: none;
     }
 
     .gallery-image-button {
@@ -160,15 +128,15 @@
     .gallery-image {
       display: block;
       width: 100%;
-      height: 340px;
+      height: 430px;
       object-fit: cover;
       object-position: center;
       transition: transform 0.45s ease;
     }
 
     .gallery-item.featured .gallery-image {
-      height: 500px;
-      object-position: center top;
+      height: 610px;
+      object-position: center;
     }
 
     .gallery-image-button:hover .gallery-image {
@@ -179,7 +147,17 @@
       padding: 1.35rem 1.4rem 1.5rem;
     }
 
-    .gallery-category {
+    .gallery-caption h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    .gallery-caption p {
+      margin-bottom: 0;
+      font-size: 0.94rem;
+    }
+
+    .gallery-label {
       display: block;
       margin-bottom: 0.45rem;
       color: var(--primary);
@@ -187,16 +165,6 @@
       font-weight: 900;
       letter-spacing: 0.13em;
       text-transform: uppercase;
-    }
-
-    .gallery-caption h2 {
-      margin-bottom: 0.5rem;
-      font-size: 1.25rem;
-    }
-
-    .gallery-caption p {
-      margin-bottom: 0;
-      font-size: 0.94rem;
     }
 
     .gallery-note {
@@ -234,7 +202,7 @@
 
     .lightbox-content {
       position: relative;
-      width: min(100%, 1100px);
+      width: min(100%, 1150px);
       max-height: calc(100vh - 4rem);
       display: flex;
       flex-direction: column;
@@ -286,9 +254,9 @@
         grid-column: span 6;
       }
 
-      .gallery-item.featured .gallery-image,
-      .gallery-image {
-        height: 390px;
+      .gallery-image,
+      .gallery-item.featured .gallery-image {
+        height: 430px;
       }
     }
 
@@ -302,8 +270,8 @@
         grid-column: 1 / -1;
       }
 
-      .gallery-item.featured .gallery-image,
-      .gallery-image {
+      .gallery-image,
+      .gallery-item.featured .gallery-image {
         height: 390px;
       }
 
@@ -370,7 +338,11 @@
           Publications
         </a>
 
-        <a class="active" href="gallery.html">
+        <a
+          class="active"
+          href="gallery.html"
+          aria-current="page"
+        >
           Gallery
         </a>
 
@@ -397,12 +369,13 @@
           </div>
 
           <h1>
-            Research, presentations, and selected moments
+            Academic journey and selected moments
           </h1>
 
           <p>
-            A visual record of my academic journey, scientific presentations,
-            research activities, and personal milestones.
+            A visual collection documenting scientific presentations,
+            university life, research activities, and meaningful moments
+            throughout my academic journey.
           </p>
 
         </div>
@@ -415,48 +388,61 @@
 
       <div class="container">
 
-        <div class="gallery-controls" aria-label="Gallery filters">
+        <div class="gallery-introduction">
 
-          <button
-            class="gallery-filter active"
-            type="button"
-            data-filter="all"
-          >
-            All
-          </button>
+          <div class="eyebrow">
+            Visual archive
+          </div>
 
-          <button
-            class="gallery-filter"
-            type="button"
-            data-filter="presentation"
-          >
-            Presentations
-          </button>
+          <h2>
+            Selected photographs
+          </h2>
 
-          <button
-            class="gallery-filter"
-            type="button"
-            data-filter="academic"
-          >
-            Academic journey
-          </button>
-
-          <button
-            class="gallery-filter"
-            type="button"
-            data-filter="personal"
-          >
-            Personal archive
-          </button>
+          <p>
+            Click any photograph to view it at a larger size.
+          </p>
 
         </div>
 
         <div class="gallery-grid">
 
-          <figure
-            class="gallery-item featured"
-            data-category="presentation"
-          >
+          <figure class="gallery-item featured">
+
+            <button
+              class="gallery-image-button"
+              type="button"
+              data-image="Utokyo_Entrance_photosession.png"
+              data-caption="Photo session at the entrance of The University of Tokyo."
+              aria-label="Open University of Tokyo entrance photo"
+            >
+
+              <img
+                class="gallery-image"
+                src="Utokyo_Entrance_photosession.png"
+                alt="Ahmed E. Elshal during a photo session at the entrance of The University of Tokyo"
+              >
+
+            </button>
+
+            <figcaption class="gallery-caption">
+
+              <span class="gallery-label">
+                The University of Tokyo
+              </span>
+
+              <h2>
+                University entrance photo session
+              </h2>
+
+              <p>
+                A selected moment at the entrance of The University of Tokyo.
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+          <figure class="gallery-item">
 
             <button
               class="gallery-image-button"
@@ -476,46 +462,80 @@
 
             <figcaption class="gallery-caption">
 
-              <span class="gallery-category">
-                Presentation
+              <span class="gallery-label">
+                Scientific presentation
               </span>
 
               <h2>
-                Scientific presentation
+                Presenting research
               </h2>
 
               <p>
-                Presenting research in a formal academic setting.
+                Presenting scientific work in a formal academic setting.
               </p>
 
             </figcaption>
 
           </figure>
 
-          <figure
-            class="gallery-item"
-            data-category="personal"
-          >
+          <figure class="gallery-item">
 
             <button
               class="gallery-image-button"
               type="button"
-              data-image="Baby_Ahmed.JPG"
-              data-caption="A selected photograph from Ahmed's early life archive."
-              aria-label="Open early life archive image"
+              data-image="IMG_5211.JPG"
+              data-caption="A selected moment from Ahmed E. Elshal's academic journey."
+              aria-label="Open academic journey photograph"
             >
 
               <img
                 class="gallery-image"
-                src="Baby_Ahmed.JPG"
-                alt="Selected photograph from Ahmed's early life archive"
+                src="IMG_5211.JPG"
+                alt="Selected moment from Ahmed E. Elshal's academic journey"
               >
 
             </button>
 
             <figcaption class="gallery-caption">
 
-              <span class="gallery-category">
+              <span class="gallery-label">
+                Academic journey
+              </span>
+
+              <h2>
+                Selected academic moment
+              </h2>
+
+              <p>
+                A photograph documenting part of my academic and professional
+                journey.
+              </p>
+
+            </figcaption>
+
+          </figure>
+
+          <figure class="gallery-item">
+
+            <button
+              class="gallery-image-button"
+              type="button"
+              data-image="Baby_Ahmed.JPG"
+              data-caption="A selected photograph from Ahmed E. Elshal's early life archive."
+              aria-label="Open early life photograph"
+            >
+
+              <img
+                class="gallery-image"
+                src="Baby_Ahmed.JPG"
+                alt="Selected photograph from Ahmed E. Elshal's early life archive"
+              >
+
+            </button>
+
+            <figcaption class="gallery-caption">
+
+              <span class="gallery-label">
                 Personal archive
               </span>
 
@@ -531,57 +551,18 @@
 
           </figure>
 
-          <figure
-            class="gallery-item"
-            data-category="academic"
-          >
-
-            <button
-              class="gallery-image-button"
-              type="button"
-              data-image="IMG_5211.JPG"
-              data-caption="A selected moment from Ahmed E. Elshal's academic journey."
-              aria-label="Open academic journey image"
-            >
-
-              <img
-                class="gallery-image"
-                src="IMG_5211.JPG"
-                alt="Selected moment from Ahmed E. Elshal's academic journey"
-              >
-
-            </button>
-
-            <figcaption class="gallery-caption">
-
-              <span class="gallery-category">
-                Academic journey
-              </span>
-
-              <h2>
-                Selected moment
-              </h2>
-
-              <p>
-                A photograph documenting part of my academic and professional journey.
-              </p>
-
-            </figcaption>
-
-          </figure>
-
         </div>
 
         <div class="gallery-note">
 
           <h2>
-            Gallery expansion
+            Growing visual archive
           </h2>
 
           <p>
-            Additional research figures, laboratory photographs, conference
-            presentations, awards, and academic events will be added as the
-            gallery develops.
+            Additional laboratory photographs, conference presentations,
+            awards, university events, research figures, and professional
+            milestones will be added over time.
           </p>
 
         </div>
@@ -605,7 +586,7 @@
       <button
         class="lightbox-close"
         type="button"
-        aria-label="Close image"
+        aria-label="Close expanded image"
       >
         ×
       </button>
@@ -658,34 +639,9 @@
 
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=6"></script>
 
   <script>
-    const filterButtons = document.querySelectorAll(".gallery-filter");
-    const galleryItems = document.querySelectorAll(".gallery-item");
-
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const selectedFilter = button.dataset.filter;
-
-        filterButtons.forEach((filterButton) => {
-          filterButton.classList.remove("active");
-        });
-
-        button.classList.add("active");
-
-        galleryItems.forEach((item) => {
-          const category = item.dataset.category;
-
-          const shouldShow =
-            selectedFilter === "all" ||
-            selectedFilter === category;
-
-          item.classList.toggle("hidden", !shouldShow);
-        });
-      });
-    });
-
     const lightbox = document.querySelector("#gallery-lightbox");
     const lightboxImage = document.querySelector(".lightbox-image");
     const lightboxCaption = document.querySelector(".lightbox-caption");
@@ -715,6 +671,7 @@
       document.body.classList.remove("lightbox-active");
 
       lightboxImage.src = "";
+      lightboxImage.alt = "";
       lightboxCaption.textContent = "";
 
       if (lastFocusedElement) {
@@ -737,7 +694,10 @@
     });
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.classList.contains("open")) {
+      if (
+        event.key === "Escape" &&
+        lightbox.classList.contains("open")
+      ) {
         closeLightbox();
       }
     });
