@@ -1,100 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Selected peer reviewed publications and manuscripts by Ahmed Elsherbini Elshal.">
-  <meta name="theme-color" content="#7a1f2b">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Peer-reviewed publications, manuscripts, and scientific communications by Ahmed E. Elshal."
+  >
+
+  <meta name="theme-color" content="#8a1f2d">
+
   <title>Publications | Ahmed E. Elshal</title>
-  <link rel="icon" type="image/png" href="Ahmed_Black_Logo.png">
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="Ahmed_Black_Logo.png"
+  >
+
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .publications-hero {
+      padding: 5.5rem 0 4rem;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(
+          circle at 88% 20%,
+          rgba(201, 145, 39, 0.12),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 8% 85%,
+          rgba(138, 31, 45, 0.07),
+          transparent 30%
+        ),
+        var(--surface);
+    }
+
+    .publications-hero-content {
+      max-width: 850px;
+    }
+
+    .publications-hero h1 {
+      margin-bottom: 1.2rem;
+      font-size: clamp(3rem, 6vw, 5rem);
+    }
+
+    .publications-hero p {
+      max-width: 740px;
+      margin-bottom: 1.8rem;
+      font-size: 1.08rem;
+    }
+
+    .profile-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .profile-link {
+      display: inline-flex;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.86rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .profile-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(138, 31, 45, 0.35);
+      color: var(--primary);
+      box-shadow: 0 8px 22px rgba(23, 32, 42, 0.07);
+    }
+
+    .publications-content {
+      max-width: 980px;
+    }
+
+    .publication-section {
+      margin-bottom: 5rem;
+    }
+
+    .publication-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .publication-section-header {
+      margin-bottom: 2rem;
+    }
+
+    .publication-section-header h2 {
+      margin-bottom: 0.9rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .publication-section-header p {
+      max-width: 740px;
+      margin-bottom: 0;
+    }
+
+    .publication-divider {
+      width: 100%;
+      height: 1px;
+      margin-top: 1.3rem;
+      border: 0;
+      background: var(--line);
+    }
+
+    .publication-list {
+      margin: 0;
+      padding-left: 2.5rem;
+    }
+
+    .publication-list li {
+      margin-bottom: 1.8rem;
+      padding-left: 0.55rem;
+      color: var(--text);
+    }
+
+    .publication-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .publication-list li::marker {
+      color: var(--primary);
+      font-weight: 900;
+    }
+
+    .publication-entry {
+      line-height: 1.85;
+    }
+
+    .publication-authors {
+      color: var(--text);
+    }
+
+    .publication-authors strong {
+      color: var(--primary);
+      font-weight: 850;
+    }
+
+    .publication-title {
+      color: var(--primary);
+      font-weight: 800;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .publication-title:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .publication-journal {
+      color: var(--text);
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .publication-details {
+      color: var(--muted);
+    }
+
+    .publication-links {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-left: 0.35rem;
+    }
+
+    .publication-mini-link {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--primary);
+      font-size: 0.73rem;
+      font-style: normal;
+      font-weight: 800;
+      text-decoration: none;
+      vertical-align: middle;
+    }
+
+    .publication-mini-link:hover {
+      border-color: var(--primary);
+      background: rgba(138, 31, 45, 0.05);
+    }
+
+    .status-entry {
+      padding: 1.5rem 1.6rem;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--primary);
+      border-radius: 16px;
+      background: var(--surface);
+      box-shadow: 0 12px 35px rgba(23, 32, 42, 0.045);
+    }
+
+    .status-label {
+      display: inline-flex;
+      margin-bottom: 0.8rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(138, 31, 45, 0.08);
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .status-entry p {
+      margin-bottom: 0;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .publication-note {
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-alt);
+    }
+
+    .publication-note h3 {
+      margin-bottom: 0.55rem;
+    }
+
+    .publication-note p {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 720px) {
+      .publications-hero {
+        padding: 4.5rem 0 3.5rem;
+      }
+
+      .publication-list {
+        padding-left: 1.8rem;
+      }
+
+      .publication-list li {
+        padding-left: 0.25rem;
+      }
+
+      .publication-links {
+        display: flex;
+        margin-top: 0.55rem;
+        margin-left: 0;
+      }
+
+      .profile-links {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .profile-link {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="container nav-wrap">
-    <a class="brand" href="index.html" aria-label="Ahmed Elshal home">
-      <img
-        class="site-logo"
-        src="Ahmed_Black_Logo.png"
-        alt="Ahmed Elshal logo"
-        onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Ahmed E. Elshal homepage"
       >
-      <span class="brand-fallback" hidden>Ahmed Elshal</span>
-    </a>
-    <button class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
-    <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="research.html">Research</a><a class="active" href="publications.html">Publications</a><a href="about.html">About</a></nav>
-  </div>
-</header>
-<main id="main">
-  <section class="page-hero">
-    <div class="container">
-      <div class="eyebrow">Publications</div>
-      <h1>Peer reviewed research and scientific communication</h1>
-      <p>My publications span bone tissue engineering, functional bone models, dental materials, digital workflows, and microcomputed tomography.</p>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Manuscript in review</h2>
-      </div>
-      <div class="publication-list">
-        <article class="publication">
-          <p class="pub-title">Parathyroid hormone exposure frequency regulates spatiotemporal coupling during bone remodeling in a functional bone model <span class="status">Under review</span></p>
-          <p class="pub-meta"><strong>Elsherbini A</strong>, et al. Scientific Reports.</p>
-        </article>
-      </div>
-    </div>
-  </section>
+        <img
+          class="site-logo"
+          src="Ahmed_Black_Logo.png"
+          alt="Ahmed Elshal logo"
+        >
 
-  <section class="section" style="padding-top:0;">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Peer reviewed publications</h2>
-      </div>
-      <div class="publication-list">
-        <article class="publication">
-          <p class="pub-title">Mechanical Performance and Surface Roughness of Lithium Disilicate and Zirconia Reinforced Lithium Silicate Ceramics Before and After Exposure to Acidic Challenge</p>
-          <p class="pub-meta"><strong>Elsherbini A</strong>, Fathy SM, Al Zordk W, Özcan M, Sakrana AA. <em>Dentistry Journal</em>. 2025;13(3):117.</p>
-          <div class="pub-links"><a href="https://pubmed.ncbi.nlm.nih.gov/40136745/" target="_blank" rel="noopener">PubMed</a></div>
-        </article>
-        <article class="publication">
-          <p class="pub-title">機能的骨オルガノイドを用いた骨代謝研究への新たなアプローチ</p>
-          <p class="pub-meta">辻 直紀, 小野 紗也加, 坂本 朋昭, <strong>アハメド エルシャル</strong>, 星 和人, 疋田 温彦. <em>日本骨形態計測学会雑誌</em>. 2024;34(2):64 to 67.</p>
-        </article>
-        <article class="publication">
-          <p class="pub-title">A microcomputed tomography analysis of adaptation in premolars with flared root canals restored with different digitally custom fabricated post materials</p>
-          <p class="pub-meta">Yehia A, Al Zordk W, <strong>Elsherbini A</strong>, Sakrana AA. <em>Journal of Prosthetic Dentistry</em>. 2024;131(3):457.e1 to 457.e9.</p>
-          <div class="pub-links"><a href="https://pubmed.ncbi.nlm.nih.gov/38212155/" target="_blank" rel="noopener">PubMed</a></div>
-        </article>
-        <article class="publication">
-          <p class="pub-title">Influence of resin cement on color stability when luting lithium disilicate and zirconia restorations</p>
-          <p class="pub-meta">Sakrana AA, Laith A, <strong>Elsherbini A</strong>, Elerian FA, Özcan M, Al Zordk W. <em>International Journal of Esthetic Dentistry</em>. 2023;18(2):114 to 126.</p>
-          <div class="pub-links"><a href="https://pubmed.ncbi.nlm.nih.gov/37166767/" target="_blank" rel="noopener">PubMed</a></div>
-        </article>
-        <article class="publication">
-          <p class="pub-title">Effect of ceramic and resin cement type on color stability and translucency of ceramic laminate veneers for diastema closure: an in vitro study</p>
-          <p class="pub-meta">Elkhishen EA, Al Zordk W, Hassouna M, <strong>Elsherbini A</strong>, Sakrana AA. <em>Scientific Reports</em>. 2022;12(1):22082.</p>
-          <div class="pub-links"><a href="https://pubmed.ncbi.nlm.nih.gov/36543821/" target="_blank" rel="noopener">PubMed</a><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9772217/" target="_blank" rel="noopener">Full text</a></div>
-        </article>
-        <article class="publication">
-          <p class="pub-title">Does Resin Cement Type and Cement Preheating Influence the Marginal and Internal Fit of Lithium Disilicate Single Crowns?</p>
-          <p class="pub-meta">Samy N, <strong>Elsherbini A</strong>, Sakrana AA, et al. <em>Materials</em>. 2022;15(2):424.</p>
-          <div class="pub-links"><a href="https://doi.org/10.3390/ma15020424" target="_blank" rel="noopener">Publisher</a></div>
-        </article>
-        <article class="publication">
-          <p class="pub-title">Does Preheating Resin Cements Affect Fracture Resistance of Lithium Disilicate and Zirconia Restorations?</p>
-          <p class="pub-meta">Sakrana AA, Al Zordk W, El Sebaey H, <strong>Elsherbini A</strong>, Özcan M. <em>Materials</em>. 2021;14(19):5603.</p>
-          <div class="pub-links"><a href="https://pubmed.ncbi.nlm.nih.gov/34640000/" target="_blank" rel="noopener">PubMed</a></div>
-        </article>
-      </div>
-      <p class="notice" style="margin-top:1.5rem;">Add your Google Scholar and ResearchGate links once you choose the exact public profile URLs.</p>
+        <span class="brand-name">
+          Ahmed E. Elshal
+        </span>
+
+      </a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="site-nav" aria-label="Main navigation">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a class="active" href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </nav>
+
     </div>
-  </section>
-</main>
-<footer class="site-footer"><div class="container footer-grid"><span>© <span data-year></span> Ahmed Elsherbini Elshal</span><div class="footer-links"><a href="index.html">Home</a><a href="research.html">Research</a><a href="about.html">About</a></div></div></footer>
-<script src="script.js"></script>
+
+  </header>
+
+  <main id="main">
+
+    <section class="publications-hero">
+
+      <div class="container">
+
+        <div class="publications-hero-content">
+
+          <div class="eyebrow">
+            Research output
+          </div>
+
+          <h1>
+            Publications
+          </h1>
+
+          <p>
+            Peer-reviewed articles and scientific communications spanning
+            functional bone models, bone tissue engineering, quantitative
+            imaging, dental biomaterials, and restorative dentistry.
+          </p>
+
+          <div class="profile-links">
+
+            <a
+              class="profile-link"
+              href="https://orcid.org/0009-0002-8920-5901"
+              target="_blank"
+              rel="noopener"
+            >
+              ORCID
+            </a>
+
+            <a
+              class="profile-link"
+              href="https://www.researchgate.net/profile/Ahmed-Elshal-7"
+              target="_blank"
+              rel="noopener"
+            >
+              ResearchGate
+            </a>
+
+            <a
+              class="profile-link"
+              href="https://scholar.google.com/scholar?q=%22Ahmed+Elsherbini+Elazazy+Elshal%22"
+              target="_blank"
+              rel="noopener"
+            >
+              Google Scholar search
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="container publications-content">
+
+        <section class="publication-section">
+
+          <div class="publication-section-header">
+
+            <div class="eyebrow">
+              Current manuscript
+            </div>
+
+            <h2>
+              Manuscript under revision
+            </h2>
+
+            <hr class="publication-divider">
+
+          </div>
+
+          <div class="status-entry">
+
+            <span class="status-label">
+              Scientific Reports
+            </span>
+
+            <p>
+              <strong>Elsherbini A</strong>, et al.
+              “Parathyroid hormone exposure frequency regulates
+              spatiotemporal coupling during bone remodeling in a functional
+              bone model.”
+              <span class="publication-journal">
+                Scientific Reports.
+              </span>
+              Manuscript under revision.
+            </p>
+
+          </div>
+
+        </section>
+
+        <section class="publication-section">
+
+          <div class="publication-section-header">
+
+            <div class="eyebrow">
+              Journal articles
+            </div>
+
+            <h2>
+              Peer-reviewed publications
+            </h2>
+
+            <p>
+              Publications are listed in reverse chronological order.
+              My name is highlighted in burgundy.
+            </p>
+
+            <hr class="publication-divider">
+
+          </div>
+
+          <ol class="publication-list">
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  <strong>Elsherbini A</strong>, Fathy SM,
+                  Al-Zordk W, Özcan M, Sakrana AA.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://doi.org/10.3390/dj13030117"
+                  target="_blank"
+                  rel="noopener"
+                >Mechanical Performance and Surface Roughness of Lithium
+                Disilicate and Zirconia-Reinforced Lithium Silicate Ceramics
+                Before and After Exposure to Acidic Challenge</a>.”
+
+                <span class="publication-journal">
+                  Dentistry Journal.
+                </span>
+
+                <span class="publication-details">
+                  2025;13(3):117.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://doi.org/10.3390/dj13030117"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    DOI
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/40136745/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11941508/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Full text
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Tsuji N, Ono S, Sakamoto T,
+                  <strong>Elsherbini A</strong>, Hoshi K, Hikita A.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202502214464761753"
+                  target="_blank"
+                  rel="noopener"
+                >機能的骨オルガノイドを用いた骨代謝研究への新たなアプローチ
+                / Novel Approach to Bone Metabolism Using Functional Bone
+                Organoids</a>.”
+
+                <span class="publication-journal">
+                  Journal of the Japanese Society for Bone Morphometry.
+                </span>
+
+                <span class="publication-details">
+                  2024;34(2):64–67.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://jglobal.jst.go.jp/detail?JGLOBAL_ID=202502214464761753"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Record
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Yehia A, Al-Zordk W,
+                  <strong>Elsherbini A</strong>, Sakrana AA.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://doi.org/10.1016/j.prosdent.2023.12.007"
+                  target="_blank"
+                  rel="noopener"
+                >A Microcomputed Tomography Analysis of Adaptation in
+                Premolars with Flared Root Canals Restored with Different
+                Digitally Custom-Fabricated Post Materials</a>.”
+
+                <span class="publication-journal">
+                  The Journal of Prosthetic Dentistry.
+                </span>
+
+                <span class="publication-details">
+                  2024;131(3):457.e1–457.e9.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://doi.org/10.1016/j.prosdent.2023.12.007"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    DOI
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/38212155/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Sakrana AA, Laith A,
+                  <strong>Elsherbini A</strong>, Elerian FA,
+                  Özcan M, Al-Zordk W.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://pubmed.ncbi.nlm.nih.gov/37166767/"
+                  target="_blank"
+                  rel="noopener"
+                >Influence of Resin Cement on Color Stability When Luting
+                Lithium Disilicate and Zirconia Restorations: A
+                Spectrophotometry Study</a>.”
+
+                <span class="publication-journal">
+                  The International Journal of Esthetic Dentistry.
+                </span>
+
+                <span class="publication-details">
+                  2023;18(2):114–126.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/37166767/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Elkhishen EA, Al-Zordk W, Hassouna M,
+                  <strong>Elsherbini A</strong>, Sakrana AA.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://doi.org/10.1038/s41598-022-26581-5"
+                  target="_blank"
+                  rel="noopener"
+                >Effect of Ceramic and Resin Cement Type on Color Stability
+                and Translucency of Ceramic Laminate Veneers for Diastema
+                Closure: An In Vitro Study</a>.”
+
+                <span class="publication-journal">
+                  Scientific Reports.
+                </span>
+
+                <span class="publication-details">
+                  2022;12:22082.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://doi.org/10.1038/s41598-022-26581-5"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    DOI
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/36543821/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9772217/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Full text
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Samy N, <strong>Elsherbini A</strong>,
+                  Sakrana AA, et al.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://doi.org/10.3390/ma15020424"
+                  target="_blank"
+                  rel="noopener"
+                >Does Resin Cement Type and Cement Preheating Influence the
+                Marginal and Internal Fit of Lithium Disilicate Single
+                Crowns?</a>”
+
+                <span class="publication-journal">
+                  Materials.
+                </span>
+
+                <span class="publication-details">
+                  2022;15(2):424.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://doi.org/10.3390/ma15020424"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    DOI
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/35057142/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8778998/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Full text
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+            <li>
+
+              <div class="publication-entry">
+
+                <span class="publication-authors">
+                  Sakrana AA, Al-Zordk W, El-Sebaey H,
+                  <strong>Elsherbini A</strong>, Özcan M.
+                </span>
+
+                “<a
+                  class="publication-title"
+                  href="https://doi.org/10.3390/ma14195603"
+                  target="_blank"
+                  rel="noopener"
+                >Does Preheating Resin Cements Affect Fracture Resistance of
+                Lithium Disilicate and Zirconia Restorations?</a>”
+
+                <span class="publication-journal">
+                  Materials.
+                </span>
+
+                <span class="publication-details">
+                  2021;14(19):5603.
+                </span>
+
+                <span class="publication-links">
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://doi.org/10.3390/ma14195603"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    DOI
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pubmed.ncbi.nlm.nih.gov/34640000/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    PubMed
+                  </a>
+
+                  <a
+                    class="publication-mini-link"
+                    href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8509625/"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Full text
+                  </a>
+
+                </span>
+
+              </div>
+
+            </li>
+
+          </ol>
+
+          <div class="publication-note">
+
+            <h3>
+              Publication records
+            </h3>
+
+            <p>
+              Citation information and links will be updated as new articles
+              are published and indexed.
+            </p>
+
+          </div>
+
+        </section>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <span>
+        © <span data-year></span> Ahmed E. Elshal
+      </span>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script src="script.js"></script>
+
 </body>
+
 </html>
