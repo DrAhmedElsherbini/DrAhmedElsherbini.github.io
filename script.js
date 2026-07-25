@@ -1,3 +1,59 @@
+const currentPage =
+  window.location.pathname.split("/").pop() || "index.html";
+
+document.querySelectorAll(".site-nav").forEach((navigation) => {
+  let galleryLink = navigation.querySelector(
+    'a[href="gallery.html"]'
+  );
+
+  if (!galleryLink) {
+    galleryLink = document.createElement("a");
+    galleryLink.href = "gallery.html";
+    galleryLink.textContent = "Gallery";
+
+    const aboutLink = navigation.querySelector(
+      'a[href="about.html"]'
+    );
+
+    if (aboutLink) {
+      navigation.insertBefore(galleryLink, aboutLink);
+    } else {
+      navigation.appendChild(galleryLink);
+    }
+  }
+
+  navigation.querySelectorAll("a").forEach((link) => {
+    const linkPage = link.getAttribute("href");
+
+    link.classList.toggle(
+      "active",
+      linkPage === currentPage
+    );
+  });
+});
+
+document.querySelectorAll(".footer-links").forEach((footerLinks) => {
+  if (!footerLinks.querySelector('a[href="gallery.html"]')) {
+    const galleryFooterLink = document.createElement("a");
+
+    galleryFooterLink.href = "gallery.html";
+    galleryFooterLink.textContent = "Gallery";
+
+    const aboutFooterLink = footerLinks.querySelector(
+      'a[href="about.html"]'
+    );
+
+    if (aboutFooterLink) {
+      footerLinks.insertBefore(
+        galleryFooterLink,
+        aboutFooterLink
+      );
+    } else {
+      footerLinks.appendChild(galleryFooterLink);
+    }
+  }
+});
+
 const menuButton = document.querySelector(".menu-button");
 const navigation = document.querySelector(".site-nav");
 
@@ -19,8 +75,16 @@ if (menuButton && navigation) {
   navigation.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
       navigation.classList.remove("open");
-      menuButton.setAttribute("aria-expanded", "false");
-      menuButton.setAttribute("aria-label", "Open navigation");
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      menuButton.setAttribute(
+        "aria-label",
+        "Open navigation"
+      );
     });
   });
 }
@@ -34,6 +98,7 @@ const canvas = document.querySelector("#dna-canvas");
 
 if (hero && canvas) {
   const context = canvas.getContext("2d");
+
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
@@ -50,15 +115,17 @@ if (hero && canvas) {
     active: false
   };
 
-  const colorVariables = getComputedStyle(document.documentElement);
+  const colorVariables = getComputedStyle(
+    document.documentElement
+  );
 
-  const primaryHex = colorVariables
-    .getPropertyValue("--primary")
-    .trim() || "#8a1f2d";
+  const primaryHex =
+    colorVariables.getPropertyValue("--primary").trim() ||
+    "#8a1f2d";
 
-  const accentHex = colorVariables
-    .getPropertyValue("--accent")
-    .trim() || "#c99127";
+  const accentHex =
+    colorVariables.getPropertyValue("--accent").trim() ||
+    "#c99127";
 
   function hexToRgb(hex) {
     const cleaned = hex.replace("#", "");
@@ -82,7 +149,12 @@ if (hero && canvas) {
   const accent = hexToRgb(accentHex);
 
   function rgba(color, alpha) {
-    return `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+    return `rgba(
+      ${color.r},
+      ${color.g},
+      ${color.b},
+      ${alpha}
+    )`;
   }
 
   function resizeCanvas() {
@@ -90,7 +162,11 @@ if (hero && canvas) {
 
     width = Math.max(1, rectangle.width);
     height = Math.max(1, rectangle.height);
-    pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+    pixelRatio = Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
 
     canvas.width = Math.floor(width * pixelRatio);
     canvas.height = Math.floor(height * pixelRatio);
@@ -119,6 +195,7 @@ if (hero && canvas) {
 
     const differenceX = x - mouse.x;
     const differenceY = y - mouse.y;
+
     const distance = Math.sqrt(
       differenceX * differenceX +
       differenceY * differenceY
@@ -126,7 +203,10 @@ if (hero && canvas) {
 
     const interactionRadius = Math.min(width, 300);
 
-    if (distance >= interactionRadius || distance === 0) {
+    if (
+      distance >= interactionRadius ||
+      distance === 0
+    ) {
       return {
         x: 0,
         y: 0,
@@ -144,51 +224,86 @@ if (hero && canvas) {
     };
   }
 
-  function drawParticle(x, y, radius, color, glow) {
+  function drawParticle(
+    x,
+    y,
+    radius,
+    color,
+    glow
+  ) {
     context.beginPath();
-    context.arc(x, y, radius, 0, Math.PI * 2);
+
+    context.arc(
+      x,
+      y,
+      radius,
+      0,
+      Math.PI * 2
+    );
 
     context.fillStyle = color;
     context.shadowColor = glow;
     context.shadowBlur = 12;
+
     context.fill();
 
     context.shadowBlur = 0;
   }
 
   function drawDNA() {
-    context.clearRect(0, 0, width, height);
+    context.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
 
     const mobile = width < 720;
     const pairCount = mobile ? 22 : 38;
     const strandWidth = width * 0.94;
     const startX = width * 0.03;
     const centerY = height * 0.49;
+
     const amplitude = Math.min(
       mobile ? 78 : 125,
       height * 0.22
     );
 
     const turns = mobile ? 2.2 : 3.2;
-    const animationSpeed = reducedMotion ? 0 : time * 0.012;
+
+    const animationSpeed =
+      reducedMotion ? 0 : time * 0.012;
 
     const firstStrand = [];
     const secondStrand = [];
 
-    for (let index = 0; index < pairCount; index += 1) {
-      const progress = index / (pairCount - 1);
-      const x = startX + progress * strandWidth;
+    for (
+      let index = 0;
+      index < pairCount;
+      index += 1
+    ) {
+      const progress =
+        index / (pairCount - 1);
+
+      const x =
+        startX +
+        progress * strandWidth;
 
       const phase =
-        progress * Math.PI * 2 * turns +
+        progress *
+        Math.PI *
+        2 *
+        turns +
         animationSpeed;
 
       const depth = Math.cos(phase);
       const wave = Math.sin(phase);
 
       const verticalDrift =
-        Math.sin(progress * Math.PI * 2 + animationSpeed * 0.4) *
-        18;
+        Math.sin(
+          progress * Math.PI * 2 +
+          animationSpeed * 0.4
+        ) * 18;
 
       const firstBaseY =
         centerY +
@@ -200,15 +315,17 @@ if (hero && canvas) {
         wave * amplitude +
         verticalDrift;
 
-      const firstMouse = getMouseDisplacement(
-        x,
-        firstBaseY
-      );
+      const firstMouse =
+        getMouseDisplacement(
+          x,
+          firstBaseY
+        );
 
-      const secondMouse = getMouseDisplacement(
-        x,
-        secondBaseY
-      );
+      const secondMouse =
+        getMouseDisplacement(
+          x,
+          secondBaseY
+        );
 
       firstStrand.push({
         x: x + firstMouse.x,
@@ -228,19 +345,38 @@ if (hero && canvas) {
     context.lineCap = "round";
     context.lineJoin = "round";
 
-    for (let index = 0; index < pairCount; index += 1) {
-      const firstPoint = firstStrand[index];
-      const secondPoint = secondStrand[index];
+    for (
+      let index = 0;
+      index < pairCount;
+      index += 1
+    ) {
+      const firstPoint =
+        firstStrand[index];
+
+      const secondPoint =
+        secondStrand[index];
 
       const depthOpacity =
         0.08 +
         Math.abs(firstPoint.depth) * 0.11;
 
       context.beginPath();
-      context.moveTo(firstPoint.x, firstPoint.y);
-      context.lineTo(secondPoint.x, secondPoint.y);
 
-      context.strokeStyle = rgba(accent, depthOpacity);
+      context.moveTo(
+        firstPoint.x,
+        firstPoint.y
+      );
+
+      context.lineTo(
+        secondPoint.x,
+        secondPoint.y
+      );
+
+      context.strokeStyle = rgba(
+        accent,
+        depthOpacity
+      );
+
       context.lineWidth =
         1 +
         Math.abs(firstPoint.depth) * 1.2;
@@ -248,30 +384,61 @@ if (hero && canvas) {
       context.stroke();
 
       if (index < pairCount - 1) {
-        const nextFirst = firstStrand[index + 1];
-        const nextSecond = secondStrand[index + 1];
+        const nextFirst =
+          firstStrand[index + 1];
+
+        const nextSecond =
+          secondStrand[index + 1];
 
         context.beginPath();
-        context.moveTo(firstPoint.x, firstPoint.y);
-        context.lineTo(nextFirst.x, nextFirst.y);
 
-        context.strokeStyle = rgba(primary, 0.25);
+        context.moveTo(
+          firstPoint.x,
+          firstPoint.y
+        );
+
+        context.lineTo(
+          nextFirst.x,
+          nextFirst.y
+        );
+
+        context.strokeStyle = rgba(
+          primary,
+          0.25
+        );
+
         context.lineWidth = 1.5;
         context.stroke();
 
         context.beginPath();
-        context.moveTo(secondPoint.x, secondPoint.y);
-        context.lineTo(nextSecond.x, nextSecond.y);
 
-        context.strokeStyle = rgba(accent, 0.24);
+        context.moveTo(
+          secondPoint.x,
+          secondPoint.y
+        );
+
+        context.lineTo(
+          nextSecond.x,
+          nextSecond.y
+        );
+
+        context.strokeStyle = rgba(
+          accent,
+          0.24
+        );
+
         context.lineWidth = 1.5;
         context.stroke();
       }
     }
 
     firstStrand.forEach((point, index) => {
-      const depthScale = 0.75 + (point.depth + 1) * 0.22;
-      const interactionScale = point.interaction * 0.035;
+      const depthScale =
+        0.75 +
+        (point.depth + 1) * 0.22;
+
+      const interactionScale =
+        point.interaction * 0.035;
 
       const firstRadius =
         (mobile ? 3.2 : 4.4) *
@@ -286,7 +453,9 @@ if (hero && canvas) {
         rgba(primary, 0.35)
       );
 
-      const secondPoint = secondStrand[index];
+      const secondPoint =
+        secondStrand[index];
+
       const secondDepthScale =
         0.75 +
         (secondPoint.depth + 1) * 0.22;
@@ -311,15 +480,23 @@ if (hero && canvas) {
     drawDNA();
 
     if (!reducedMotion) {
-      animationFrame = requestAnimationFrame(animate);
+      animationFrame =
+        requestAnimationFrame(animate);
     }
   }
 
   function handlePointerMove(event) {
-    const rectangle = hero.getBoundingClientRect();
+    const rectangle =
+      hero.getBoundingClientRect();
 
-    mouse.x = event.clientX - rectangle.left;
-    mouse.y = event.clientY - rectangle.top;
+    mouse.x =
+      event.clientX -
+      rectangle.left;
+
+    mouse.y =
+      event.clientY -
+      rectangle.top;
+
     mouse.active = true;
 
     if (reducedMotion) {
@@ -345,10 +522,11 @@ if (hero && canvas) {
     handlePointerLeave
   );
 
-  const resizeObserver = new ResizeObserver(() => {
-    resizeCanvas();
-    drawDNA();
-  });
+  const resizeObserver =
+    new ResizeObserver(() => {
+      resizeCanvas();
+      drawDNA();
+    });
 
   resizeObserver.observe(hero);
 
@@ -360,15 +538,23 @@ if (hero && canvas) {
     animate();
   }
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      if (animationFrame) {
-        cancelAnimationFrame(animationFrame);
-      }
+  document.addEventListener(
+    "visibilitychange",
+    () => {
+      if (document.hidden) {
+        if (animationFrame) {
+          cancelAnimationFrame(
+            animationFrame
+          );
+        }
 
-      animationFrame = null;
-    } else if (!reducedMotion && !animationFrame) {
-      animate();
+        animationFrame = null;
+      } else if (
+        !reducedMotion &&
+        !animationFrame
+      ) {
+        animate();
+      }
     }
-  });
+  );
 }
