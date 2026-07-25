@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,13 +6,22 @@
   <meta name="description" content="Academic background, research experience, skills, and contact information for Ahmed Elsherbini Elshal.">
   <meta name="theme-color" content="#7a1f2b">
   <title>About | Ahmed Elshal</title>
+  <link rel="icon" type="image/png" href="Ahmed_Black_Logo.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
   <div class="container nav-wrap">
-    <a class="brand" href="index.html"><span class="brand-mark">AE</span><span class="brand-text">Ahmed Elshal<small>Tissue Engineering Researcher</small></span></a>
+    <a class="brand" href="index.html" aria-label="Ahmed Elshal home">
+      <img
+        class="site-logo"
+        src="Ahmed_Black_Logo.png"
+        alt="Ahmed Elshal logo"
+        onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+      >
+      <span class="brand-fallback" hidden>Ahmed Elshal</span>
+    </a>
     <button class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="research.html">Research</a><a href="publications.html">Publications</a><a class="active" href="about.html">About</a></nav>
   </div>
@@ -29,7 +38,7 @@
   <section class="section">
     <div class="container split">
       <div class="panel">
-        <img src="assets/profile-placeholder.svg" alt="Ahmed Elshal profile placeholder" style="border-radius:16px; margin-bottom:1.2rem; max-height:480px; width:100%; object-fit:cover;">
+        <img src="Ahmed_Presenting.jpg" alt="Ahmed Elshal presenting at a scientific event" style="border-radius:16px; margin-bottom:1.2rem; max-height:480px; width:100%; object-fit:cover;">
         <h3>Ahmed Elsherbini Elshal</h3>
         <p style="color:var(--muted);">PhD Candidate in Surgical Science<br>The University of Tokyo, Japan</p>
         <div class="tag-list"><span class="tag">Arabic</span><span class="tag">English, IELTS 8</span><span class="tag">Japanese, JLPT N2</span></div>
