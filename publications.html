@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,13 @@
 <header class="site-header">
   <div class="container nav-wrap">
     <a class="brand" href="index.html" aria-label="Ahmed Elshal home">
-      <img class="site-logo" src="Ahmed_Black_Logo.png" alt="Ahmed Elshal logo">
+      <img
+        class="site-logo"
+        src="Ahmed_Black_Logo.png"
+        alt="Ahmed Elshal logo"
+        onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+      >
+      <span class="brand-fallback" hidden>Ahmed Elshal</span>
     </a>
     <button class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
     <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="research.html">Research</a><a class="active" href="publications.html">Publications</a><a href="about.html">About</a></nav>
