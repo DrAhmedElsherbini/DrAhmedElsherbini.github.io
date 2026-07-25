@@ -1,101 +1,969 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Research by Ahmed Elshal in functional bone models, PTH regulated remodeling, advanced biological imaging, and quantitative analysis.">
-  <meta name="theme-color" content="#7a1f2b">
-  <title>Research | Ahmed Elshal</title>
-  <link rel="icon" type="image/png" href="Ahmed_Black_Logo.png">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Research by Ahmed E. Elshal in functional bone models, PTH regulated remodeling, advanced microscopy, tissue engineering, and quantitative analysis."
+  >
+
+  <meta name="theme-color" content="#8a1f2d">
+
+  <title>Research | Ahmed E. Elshal</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="Ahmed_Black_Logo.png"
+  >
+
   <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .brand-name {
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .research-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 0 5rem;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(
+          circle at 88% 18%,
+          rgba(201, 145, 39, 0.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 8% 85%,
+          rgba(138, 31, 45, 0.08),
+          transparent 30%
+        ),
+        var(--surface);
+    }
+
+    .research-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.25;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(23, 32, 42, 0.12) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+    }
+
+    .research-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .research-hero h1 {
+      max-width: 860px;
+      margin-bottom: 1.4rem;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+    }
+
+    .research-hero p {
+      max-width: 760px;
+      margin-bottom: 0;
+      font-size: 1.12rem;
+      line-height: 1.8;
+    }
+
+    .research-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .research-summary-item {
+      padding: 1.3rem;
+      border: 1px solid rgba(220, 227, 234, 0.9);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    .research-summary-item strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .research-summary-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .research-introduction {
+      max-width: 800px;
+      margin-bottom: 3rem;
+    }
+
+    .research-projects {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .research-project {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 15px 45px rgba(23, 32, 42, 0.055);
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .research-project:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 23px 55px rgba(23, 32, 42, 0.1);
+    }
+
+    .project-number {
+      width: 120px;
+      height: 120px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background:
+        radial-gradient(
+          circle at 28% 24%,
+          rgba(201, 145, 39, 0.25),
+          transparent 42%
+        ),
+        rgba(138, 31, 45, 0.08);
+      color: var(--primary);
+      font-size: 2.1rem;
+      font-weight: 900;
+    }
+
+    .project-label {
+      display: inline-block;
+      margin-bottom: 0.65rem;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .research-project h2 {
+      margin-bottom: 0.9rem;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .research-project p {
+      max-width: 780px;
+      margin-bottom: 1.2rem;
+    }
+
+    .workflow-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .workflow-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .workflow-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--background);
+    }
+
+    .workflow-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .workflow-item h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .workflow-item p {
+      margin-bottom: 0;
+      font-size: 0.94rem;
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .method-card {
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .method-card h3 {
+      margin-bottom: 0.7rem;
+    }
+
+    .method-card p {
+      margin-bottom: 0;
+    }
+
+    .future-section {
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 0;
+      background:
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(201, 145, 39, 0.22),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+    }
+
+    .future-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+    }
+
+    .future-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.65fr);
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .future-section .eyebrow {
+      color: #f4d99f;
+    }
+
+    .future-section .eyebrow::before {
+      background: #f4d99f;
+    }
+
+    .future-section h2 {
+      color: #ffffff;
+    }
+
+    .future-section p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .future-card {
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .future-card h3 {
+      color: #ffffff;
+    }
+
+    .future-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .future-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .future-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 920px) {
+      .research-summary,
+      .methods-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .research-project {
+        grid-template-columns: 110px minmax(0, 1fr);
+      }
+
+      .project-number {
+        width: 92px;
+        height: 92px;
+      }
+
+      .workflow-grid,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .brand-name {
+        font-size: 1rem;
+      }
+
+      .research-hero {
+        padding: 4.5rem 0 3.5rem;
+      }
+
+      .research-project {
+        grid-template-columns: 1fr;
+        padding: 1.4rem;
+      }
+
+      .project-number {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        font-size: 1.4rem;
+      }
+
+      .future-section {
+        padding: 4.5rem 0;
+      }
+
+      .future-card {
+        padding: 1.4rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="container nav-wrap">
-    <a class="brand" href="index.html" aria-label="Ahmed Elshal home">
-      <img
-        class="site-logo"
-        src="Ahmed_Black_Logo.png"
-        alt="Ahmed Elshal logo"
-        onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Ahmed E. Elshal homepage"
       >
-      <span class="brand-fallback" hidden>Ahmed Elshal</span>
-    </a>
-    <button class="menu-button" aria-label="Open navigation" aria-expanded="false">☰</button>
-    <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a><a class="active" href="research.html">Research</a><a href="publications.html">Publications</a><a href="about.html">About</a></nav>
-  </div>
-</header>
-<main id="main">
-  <section class="page-hero">
-    <div class="container">
-      <div class="eyebrow">Research</div>
-      <h1>Three dimensional models for regenerative bone medicine</h1>
-      <p>I develop experimental and analytical platforms that reveal how cells, signaling pathways, and extracellular matrix dynamics shape bone remodeling and regeneration.</p>
+
+        <img
+          class="site-logo"
+          src="Ahmed_Black_Logo.png"
+          alt="Ahmed Elshal logo"
+        >
+
+        <span class="brand-name">
+          Ahmed E. Elshal
+        </span>
+
+      </a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="site-nav" aria-label="Main navigation">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a
+          class="active"
+          href="research.html"
+          aria-current="page"
+        >
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </nav>
+
     </div>
-  </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-heading">
-        <h2>Research overview</h2>
-        <p>My central objective is to build controllable tissue engineering systems that connect mechanistic bone biology with translational regenerative strategies.</p>
+  </header>
+
+  <main id="main">
+
+    <section class="research-hero">
+
+      <div class="container">
+
+        <div class="research-hero-content">
+
+          <div class="eyebrow">
+            Research
+          </div>
+
+          <h1>
+            Three dimensional models for regenerative bone medicine
+          </h1>
+
+          <p>
+            I develop experimental and quantitative platforms that reveal how
+            cells, signaling pathways, and extracellular matrix dynamics
+            regulate bone remodeling and regeneration.
+          </p>
+
+          <div class="research-summary">
+
+            <div class="research-summary-item">
+
+              <strong>
+                Biological system
+              </strong>
+
+              <span>
+                Multicellular functional bone models
+              </span>
+
+            </div>
+
+            <div class="research-summary-item">
+
+              <strong>
+                Imaging platform
+              </strong>
+
+              <span>
+                Longitudinal two photon and SHG microscopy
+              </span>
+
+            </div>
+
+            <div class="research-summary-item">
+
+              <strong>
+                Quantitative analysis
+              </strong>
+
+              <span>
+                Imaris, MATLAB, ImageJ, and statistical workflows
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
-      <div class="project-list">
-        <article class="project">
-          <div class="project-art"><img src="assets/bone-remodeling.svg" alt="Functional bone remodeling model illustration"></div>
-          <div class="project-content">
-            <span class="project-label">Doctoral research</span>
-            <h3>Functional bone remodeling models</h3>
-            <p>I develop and maintain multicellular three dimensional bone models that reproduce sequential formation, resorption, and reformation. These systems support controlled study of osteoblast and osteoclast coupling within a self generated bone like matrix.</p>
-            <div class="tag-list"><span class="tag">Long term 3D culture</span><span class="tag">Bone remodeling</span><span class="tag">Multicellular models</span></div>
-          </div>
-        </article>
 
-        <article class="project">
-          <div class="project-art"><img src="assets/regenerative-medicine.svg" alt="Regenerative bone medicine and biomaterial scaffold illustration"></div>
-          <div class="project-content">
-            <span class="project-label">Pharmacologic regulation</span>
-            <h3>PTH exposure and remodeling dynamics</h3>
-            <p>I investigate how intermittent and continuous PTH(1 to 34) exposure patterns regulate tissue level remodeling. The work evaluates matrix loss and recovery, cellular distribution, spatial coupling, migration, and molecular readouts relevant to bone formation and resorption.</p>
-            <div class="tag-list"><span class="tag">PTH signaling</span><span class="tag">Formation</span><span class="tag">Resorption</span><span class="tag">Reformation</span></div>
-          </div>
-        </article>
+    </section>
 
-        <article class="project">
-          <div class="project-art"><img src="assets/imaging-analysis.svg" alt="Microscopy, segmentation, and quantitative analysis workflow illustration"></div>
-          <div class="project-content">
-            <span class="project-label">Methods platform</span>
-            <h3>Longitudinal imaging and quantitative analysis</h3>
-            <p>I use two photon microscopy, second harmonic generation imaging, fluorescence based cell tracking, CUBIC and LUCID tissue clearing, Imaris three dimensional reconstruction, and MATLAB based analytical pipelines to follow matrix and cellular changes over time.</p>
-            <div class="tag-list"><span class="tag">Two photon imaging</span><span class="tag">SHG</span><span class="tag">Imaris</span><span class="tag">MATLAB</span><span class="tag">ImageJ and Fiji</span></div>
+    <section class="section">
+
+      <div class="container">
+
+        <div class="research-introduction">
+
+          <div class="eyebrow">
+            Research overview
           </div>
-        </article>
+
+          <h2>
+            Controllable systems for studying bone remodeling
+          </h2>
+
+          <p class="lead">
+            My central objective is to develop controllable tissue engineering
+            systems that connect mechanistic bone biology with translational
+            regenerative strategies.
+          </p>
+
+        </div>
+
+        <div class="research-projects">
+
+          <article class="research-project">
+
+            <div class="project-number">
+              01
+            </div>
+
+            <div>
+
+              <span class="project-label">
+                Doctoral research
+              </span>
+
+              <h2>
+                Functional bone remodeling models
+              </h2>
+
+              <p>
+                I develop and maintain multicellular three dimensional bone
+                models that reproduce sequential tissue formation, resorption,
+                and reformation. These systems allow controlled investigation
+                of osteoblast and osteoclast coupling within a self-generated
+                bone-like extracellular matrix.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  Long-term 3D culture
+                </span>
+
+                <span class="tag">
+                  Bone remodeling
+                </span>
+
+                <span class="tag">
+                  Multicellular systems
+                </span>
+
+                <span class="tag">
+                  Matrix regeneration
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <article class="research-project">
+
+            <div class="project-number">
+              02
+            </div>
+
+            <div>
+
+              <span class="project-label">
+                Pharmacologic regulation
+              </span>
+
+              <h2>
+                PTH exposure and remodeling dynamics
+              </h2>
+
+              <p>
+                I investigate how intermittent and continuous PTH(1-34)
+                exposure patterns regulate tissue-level remodeling. The work
+                examines matrix loss and recovery, cellular distribution,
+                migration, spatial coupling, and molecular readouts associated
+                with bone formation and resorption.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  PTH signaling
+                </span>
+
+                <span class="tag">
+                  Formation
+                </span>
+
+                <span class="tag">
+                  Resorption
+                </span>
+
+                <span class="tag">
+                  Reformation
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <article class="research-project">
+
+            <div class="project-number">
+              03
+            </div>
+
+            <div>
+
+              <span class="project-label">
+                Imaging and analytics
+              </span>
+
+              <h2>
+                Longitudinal imaging and quantitative analysis
+              </h2>
+
+              <p>
+                I combine two photon microscopy, second harmonic generation
+                imaging, fluorescent cell tracking, tissue clearing, Imaris
+                reconstruction, and MATLAB analysis to follow cellular and
+                extracellular matrix changes through time.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  Two photon imaging
+                </span>
+
+                <span class="tag">
+                  SHG
+                </span>
+
+                <span class="tag">
+                  Imaris
+                </span>
+
+                <span class="tag">
+                  MATLAB
+                </span>
+
+                <span class="tag">
+                  ImageJ and Fiji
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
       </div>
+
+    </section>
+
+    <section class="section workflow-section">
+
+      <div class="container workflow-grid">
+
+        <div>
+
+          <div class="eyebrow">
+            Experimental workflow
+          </div>
+
+          <h2>
+            Following remodeling through multiple phases
+          </h2>
+
+          <p class="lead">
+            Longitudinal imaging allows the same three dimensional tissue to be
+            evaluated across formation, resorption, and regenerative recovery.
+          </p>
+
+        </div>
+
+        <div class="workflow-list">
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              01
+            </span>
+
+            <div>
+
+              <h3>
+                Formation
+              </h3>
+
+              <p>
+                Osteogenic cells generate mineralized bone-like tissue and
+                collagen-rich extracellular matrix.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              02
+            </span>
+
+            <div>
+
+              <h3>
+                Resorption
+              </h3>
+
+              <p>
+                Osteoclast-lineage cells remodel the matrix and generate
+                localized resorption regions.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              03
+            </span>
+
+            <div>
+
+              <h3>
+                Reformation
+              </h3>
+
+              <p>
+                Osteoblast-lineage cells respond to the remodeled
+                microenvironment and generate new matrix.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <div class="eyebrow">
+            Methods
+          </div>
+
+          <h2>
+            Integrated experimental capabilities
+          </h2>
+
+          <p>
+            The research platform connects biological experimentation,
+            advanced imaging, molecular analysis, and computational
+            quantification.
+          </p>
+
+        </div>
+
+        <div class="methods-grid">
+
+          <article class="method-card">
+
+            <h3>
+              Tissue engineering
+            </h3>
+
+            <p>
+              Functional bone models, osteospheroid systems, long-term culture,
+              multicellular labeling, and remodeling assays.
+            </p>
+
+          </article>
+
+          <article class="method-card">
+
+            <h3>
+              Advanced imaging
+            </h3>
+
+            <p>
+              Two photon microscopy, SHG imaging, fluorescence tracking,
+              tissue clearing, micro-CT, and three dimensional reconstruction.
+            </p>
+
+          </article>
+
+          <article class="method-card">
+
+            <h3>
+              Quantitative analysis
+            </h3>
+
+            <p>
+              Imaris segmentation, MATLAB pipelines, ImageJ and Fiji analysis,
+              repeated-measures statistics, and scientific visualization.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="future-section">
+
+      <div class="container future-grid">
+
+        <div>
+
+          <div class="eyebrow">
+            Future direction
+          </div>
+
+          <h2>
+            Controllable platforms for therapeutic regeneration
+          </h2>
+
+          <p class="lead">
+            My long-term research direction integrates biomaterials, three
+            dimensional bone models, cellular signaling, quantitative imaging,
+            and regenerative therapy development.
+          </p>
+
+        </div>
+
+        <div class="future-card">
+
+          <h3>
+            Areas of interest
+          </h3>
+
+          <ul class="future-list">
+
+            <li>
+              Biomaterial scaffold design and cell-instructive
+              microenvironments
+            </li>
+
+            <li>
+              Stem cell differentiation and immunomodulatory bone repair
+            </li>
+
+            <li>
+              Osteocyte signaling, sclerostin, Wnt pathways, and tissue
+              coupling
+            </li>
+
+            <li>
+              Craniofacial, alveolar, and musculoskeletal bone regeneration
+            </li>
+
+            <li>
+              Reproducible imaging and open quantitative analysis workflows
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <span>
+        © <span data-year></span> Ahmed E. Elshal
+      </span>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </div>
+
     </div>
-  </section>
 
-  <section class="section" style="background:#fff; border-top:1px solid var(--line);">
-    <div class="container split">
-      <div>
-        <div class="eyebrow">Future direction</div>
-        <h2>Controllable platforms for therapeutic regeneration</h2>
-        <p class="lead">My long term research direction integrates biomaterials, three dimensional bone models, cellular signaling, quantitative imaging, and regenerative therapy development.</p>
-      </div>
-      <div class="panel">
-        <h3>Areas of interest</h3>
-        <ul class="list-clean">
-          <li>Biomaterial scaffold design and cell instructive microenvironments</li>
-          <li>Stem cell differentiation and immunomodulatory bone repair</li>
-          <li>Osteocyte signaling, sclerostin, Wnt pathways, and tissue coupling</li>
-          <li>Craniofacial, alveolar, and musculoskeletal bone regeneration</li>
-          <li>Reproducible imaging and open quantitative analysis workflows</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer"><div class="container footer-grid"><span>© <span data-year></span> Ahmed Elsherbini Elshal</span><div class="footer-links"><a href="index.html">Home</a><a href="publications.html">Publications</a><a href="about.html">About</a></div></div></footer>
-<script src="script.js"></script>
+  </footer>
+
+  <script src="script.js?v=5"></script>
+
 </body>
+
 </html>
