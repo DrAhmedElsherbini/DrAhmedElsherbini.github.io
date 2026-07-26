@@ -144,8 +144,8 @@
       grid-template-columns:
         150px
         minmax(0, 1fr)
-        minmax(260px, 340px);
-      align-items: center;
+        minmax(300px, 420px);
+      align-items: stretch;
     }
 
     .research-project:hover {
@@ -158,6 +158,7 @@
       height: 120px;
       display: grid;
       place-items: center;
+      align-self: start;
       border-radius: 24px;
       background:
         radial-gradient(
@@ -173,6 +174,9 @@
 
     .project-content {
       min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .project-label {
@@ -195,25 +199,21 @@
       margin-bottom: 1.2rem;
     }
 
-    .project-image-frame {
-      width: 100%;
-      min-height: 250px;
+    .project-image-wrap {
       display: flex;
-      align-items: center;
+      align-items: stretch;
       justify-content: center;
-      padding: 1rem;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: var(--surface-alt);
+      align-self: stretch;
+      margin: 0;
     }
 
     .project-image {
       display: block;
-      width: 100%;
-      height: auto;
-      max-height: 280px;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
       object-fit: contain;
+      align-self: stretch;
     }
 
     .workflow-section {
@@ -384,14 +384,20 @@
         align-items: start;
       }
 
-      .research-project.with-image .project-image-frame {
+      .research-project.with-image .project-image-wrap {
         grid-column: 2;
-        min-height: 220px;
+        margin-top: 0.5rem;
       }
 
       .project-number {
         width: 92px;
         height: 92px;
+      }
+
+      .project-image {
+        width: 100%;
+        height: auto;
+        max-height: 420px;
       }
 
       .workflow-grid,
@@ -415,9 +421,9 @@
         padding: 1.4rem;
       }
 
-      .research-project.with-image .project-image-frame {
+      .research-project.with-image .project-image-wrap {
         grid-column: 1;
-        min-height: 200px;
+        margin-top: 0.25rem;
       }
 
       .project-number {
@@ -428,7 +434,9 @@
       }
 
       .project-image {
-        max-height: 240px;
+        width: 100%;
+        height: auto;
+        max-height: none;
       }
 
       .future-section {
@@ -649,7 +657,7 @@
 
             </div>
 
-            <figure class="project-image-frame">
+            <figure class="project-image-wrap">
 
               <img
                 class="project-image"
