@@ -1,690 +1,276 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <meta
-    name="description"
-    content="Academic background, research experience, technical skills, and contact information for Ahmed E. Elshal."
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Academic background, research journey, skills, and contact information for Ahmed Elsherbini Elshal.">
   <meta name="theme-color" content="#8a1f2d">
-
   <title>About | Ahmed E. Elshal</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="Ahmed_Black_Logo.png"
-  >
-
+  <link rel="icon" type="image/png" href="Ahmed_Black_Logo.png">
   <link rel="stylesheet" href="styles.css">
-
-  <style>
-    .about-photo {
-      display: block;
-      width: 100%;
-      max-height: 520px;
-      margin-bottom: 1.4rem;
-      border-radius: 18px;
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    .profile-position {
-      margin-bottom: 1.25rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    .contact-section {
-      position: relative;
-      overflow: hidden;
-      padding: 6rem 0;
-      background:
-        radial-gradient(
-          circle at 90% 20%,
-          rgba(201, 145, 39, 0.24),
-          transparent 28%
-        ),
-        linear-gradient(
-          135deg,
-          var(--primary-dark),
-          var(--primary)
-        );
-    }
-
-    .contact-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      opacity: 0.16;
-      background-image:
-        radial-gradient(
-          circle,
-          rgba(255, 255, 255, 0.75) 1px,
-          transparent 1px
-        );
-      background-size: 28px 28px;
-    }
-
-    .contact-sector {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr);
-      align-items: center;
-      gap: 4rem;
-      padding: 3rem;
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 25px 65px rgba(48, 7, 14, 0.25);
-      backdrop-filter: blur(14px);
-    }
-
-    .contact-sector .eyebrow {
-      color: #f4d99f;
-    }
-
-    .contact-sector .eyebrow::before {
-      background: #f4d99f;
-    }
-
-    .contact-sector h2 {
-      max-width: 680px;
-      margin-bottom: 1.2rem;
-      color: #ffffff;
-    }
-
-    .contact-sector p {
-      max-width: 720px;
-      margin-bottom: 0;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 1.05rem;
-    }
-
-    .contact-details-card {
-      padding: 1.6rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .contact-details-card small {
-      display: block;
-      margin-bottom: 0.4rem;
-      color: rgba(255, 255, 255, 0.64);
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-    }
-
-    .contact-details-card strong {
-      display: block;
-      margin-bottom: 1.4rem;
-      color: #ffffff;
-      font-size: 1.08rem;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
-
-    .contact-buttons {
-      display: grid;
-      gap: 0.8rem;
-    }
-
-    .contact-button-light {
-      display: inline-flex;
-      min-height: 50px;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 1.1rem;
-      border: 1px solid #ffffff;
-      border-radius: 12px;
-      background: #ffffff;
-      color: var(--primary-dark);
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-align: center;
-      text-decoration: none;
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-    }
-
-    .contact-button-outline {
-      display: inline-flex;
-      min-height: 50px;
-      align-items: center;
-      justify-content: center;
-      padding: 0.8rem 1.1rem;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      border-radius: 12px;
-      background: transparent;
-      color: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-align: center;
-      text-decoration: none;
-      transition:
-        transform 0.2s ease,
-        background 0.2s ease;
-    }
-
-    .contact-button-light:hover,
-    .contact-button-outline:hover {
-      transform: translateY(-2px);
-    }
-
-    .contact-button-light:hover {
-      box-shadow: 0 12px 30px rgba(38, 4, 10, 0.24);
-    }
-
-    .contact-button-outline:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    @media (max-width: 920px) {
-      .contact-sector {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-
-      .contact-details-card {
-        max-width: 520px;
-      }
-    }
-
-    @media (max-width: 720px) {
-      .contact-section {
-        padding: 4.5rem 0;
-      }
-
-      .contact-sector {
-        padding: 1.5rem;
-        border-radius: 20px;
-      }
-
-      .contact-buttons {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="timeline.css?v=2">
 </head>
 
 <body>
-
-  <a class="skip-link" href="#main">
-    Skip to content
-  </a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-
     <div class="container nav-wrap">
-
-      <a
-        class="brand"
-        href="index.html"
-        aria-label="Ahmed E. Elshal homepage"
-      >
-
-        <img
-          class="site-logo"
-          src="Ahmed_Black_Logo.png"
-          alt="Ahmed Elshal logo"
-        >
-
-        <span class="brand-name">
-          Ahmed E. Elshal
-        </span>
-
+      <a class="brand" href="index.html" aria-label="Ahmed E. Elshal homepage">
+        <img class="site-logo" src="Ahmed_Black_Logo.png" alt="Ahmed Elshal logo">
+        <span class="brand-name">Ahmed E. Elshal</span>
       </a>
 
-      <button
-        class="menu-button"
-        type="button"
-        aria-label="Open navigation"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
 
       <nav class="site-nav" aria-label="Main navigation">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="research.html">
-          Research
-        </a>
-
-        <a href="publications.html">
-          Publications
-        </a>
-
-        <a class="active" href="about.html">
-          About
-        </a>
-
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="gallery.html">Gallery</a>
+        <a class="active" href="about.html" aria-current="page">About</a>
       </nav>
-
     </div>
-
   </header>
 
   <main id="main">
-
     <section class="page-hero">
-
       <div class="container">
-
-        <div class="eyebrow">
-          About
-        </div>
-
-        <h1>
-          Dentist, tissue engineer, and quantitative imaging researcher
-        </h1>
-
+        <div class="eyebrow">About</div>
+        <h1>Dentist, tissue engineer, and quantitative imaging researcher</h1>
         <p>
-          I combine clinical training in dentistry with experimental tissue
-          engineering, bone biology, advanced microscopy, and computational
-          analysis.
+          I combine clinical training in dentistry with experimental tissue engineering,
+          bone biology, advanced microscopy, and computational analysis.
         </p>
-
       </div>
-
     </section>
 
     <section class="section">
-
       <div class="container split">
-
-        <div class="panel">
-
+        <div class="panel about-profile-panel">
           <img
-            class="about-photo"
+            class="about-profile-image"
             src="Ahmed_Presenting.jpg"
-            alt="Ahmed E. Elshal presenting at a scientific event"
+            alt="Ahmed Elshal presenting at a scientific event"
           >
-
-          <h3>
-            Ahmed Elsherbini Elshal
-          </h3>
-
-          <p class="profile-position">
-            PhD Candidate in Surgical Science
-            <br>
+          <h3>Ahmed Elsherbini Elshal</h3>
+          <p class="about-role">
+            PhD Candidate in Surgical Science<br>
             The University of Tokyo, Japan
           </p>
-
-          <div class="tag-list">
-
-            <span class="tag">
-              Arabic
-            </span>
-
-            <span class="tag">
-              English, IELTS 8
-            </span>
-
-            <span class="tag">
-              Japanese, JLPT N2
-            </span>
-
+          <div class="tag-list" aria-label="Languages">
+            <span class="tag">Arabic</span>
+            <span class="tag">English, IELTS 8</span>
+            <span class="tag">Japanese, JLPT N2</span>
           </div>
-
         </div>
 
         <div>
-
-          <div class="eyebrow">
-            Professional profile
-          </div>
-
-          <h2>
-            Building an independent path in regenerative bone research
-          </h2>
-
+          <div class="eyebrow">Professional profile</div>
+          <h2>Building an independent path in regenerative bone research</h2>
           <p class="lead">
-            My long-term goal is to become an independent researcher
-            developing controllable tissue engineering platforms for
-            regenerative bone medicine.
+            My long-term goal is to become an independent researcher developing controllable
+            tissue-engineering platforms for regenerative bone medicine.
           </p>
-
           <p>
-            My current work focuses on three-dimensional functional bone
-            models, PTH-regulated remodeling, osteoblast and osteoclast
-            coupling, second harmonic generation imaging, tissue clearing,
-            and quantitative three-dimensional analysis.
+            My current work focuses on three-dimensional functional bone models, PTH-regulated
+            remodeling, osteoblast and osteoclast coupling, second harmonic generation imaging,
+            tissue clearing, and quantitative three-dimensional analysis.
           </p>
-
           <p>
-            I am particularly interested in platforms that connect
-            mechanistic biological studies with biomaterial design,
-            regenerative therapies, and translational bone research.
+            I aim to connect mechanistic bone biology with biomaterials, advanced imaging,
+            reproducible computation, and therapeutic tissue regeneration.
           </p>
+        </div>
+      </div>
+    </section>
 
-          <div class="hero-actions">
-
-            <a
-              class="button button-primary"
-              href="research.html"
-            >
-              View research
-            </a>
-
-            <a
-              class="button button-secondary"
-              href="publications.html"
-            >
-              View publications
-            </a>
-
-          </div>
-
+    <section class="journey-section" aria-labelledby="journeyTitle">
+      <div class="container journey-introduction">
+        <div>
+          <div class="eyebrow">Origins · Discovery · Impact</div>
+          <h2 id="journeyTitle">My journey through time</h2>
+          <p>
+            A longitudinal record of the experiences, questions, and scientific milestones
+            shaping my path from clinical dentistry to regenerative bone medicine.
+          </p>
         </div>
 
+        <aside class="journey-guide">
+          <strong>Interactive timeline</strong>
+          <p>Drag horizontally, filter the chapters, or select any dot to open its full story.</p>
+        </aside>
       </div>
 
+      <div class="journey-timeline" data-journey-timeline>
+        <div class="journey-toolbar">
+          <div class="journey-filters" role="group" aria-label="Filter timeline events">
+            <button class="journey-filter active" type="button" data-filter="all">All chapters</button>
+            <button class="journey-filter" type="button" data-filter="origin">Origins</button>
+            <button class="journey-filter" type="button" data-filter="education">Education</button>
+            <button class="journey-filter" type="button" data-filter="research">Research</button>
+            <button class="journey-filter" type="button" data-filter="achievement">Achievements</button>
+            <button class="journey-filter" type="button" data-filter="future">Future</button>
+          </div>
+
+          <div class="journey-actions" aria-label="Timeline navigation">
+            <button id="journeyPrevious" class="journey-nav" type="button" aria-label="Previous timeline event">←</button>
+            <button id="journeyNext" class="journey-nav" type="button" aria-label="Next timeline event">→</button>
+          </div>
+        </div>
+
+        <div id="journeyViewport" class="journey-viewport" aria-label="Scrollable personal timeline">
+          <div id="journeyStage" class="journey-stage">
+            <div class="journey-axis" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="journey-hint">
+          <span>Drag horizontally or use your trackpad</span>
+          <span>Keyboard: left and right arrows · Escape closes a story</span>
+        </div>
+      </div>
     </section>
 
     <section class="section section-alt">
-
-      <div class="container split">
-
-        <div>
-
-          <div class="eyebrow">
-            Education
-          </div>
-
-          <h2>
-            Academic background
-          </h2>
-
-          <p>
-            My training combines dentistry, surgical science, tissue
-            engineering, bone biology, and international academic experience.
-          </p>
-
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Academic path</div>
+          <h2>Education and training</h2>
         </div>
 
-        <div class="timeline">
-
-          <div class="timeline-item">
-
-            <small>
-              April 2022 to March 2027, expected
-            </small>
-
-            <strong>
-              PhD Candidate in Surgical Science
-            </strong>
-
+        <div class="about-education-grid">
+          <article class="about-education-card">
+            <span>2022 to 2027, expected</span>
+            <h3>PhD Candidate in Surgical Science</h3>
             <p>
-              Department of Oral-Maxillofacial Surgery, Dentistry and
-              Orthodontics, Division of Clinical Stem Cell Biology,
-              Graduate School of Medicine, The University of Tokyo, Japan.
+              Department of Oral and Maxillofacial Surgery, Graduate School of Medicine,
+              The University of Tokyo, Japan.
             </p>
+          </article>
 
-          </div>
+          <article class="about-education-card">
+            <span>2020 to 2022</span>
+            <h3>Japanese Language Study</h3>
+            <p>Toua International Japanese Language School, Saitama, Japan.</p>
+          </article>
 
-          <div class="timeline-item">
-
-            <small>
-              October 2020 to March 2022
-            </small>
-
-            <strong>
-              Japanese Language Study
-            </strong>
-
-            <p>
-              Toua International Japanese Language School,
-              Saitama, Japan.
-            </p>
-
-          </div>
-
-          <div class="timeline-item">
-
-            <small>
-              September 2014 to October 2020
-            </small>
-
-            <strong>
-              Doctor of Dental Surgery, BChD and DDS
-            </strong>
-
-            <p>
-              School of Dentistry, Mansoura University, Egypt.
-            </p>
-
-          </div>
-
+          <article class="about-education-card">
+            <span>2014 to 2020</span>
+            <h3>Doctor of Dental Surgery</h3>
+            <p>School of Dentistry, Mansoura University, Egypt. Graduated with Excellence and Honor.</p>
+          </article>
         </div>
-
       </div>
-
     </section>
 
     <section class="section">
-
       <div class="container">
-
         <div class="section-heading">
-
-          <div class="eyebrow">
-            Technical profile
-          </div>
-
-          <h2>
-            Methods and capabilities
-          </h2>
-
-          <p>
-            My technical experience spans experimental bone biology,
-            three-dimensional imaging, molecular analysis, quantitative
-            workflows, and scientific communication.
-          </p>
-
+          <div class="eyebrow">Technical profile</div>
+          <h2>Methods and capabilities</h2>
         </div>
 
         <div class="card-grid">
-
           <article class="card">
-
-            <h3>
-              Bone biology and tissue engineering
-            </h3>
-
-            <p>
-              Three-dimensional functional bone models, osteospheroid models,
-              remodeling assays, PTH experiments, and osteoblast, osteoclast,
-              and osteocyte-related workflows.
-            </p>
-
+            <h3>Bone biology and tissue engineering</h3>
+            <p>Three-dimensional functional bone models, remodeling assays, PTH experiments, and osteoblast, osteoclast, and osteocyte-related workflows.</p>
           </article>
 
           <article class="card">
-
-            <h3>
-              Imaging and visualization
-            </h3>
-
-            <p>
-              Two-photon microscopy, SHG imaging, light microscopy, electron
-              microscopy, micro-CT, Imaris, NIS-Elements, ImageJ, and Fiji.
-            </p>
-
+            <h3>Imaging and visualization</h3>
+            <p>Two-photon microscopy, SHG imaging, light microscopy, electron microscopy, micro-CT, Imaris, NIS-Elements, ImageJ, and Fiji.</p>
           </article>
 
           <article class="card">
-
-            <h3>
-              Molecular and wet laboratory
-            </h3>
-
-            <p>
-              qPCR, single-cell PCR, multicellular labeling, staining, DNA
-              recombination, transfection, transduction, and drug
-              administration studies.
-            </p>
-
+            <h3>Molecular and wet laboratory</h3>
+            <p>qPCR, single-cell PCR, multicellular labeling, staining, DNA recombination, transfection, transduction, and drug-administration studies.</p>
           </article>
 
           <article class="card">
-
-            <h3>
-              Quantitative analysis
-            </h3>
-
-            <p>
-              MATLAB workflows for image-derived measurements, repeated
-              measures analysis, multiple comparisons, data visualization,
-              and working knowledge of Python and R.
-            </p>
-
+            <h3>Quantitative analysis</h3>
+            <p>MATLAB workflows for image-derived measurements, repeated-measures analysis, multiple comparisons, data visualization, and working knowledge of Python and R.</p>
           </article>
 
           <article class="card">
-
-            <h3>
-              Tissue clearing
-            </h3>
-
-            <p>
-              CUBIC and LUCID protocols for internal cellular organization,
-              matrix visualization, and three-dimensional reconstruction.
-            </p>
-
+            <h3>Tissue clearing</h3>
+            <p>CUBIC and LUCID protocols for internal cellular organization, matrix visualization, and three-dimensional reconstruction.</p>
           </article>
 
           <article class="card">
-
-            <h3>
-              Research communication
-            </h3>
-
-            <p>
-              Scientific writing, manuscript preparation, peer-review
-              responses, visual communication, presentations, and
-              reproducible code documentation.
-            </p>
-
+            <h3>Research communication</h3>
+            <p>Scientific writing, manuscript preparation, peer-review response, visual communication, and reproducible code documentation.</p>
           </article>
-
         </div>
-
       </div>
-
     </section>
 
-    <section class="contact-section">
-
-      <div class="container">
-
-        <div class="contact-sector">
-
-          <div>
-
-            <div class="eyebrow">
-              Contact and collaboration
-            </div>
-
-            <h2>
-              Let us discuss regenerative bone research
-            </h2>
-
-            <p>
-              I welcome communication regarding postdoctoral opportunities,
-              research collaboration, bone tissue engineering, biomaterials,
-              advanced imaging, and quantitative analysis.
-            </p>
-
-          </div>
-
-          <div class="contact-details-card">
-
-            <small>
-              University email
-            </small>
-
-            <strong>
-              aelshal-omfs@g.ecc.u-tokyo.ac.jp
-            </strong>
-
-            <div class="contact-buttons">
-
-              <a
-                class="contact-button-light"
-                href="mailto:aelshal-omfs@g.ecc.u-tokyo.ac.jp"
-              >
-                Send an email
-              </a>
-
-              <a
-                class="contact-button-outline"
-                href="https://orcid.org/0009-0002-8920-5901"
-                target="_blank"
-                rel="noopener"
-              >
-                View ORCID profile
-              </a>
-
-            </div>
-
-          </div>
-
+    <section class="section" style="padding-top:0;">
+      <div class="container contact-box">
+        <div>
+          <div class="eyebrow">Contact</div>
+          <h2>Research collaboration and postdoctoral opportunities</h2>
+          <p>
+            For research collaboration, postdoctoral opportunities, or scientific discussion,
+            contact me through my University of Tokyo email.
+          </p>
         </div>
-
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:aelshal-omfs@g.ecc.u-tokyo.ac.jp">Academic email</a>
+          <a class="button button-secondary" href="https://orcid.org/0009-0002-8920-5901" target="_blank" rel="noopener">ORCID</a>
+        </div>
       </div>
-
     </section>
-
   </main>
 
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <span>
-        © <span data-year></span> Ahmed E. Elshal
-      </span>
-
-      <div class="footer-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="research.html">
-          Research
-        </a>
-
-        <a href="publications.html">
-          Publications
-        </a>
-
+  <div
+    id="journeyDetailOverlay"
+    class="journey-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="journeyDetailTitle"
+  >
+    <article class="journey-detail-panel">
+      <div class="journey-detail-visual">
+        <button id="journeyCloseDetail" class="journey-close" type="button" aria-label="Close timeline story">×</button>
+        <div class="journey-visual-label">
+          <span id="journeyDetailYear"></span>
+          <strong id="journeyDetailChapter"></strong>
+        </div>
       </div>
 
-    </div>
+      <div class="journey-detail-body">
+        <div>
+          <span class="journey-detail-kicker">Selected milestone</span>
+          <h2 id="journeyDetailTitle"></h2>
+          <p id="journeyDetailDescription" class="journey-detail-description"></p>
+          <blockquote id="journeyDetailQuote" class="journey-detail-quote"></blockquote>
+        </div>
 
+        <ul class="journey-detail-meta" aria-label="Milestone information">
+          <li><span>Location</span><strong id="journeyDetailLocation"></strong></li>
+          <li><span>Institution</span><strong id="journeyDetailInstitution"></strong></li>
+          <li><span>Status</span><strong id="journeyDetailStatus"></strong></li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <span>© <span data-year></span> Ahmed E. Elshal</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
-
+  <script src="script.js?v=7"></script>
+  <script src="timeline.js?v=2"></script>
 </body>
-
 </html>
