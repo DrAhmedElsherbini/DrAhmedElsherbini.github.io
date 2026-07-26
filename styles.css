@@ -1,3 +1,4 @@
+```css
 :root {
   --background: #f7f8fb;
   --surface: #ffffff;
@@ -38,7 +39,9 @@ body {
 }
 
 img {
+  display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -169,23 +172,20 @@ p {
   font-size: 1.6rem;
 }
 
-/* Hongo Campus banner */
-
 .campus-image-section {
+  position: relative;
   width: 100%;
-  padding: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  background: var(--background);
+  background: var(--surface-alt);
 }
 
 .campus-image {
   display: block;
-  width: min(calc(100% - 40px), var(--container));
-  height: clamp(150px, 21vw, 310px);
-  margin-inline: auto;
+  width: 100%;
+  height: clamp(300px, 42vw, 620px);
   object-fit: cover;
-  object-position: 50% 0%;
+  object-position: center;
 }
 
 .hero {
@@ -678,9 +678,7 @@ p {
   }
 
   .campus-image {
-    width: min(calc(100% - 28px), var(--container));
-    height: 140px;
-    object-position: 50% 0%;
+    height: 260px;
   }
 
   .hero {
@@ -734,3 +732,4 @@ p {
     transition: none;
   }
 }
+```
