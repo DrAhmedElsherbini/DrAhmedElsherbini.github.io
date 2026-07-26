@@ -216,6 +216,20 @@
       align-self: stretch;
     }
 
+    .project-bottom-image-wrap {
+      width: 100%;
+      margin: 1.75rem 0 0;
+    }
+
+    .project-bottom-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 540px;
+      object-fit: contain;
+      object-position: center;
+    }
+
     .workflow-section {
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
@@ -400,6 +414,10 @@
         max-height: 420px;
       }
 
+      .project-bottom-image {
+        max-height: 460px;
+      }
+
       .workflow-grid,
       .future-grid {
         grid-template-columns: 1fr;
@@ -436,6 +454,14 @@
       .project-image {
         width: 100%;
         height: auto;
+        max-height: none;
+      }
+
+      .project-bottom-image-wrap {
+        margin-top: 1.25rem;
+      }
+
+      .project-bottom-image {
         max-height: none;
       }
 
@@ -714,6 +740,18 @@
                 </span>
 
               </div>
+
+              <figure class="project-bottom-image-wrap">
+
+                <img
+                  class="project-bottom-image"
+                  src="PTH_Effects.png"
+                  alt="Effects of PTH exposure patterns on bone remodeling"
+                  loading="lazy"
+                  decoding="async"
+                >
+
+              </figure>
 
             </div>
 
