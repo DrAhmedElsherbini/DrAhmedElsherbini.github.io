@@ -1,9 +1,3 @@
-/*
-  TIMELINE CONTENT
-  Edit only the data below to replace the demo milestones with your real story.
-  Categories supported by the filter bar:
-  origin, education, research, achievement, future
-*/
 const timelineEvents = [
   {
     id: "origin",
