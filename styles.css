@@ -1,4 +1,3 @@
-```css
 :root {
   --background: #f7f8fb;
   --surface: #ffffff;
@@ -185,7 +184,7 @@ p {
   width: 100%;
   height: clamp(150px, 21vw, 310px);
   object-fit: cover;
-  object-position: center top;
+  object-position: 50% 0%;
 }
 
 .hero {
@@ -679,7 +678,7 @@ p {
 
   .campus-image {
     height: 140px;
-    object-position: center top;
+    object-position: 50% 0%;
   }
 
   .hero {
@@ -733,4 +732,3 @@ p {
     transition: none;
   }
 }
-```
