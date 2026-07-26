@@ -183,9 +183,9 @@ p {
 .campus-image {
   display: block;
   width: 100%;
-  height: clamp(300px, 42vw, 620px);
+  height: clamp(150px, 21vw, 310px);
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
 }
 
 .hero {
@@ -678,7 +678,8 @@ p {
   }
 
   .campus-image {
-    height: 260px;
+    height: 140px;
+    object-position: center top;
   }
 
   .hero {
