@@ -20,15 +20,11 @@
 }
 
 html {
-  width: 100%;
-  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
-  width: 100%;
   margin: 0;
-  overflow-x: hidden;
   background: var(--background);
   color: var(--text);
   font-family:
@@ -42,9 +38,7 @@ body {
 }
 
 img {
-  display: block;
   max-width: 100%;
-  height: auto;
 }
 
 a {
@@ -79,15 +73,9 @@ p {
   color: var(--muted);
 }
 
-/* Constrains all normal website content */
-
 .container {
-  width: 100%;
-  max-width: var(--container);
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 20px;
-  padding-left: 20px;
+  width: min(calc(100% - 40px), var(--container));
+  margin-inline: auto;
 }
 
 .skip-link {
@@ -107,13 +95,10 @@ p {
   transform: translateY(0);
 }
 
-/* Header */
-
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  width: 100%;
   border-bottom: 1px solid rgba(220, 227, 234, 0.9);
   background: rgba(247, 248, 251, 0.92);
   backdrop-filter: blur(14px);
@@ -130,7 +115,6 @@ p {
 .brand {
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
   gap: 1rem;
   color: var(--text);
   text-decoration: none;
@@ -185,13 +169,11 @@ p {
   font-size: 1.6rem;
 }
 
-/* Full-width Hongo Campus section */
+/* Campus image is the only full-width content section */
 
 .campus-image-section {
   position: relative;
   width: 100%;
-  max-width: none;
-  margin: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
   background: var(--surface-alt);
@@ -202,16 +184,12 @@ p {
   width: 100%;
   max-width: none;
   height: clamp(150px, 21vw, 310px);
-  margin: 0;
   object-fit: cover;
   object-position: 50% 0%;
 }
 
-/* Homepage hero */
-
 .hero {
   position: relative;
-  width: 100%;
   overflow: hidden;
   padding: 7rem 0;
   isolation: isolate;
@@ -258,16 +236,9 @@ p {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns:
-    minmax(0, 1.25fr)
-    minmax(320px, 0.75fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
   align-items: center;
   gap: 4rem;
-}
-
-.hero-copy {
-  width: 100%;
-  max-width: 760px;
 }
 
 .eyebrow {
@@ -286,7 +257,6 @@ p {
   content: "";
   width: 23px;
   height: 2px;
-  flex-shrink: 0;
   background: var(--accent);
 }
 
@@ -359,7 +329,6 @@ p {
 
 .hero-visual {
   display: flex;
-  width: 100%;
   justify-content: center;
 }
 
@@ -405,10 +374,7 @@ p {
   font-size: 0.9rem;
 }
 
-/* General sections */
-
 .section {
-  width: 100%;
   padding: 6rem 0;
 }
 
@@ -427,8 +393,6 @@ p {
   font-size: 1.05rem;
 }
 
-/* Research cards */
-
 .card-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -436,7 +400,6 @@ p {
 }
 
 .card {
-  min-width: 0;
   padding: 1.75rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-medium);
@@ -457,8 +420,6 @@ p {
   font-weight: 900;
 }
 
-/* Split content */
-
 .split {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -467,7 +428,6 @@ p {
 }
 
 .panel {
-  min-width: 0;
   padding: 2rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-large);
@@ -482,7 +442,7 @@ p {
 
 .process-item {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: auto 1fr;
   gap: 1rem;
   padding: 1.2rem;
   border-radius: var(--radius-small);
@@ -521,8 +481,6 @@ p {
   text-decoration: underline;
 }
 
-/* Skills */
-
 .tag-list {
   display: flex;
   flex-wrap: wrap;
@@ -538,8 +496,6 @@ p {
   font-size: 0.88rem;
   font-weight: 700;
 }
-
-/* Contact section */
 
 .contact-box {
   display: grid;
@@ -560,10 +516,7 @@ p {
   gap: 0.8rem;
 }
 
-/* Internal page hero */
-
 .page-hero {
-  width: 100%;
   padding: 5rem 0 4rem;
   border-bottom: 1px solid var(--line);
   background: var(--surface);
@@ -579,8 +532,6 @@ p {
   max-width: 760px;
   font-size: 1.1rem;
 }
-
-/* Timeline */
 
 .timeline {
   display: grid;
@@ -611,10 +562,7 @@ p {
   margin-bottom: 0;
 }
 
-/* Footer */
-
 .site-footer {
-  width: 100%;
   padding: 2rem 0;
   border-top: 1px solid var(--line);
   background: var(--surface);
@@ -643,8 +591,6 @@ p {
 .footer-links a:hover {
   color: var(--primary);
 }
-
-/* Tablet */
 
 @media (max-width: 920px) {
   .hero-grid,
@@ -682,12 +628,9 @@ p {
   }
 }
 
-/* Mobile */
-
 @media (max-width: 720px) {
   .container {
-    padding-right: 14px;
-    padding-left: 14px;
+    width: min(calc(100% - 28px), var(--container));
   }
 
   .nav-wrap {
@@ -780,8 +723,6 @@ p {
     flex-direction: column;
   }
 }
-
-/* Reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
   html {
