@@ -140,6 +140,14 @@
         box-shadow 0.25s ease;
     }
 
+    .research-project.with-image {
+      grid-template-columns:
+        150px
+        minmax(0, 1fr)
+        minmax(260px, 340px);
+      align-items: center;
+    }
+
     .research-project:hover {
       transform: translateY(-4px);
       box-shadow: 0 23px 55px rgba(23, 32, 42, 0.1);
@@ -163,6 +171,10 @@
       font-weight: 900;
     }
 
+    .project-content {
+      min-width: 0;
+    }
+
     .project-label {
       display: inline-block;
       margin-bottom: 0.65rem;
@@ -181,6 +193,27 @@
     .research-project p {
       max-width: 780px;
       margin-bottom: 1.2rem;
+    }
+
+    .project-image-frame {
+      width: 100%;
+      min-height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface-alt);
+    }
+
+    .project-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
     }
 
     .workflow-section {
@@ -346,6 +379,16 @@
         grid-template-columns: 110px minmax(0, 1fr);
       }
 
+      .research-project.with-image {
+        grid-template-columns: 110px minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .research-project.with-image .project-image-frame {
+        grid-column: 2;
+        min-height: 220px;
+      }
+
       .project-number {
         width: 92px;
         height: 92px;
@@ -366,9 +409,15 @@
         padding: 4.5rem 0 3.5rem;
       }
 
-      .research-project {
+      .research-project,
+      .research-project.with-image {
         grid-template-columns: 1fr;
         padding: 1.4rem;
+      }
+
+      .research-project.with-image .project-image-frame {
+        grid-column: 1;
+        min-height: 200px;
       }
 
       .project-number {
@@ -376,6 +425,10 @@
         height: 72px;
         border-radius: 18px;
         font-size: 1.4rem;
+      }
+
+      .project-image {
+        max-height: 240px;
       }
 
       .future-section {
@@ -550,13 +603,13 @@
 
         <div class="research-projects">
 
-          <article class="research-project">
+          <article class="research-project with-image">
 
             <div class="project-number">
               01
             </div>
 
-            <div>
+            <div class="project-content">
 
               <span class="project-label">
                 Doctoral research
@@ -595,6 +648,18 @@
               </div>
 
             </div>
+
+            <figure class="project-image-frame">
+
+              <img
+                class="project-image"
+                src="FBO.png"
+                alt="Functional bone remodeling model"
+                loading="lazy"
+                decoding="async"
+              >
+
+            </figure>
 
           </article>
 
