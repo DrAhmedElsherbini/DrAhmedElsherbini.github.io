@@ -40,7 +40,7 @@
       <a
         class="brand"
         href="index.html"
-        aria-label="AHMED ELSHERBINI ELSHAL homepage"
+        aria-label="Ahmed Elsherbini Elshal homepage"
       >
 
         <img
@@ -60,13 +60,22 @@
         type="button"
         aria-label="Open navigation"
         aria-expanded="false"
+        aria-controls="main-navigation"
       >
         ☰
       </button>
 
-      <nav class="site-nav" aria-label="Main navigation">
+      <nav
+        class="site-nav"
+        id="main-navigation"
+        aria-label="Main navigation"
+      >
 
-        <a class="active" href="index.html">
+        <a
+          class="active"
+          href="index.html"
+          aria-current="page"
+        >
           Home
         </a>
 
@@ -89,6 +98,24 @@
   </header>
 
   <main id="main">
+
+    <section
+      class="campus-image-section"
+      aria-label="The University of Tokyo Hongo Campus"
+    >
+
+      <img
+        class="campus-image"
+        src="Hongo_Campus.jpg"
+        alt="The University of Tokyo Hongo Campus"
+        width="1920"
+        height="900"
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      >
+
+    </section>
 
     <section class="hero" id="hero">
 
@@ -172,20 +199,6 @@
         </div>
 
       </div>
-      
-      <section
-  class="campus-image-section"
-  aria-label="The University of Tokyo Hongo Campus"
->
-  <img
-    class="campus-image"
-    src="Hongo_Campus.jpg"
-    alt="The University of Tokyo Hongo Campus"
-    width="1920"
-    height="900"
-    fetchpriority="high"
-  >
-</section>
 
     </section>
 
@@ -484,7 +497,7 @@
             class="button button-secondary"
             href="https://orcid.org/0009-0002-8920-5901"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
           >
             ORCID
           </a>
@@ -530,3 +543,4 @@
 </body>
 
 </html>
+```
