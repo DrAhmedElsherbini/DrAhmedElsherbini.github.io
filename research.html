@@ -136,13 +136,16 @@
 
     .research-interaction-hint {
       width: 100%;
+      max-width: none;
       margin: 1rem 0 0;
       color: var(--muted);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0;
       text-align: right;
-      opacity: 0.75;
+      opacity: 1;
       pointer-events: none;
     }
 
@@ -499,8 +502,8 @@
 
       .research-interaction-hint {
         margin-top: 0.8rem;
-        font-size: 0.72rem;
-        text-align: center;
+        font-size: 0.75rem;
+        text-align: right;
       }
 
       .future-section {
@@ -653,11 +656,11 @@
 
           </div>
 
-          <p class="research-interaction-hint">
-            Click and move the arrow to interact with cells
-          </p>
-
         </div>
+
+        <p class="research-interaction-hint">
+          Click to interact with cells
+        </p>
 
       </div>
 
