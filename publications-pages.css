@@ -153,27 +153,8 @@ body.pages-js-ready .enchanted-page {
 }
 
 .enchanted-page::before {
-  position: absolute;
-  top: 50%;
-  right: 64%;
-  width: 95px;
-  height: 15px;
-  border-radius: 999px;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(201, 145, 39, 0.04) 15%,
-      rgba(201, 145, 39, 0.34) 72%,
-      rgba(255, 244, 191, 0.7)
-    );
-  filter: blur(5px);
-  content: "";
-  opacity: 0.42;
-  pointer-events: none;
-  transform: translateY(-50%) scaleX(var(--page-direction, 1));
-  transform-origin: right center;
-  animation: trailPulse 1.4s ease-in-out infinite alternate;
+  display: none;
+  content: none;
 }
 
 .enchanted-page::after {
@@ -591,16 +572,6 @@ body.has-enchanted-pages .publication-section.is-visible {
 
   100% {
     transform: translate3d(-5px, 45px, 0) rotate(-3deg);
-  }
-}
-
-@keyframes trailPulse {
-  from {
-    opacity: 0.25;
-  }
-
-  to {
-    opacity: 0.56;
   }
 }
 
