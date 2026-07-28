@@ -16,12 +16,41 @@ body.has-enchanted-pages {
   perspective: 1500px;
 }
 
-.page-atmosphere::before,
-.page-atmosphere::after {
-  position: absolute;
-  inset: -12%;
-  content: "";
-  pointer-events: none;
+.page-atmosphere::before {
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(201, 145, 39, 0.72) 0 1.3px,
+      transparent 2.4px
+    ),
+    radial-gradient(
+      circle,
+      rgba(138, 31, 45, 0.28) 0 1.1px,
+      transparent 2.1px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255, 241, 179, 0.5) 0 0.9px,
+      transparent 1.9px
+    );
+
+  background-position:
+    0 0,
+    25px 19px,
+    12px 31px;
+
+  background-size:
+    42px 42px,
+    57px 57px,
+    69px 69px;
+
+  opacity: 0.58;
+
+  animation:
+    enchantedDustDrift
+    16s
+    linear
+    infinite;
 }
 
 .page-atmosphere::before {
@@ -95,7 +124,7 @@ body.has-enchanted-pages {
   top: var(--fallback-top);
   left: var(--fallback-left);
   display: block;
-  width: var(--page-size);
+  width: calc(var(--page-size) * 0.6);
   aspect-ratio: 1.45 / 1;
   box-sizing: border-box;
   overflow: visible;
