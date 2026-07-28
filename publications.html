@@ -338,10 +338,306 @@
         padding: 1.4rem;
       }
     }
+
+    /* =========================================================
+       Interactive flying publication pages
+       ========================================================= */
+
+    body.has-paper-atmosphere {
+      overflow-x: hidden;
+    }
+
+    .paper-atmosphere {
+      position: fixed;
+      top: 78px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      overflow: hidden;
+      pointer-events: none;
+      perspective: 1200px;
+      contain: layout paint;
+    }
+
+    .publications-hero > .container,
+    .section > .container,
+    .site-footer > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .flying-paper {
+      position: absolute;
+      top: var(--paper-top);
+      left: var(--paper-left);
+      width: var(--paper-width);
+      aspect-ratio: 0.72;
+      transform:
+        translate3d(
+          var(--interactive-x, 0px),
+          calc(var(--interactive-y, 0px) + var(--scroll-shift, 0px)),
+          0
+        )
+        rotateX(var(--pointer-tilt-x, 0deg))
+        rotateY(var(--pointer-tilt-y, 0deg))
+        scale(var(--paper-scale, 1));
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .flying-paper-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(138, 31, 45, 0.18);
+      border-radius: 5px 9px 9px 5px;
+      background:
+        linear-gradient(90deg, rgba(138, 31, 45, 0.08) 0 4px, transparent 4px),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(249, 246, 241, 0.88));
+      box-shadow:
+        0 24px 50px rgba(23, 32, 42, 0.13),
+        0 5px 12px rgba(23, 32, 42, 0.07);
+      opacity: var(--paper-opacity);
+      filter: blur(var(--paper-blur, 0px));
+      transform-origin: center;
+      transform-style: preserve-3d;
+      animation: flyingPaperFloat var(--float-duration) ease-in-out infinite alternate;
+      transition:
+        opacity 0.35s ease,
+        filter 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .flying-paper-card::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 28%;
+      aspect-ratio: 1;
+      border-bottom: 1px solid rgba(138, 31, 45, 0.14);
+      border-left: 1px solid rgba(138, 31, 45, 0.12);
+      background: linear-gradient(
+        225deg,
+        rgba(201, 145, 39, 0.18),
+        rgba(255, 255, 255, 0.78) 58%,
+        transparent 59%
+      );
+      content: "";
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+
+    .flying-paper-card::after {
+      position: absolute;
+      right: 9%;
+      bottom: 10%;
+      width: 24%;
+      height: 2px;
+      background: rgba(201, 145, 39, 0.5);
+      content: "";
+      transform: rotate(-7deg);
+      transform-origin: right center;
+    }
+
+    .paper-kicker {
+      display: block;
+      margin: 13% 12% 0;
+      color: rgba(138, 31, 45, 0.72);
+      font-size: clamp(0.42rem, 0.7vw, 0.62rem);
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .paper-title-line {
+      display: block;
+      width: 58%;
+      height: 4px;
+      margin: 8% 12% 0;
+      border-radius: 999px;
+      background: rgba(23, 32, 42, 0.38);
+    }
+
+    .paper-title-line.short {
+      width: 40%;
+      margin-top: 4%;
+      background: rgba(23, 32, 42, 0.22);
+    }
+
+    .paper-lines {
+      width: 76%;
+      height: 35%;
+      margin: 10% 12% 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(23, 32, 42, 0.15) 0 1px,
+        transparent 1px 10px
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        #000 0 72%,
+        transparent 72% 78%,
+        #000 78% 100%
+      );
+      mask-image: linear-gradient(
+        to right,
+        #000 0 72%,
+        transparent 72% 78%,
+        #000 78% 100%
+      );
+    }
+
+    .paper-figure {
+      display: flex;
+      width: 76%;
+      height: 17%;
+      align-items: flex-end;
+      gap: 7%;
+      margin: 8% 12% 0;
+      padding: 0 7% 4%;
+      border-right: 1px solid rgba(23, 32, 42, 0.14);
+      border-bottom: 1px solid rgba(23, 32, 42, 0.18);
+      border-left: 1px solid rgba(23, 32, 42, 0.14);
+    }
+
+    .paper-figure i {
+      display: block;
+      width: 14%;
+      height: var(--bar-height);
+      border-radius: 2px 2px 0 0;
+      background: rgba(138, 31, 45, 0.45);
+      transform: scaleY(0.35);
+      transform-origin: bottom;
+      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .paper-keyword {
+      position: absolute;
+      right: 11%;
+      bottom: 8%;
+      max-width: 72%;
+      color: rgba(138, 31, 45, 0);
+      font-size: clamp(0.48rem, 0.75vw, 0.68rem);
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-align: right;
+      text-transform: uppercase;
+      transform: translateY(7px);
+      transition:
+        color 0.35s ease,
+        transform 0.35s ease;
+    }
+
+    .flying-paper.is-revealed .flying-paper-card {
+      opacity: min(0.82, calc(var(--paper-opacity) + 0.28));
+      filter: blur(0);
+      box-shadow:
+        0 30px 70px rgba(23, 32, 42, 0.19),
+        0 0 0 1px rgba(201, 145, 39, 0.2);
+    }
+
+    .flying-paper.is-revealed .paper-figure i {
+      transform: scaleY(1);
+    }
+
+    .flying-paper.is-revealed .paper-keyword {
+      color: rgba(138, 31, 45, 0.82);
+      transform: translateY(0);
+    }
+
+    .flying-paper.is-near .flying-paper-card {
+      opacity: min(0.76, calc(var(--paper-opacity) + 0.18));
+      filter: blur(0);
+    }
+
+    body.has-paper-atmosphere .publication-section {
+      opacity: 0;
+      transform: translateY(24px) rotateX(2deg);
+      transform-origin: top center;
+      transition:
+        opacity 0.7s ease,
+        transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    body.has-paper-atmosphere .publication-section.is-visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+
+    @keyframes flyingPaperFloat {
+      0% {
+        transform:
+          translate3d(0, -9px, 0)
+          rotate(var(--rotation-start))
+          rotateX(4deg)
+          rotateY(-5deg);
+      }
+
+      100% {
+        transform:
+          translate3d(var(--drift-x), var(--drift-y), 0)
+          rotate(var(--rotation-end))
+          rotateX(-4deg)
+          rotateY(5deg);
+      }
+    }
+
+    @media (max-width: 980px) {
+      .paper-atmosphere {
+        top: 68px;
+      }
+
+      .flying-paper:nth-child(n + 8) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .flying-paper {
+        --paper-scale: 0.74;
+      }
+
+      .flying-paper:nth-child(n + 5) {
+        display: none;
+      }
+
+      .flying-paper-card {
+        opacity: min(0.24, var(--paper-opacity));
+        filter: blur(0.5px);
+      }
+
+      .paper-keyword {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .flying-paper-card {
+        animation: none;
+      }
+
+      body.has-paper-atmosphere .publication-section {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .flying-paper:nth-child(n + 5) {
+        display: none;
+      }
+    }
+
   </style>
 </head>
 
 <body>
+
+  <div
+    class="paper-atmosphere"
+    data-paper-atmosphere
+    aria-hidden="true"
+  ></div>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -566,6 +862,435 @@
       </div>
     </div>
   </footer>
+
+
+  <script>
+    (() => {
+      const layer = document.querySelector("[data-paper-atmosphere]");
+
+      if (!layer) {
+        return;
+      }
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+
+      document.body.classList.add("has-paper-atmosphere");
+
+      const paperBlueprints = [
+        {
+          left: -3,
+          top: 8,
+          width: 122,
+          opacity: 0.46,
+          blur: 0,
+          depth: 0.95,
+          duration: 8.8,
+          rotationStart: -16,
+          rotationEnd: -8,
+          driftX: 32,
+          driftY: 22
+        },
+        {
+          left: 90,
+          top: 12,
+          width: 108,
+          opacity: 0.43,
+          blur: 0.2,
+          depth: 0.88,
+          duration: 10.5,
+          rotationStart: 13,
+          rotationEnd: 21,
+          driftX: -26,
+          driftY: 28
+        },
+        {
+          left: 3,
+          top: 42,
+          width: 90,
+          opacity: 0.31,
+          blur: 0.5,
+          depth: 0.64,
+          duration: 12.2,
+          rotationStart: 9,
+          rotationEnd: 3,
+          driftX: 23,
+          driftY: -25
+        },
+        {
+          left: 92,
+          top: 48,
+          width: 132,
+          opacity: 0.42,
+          blur: 0,
+          depth: 1,
+          duration: 9.6,
+          rotationStart: -9,
+          rotationEnd: -18,
+          driftX: -36,
+          driftY: -16
+        },
+        {
+          left: 7,
+          top: 78,
+          width: 112,
+          opacity: 0.38,
+          blur: 0.25,
+          depth: 0.8,
+          duration: 11.4,
+          rotationStart: -12,
+          rotationEnd: -4,
+          driftX: 34,
+          driftY: -23
+        },
+        {
+          left: 86,
+          top: 81,
+          width: 94,
+          opacity: 0.34,
+          blur: 0.45,
+          depth: 0.68,
+          duration: 13,
+          rotationStart: 18,
+          rotationEnd: 10,
+          driftX: -20,
+          driftY: 20
+        },
+        {
+          left: 43,
+          top: 5,
+          width: 78,
+          opacity: 0.13,
+          blur: 1.2,
+          depth: 0.35,
+          duration: 15.5,
+          rotationStart: -7,
+          rotationEnd: 1,
+          driftX: 18,
+          driftY: 15
+        },
+        {
+          left: 58,
+          top: 33,
+          width: 82,
+          opacity: 0.11,
+          blur: 1.4,
+          depth: 0.3,
+          duration: 14.8,
+          rotationStart: 7,
+          rotationEnd: 14,
+          driftX: -16,
+          driftY: 19
+        },
+        {
+          left: 33,
+          top: 60,
+          width: 72,
+          opacity: 0.1,
+          blur: 1.6,
+          depth: 0.26,
+          duration: 16.2,
+          rotationStart: 12,
+          rotationEnd: 5,
+          driftX: 13,
+          driftY: -16
+        },
+        {
+          left: 68,
+          top: 69,
+          width: 86,
+          opacity: 0.12,
+          blur: 1.3,
+          depth: 0.32,
+          duration: 14.2,
+          rotationStart: -13,
+          rotationEnd: -5,
+          driftX: -18,
+          driftY: 14
+        },
+        {
+          left: 20,
+          top: 22,
+          width: 68,
+          opacity: 0.09,
+          blur: 1.8,
+          depth: 0.22,
+          duration: 17,
+          rotationStart: 4,
+          rotationEnd: 11,
+          driftX: 14,
+          driftY: 12
+        }
+      ];
+
+      const paperLabels = [
+        "Article",
+        "Methods",
+        "Figure 02",
+        "Results",
+        "Citation",
+        "Dataset",
+        "Discussion",
+        "Imaging",
+        "Analysis",
+        "Supplement",
+        "Abstract"
+      ];
+
+      const paperKeywords = [
+        "PTH",
+        "SHG imaging",
+        "Bone remodeling",
+        "RANKL",
+        "SOST",
+        "Biomaterials",
+        "Matrix",
+        "Longitudinal imaging",
+        "Quantitative analysis",
+        "DOI",
+        "Functional bone model"
+      ];
+
+      const papers = paperBlueprints.map((blueprint, index) => {
+        const paper = document.createElement("div");
+        const keyword = paperKeywords[index % paperKeywords.length];
+
+        paper.className = "flying-paper";
+        paper.dataset.depth = String(blueprint.depth);
+        paper.dataset.keyword = keyword;
+        paper.style.setProperty("--paper-left", `${blueprint.left}%`);
+        paper.style.setProperty("--paper-top", `${blueprint.top}%`);
+        paper.style.setProperty("--paper-width", `${blueprint.width}px`);
+        paper.style.setProperty("--paper-opacity", blueprint.opacity);
+        paper.style.setProperty("--paper-blur", `${blueprint.blur}px`);
+        paper.style.setProperty("--float-duration", `${blueprint.duration}s`);
+        paper.style.setProperty(
+          "--rotation-start",
+          `${blueprint.rotationStart}deg`
+        );
+        paper.style.setProperty(
+          "--rotation-end",
+          `${blueprint.rotationEnd}deg`
+        );
+        paper.style.setProperty("--drift-x", `${blueprint.driftX}px`);
+        paper.style.setProperty("--drift-y", `${blueprint.driftY}px`);
+
+        paper.innerHTML = `
+          <div class="flying-paper-card">
+            <span class="paper-kicker">${paperLabels[index]}</span>
+            <span class="paper-title-line"></span>
+            <span class="paper-title-line short"></span>
+            <span class="paper-lines"></span>
+            <span class="paper-figure">
+              <i style="--bar-height: 52%"></i>
+              <i style="--bar-height: 82%"></i>
+              <i style="--bar-height: 63%"></i>
+              <i style="--bar-height: 94%"></i>
+            </span>
+            <span class="paper-keyword">${keyword}</span>
+          </div>
+        `;
+
+        layer.appendChild(paper);
+        return paper;
+      });
+
+      const pointer = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        active: false
+      };
+
+      let scrollPosition = window.scrollY;
+      let animationFrame = 0;
+
+      const requestRender = () => {
+        if (!animationFrame) {
+          animationFrame = window.requestAnimationFrame(render);
+        }
+      };
+
+      const render = () => {
+        animationFrame = 0;
+
+        const viewportWidth = Math.max(window.innerWidth, 1);
+        const viewportHeight = Math.max(window.innerHeight, 1);
+        const normalizedX = pointer.x / viewportWidth - 0.5;
+        const normalizedY = pointer.y / viewportHeight - 0.5;
+        const repulsionRadius = 185;
+
+        papers.forEach((paper, index) => {
+          const depth = Number(paper.dataset.depth);
+          let repulsionX = 0;
+          let repulsionY = 0;
+          let tiltX = 0;
+          let tiltY = 0;
+
+          if (pointer.active && hasFinePointer && !prefersReducedMotion) {
+            const rect = paper.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const deltaX = centerX - pointer.x;
+            const deltaY = centerY - pointer.y;
+            const distance = Math.hypot(deltaX, deltaY) || 1;
+
+            if (distance < repulsionRadius) {
+              const force = 1 - distance / repulsionRadius;
+              repulsionX = (deltaX / distance) * force * 50 * depth;
+              repulsionY = (deltaY / distance) * force * 42 * depth;
+              paper.classList.add("is-near");
+            } else {
+              paper.classList.remove("is-near");
+            }
+
+            tiltX = normalizedY * -8 * depth;
+            tiltY = normalizedX * 10 * depth;
+          } else {
+            paper.classList.remove("is-near");
+          }
+
+          const pointerParallaxX = prefersReducedMotion
+            ? 0
+            : normalizedX * 26 * depth;
+
+          const pointerParallaxY = prefersReducedMotion
+            ? 0
+            : normalizedY * 18 * depth;
+
+          const scrollWave = prefersReducedMotion
+            ? 0
+            : Math.sin(scrollPosition / 260 + index * 0.72) * 18 * depth;
+
+          paper.style.setProperty(
+            "--interactive-x",
+            `${pointerParallaxX + repulsionX}px`
+          );
+
+          paper.style.setProperty(
+            "--interactive-y",
+            `${pointerParallaxY + repulsionY}px`
+          );
+
+          paper.style.setProperty("--scroll-shift", `${scrollWave}px`);
+          paper.style.setProperty("--pointer-tilt-x", `${tiltX}deg`);
+          paper.style.setProperty("--pointer-tilt-y", `${tiltY}deg`);
+        });
+      };
+
+      if (hasFinePointer && !prefersReducedMotion) {
+        window.addEventListener(
+          "pointermove",
+          (event) => {
+            pointer.x = event.clientX;
+            pointer.y = event.clientY;
+            pointer.active = true;
+            requestRender();
+          },
+          { passive: true }
+        );
+
+        document.documentElement.addEventListener(
+          "mouseleave",
+          () => {
+            pointer.active = false;
+            requestRender();
+          },
+          { passive: true }
+        );
+
+        window.addEventListener("click", (event) => {
+          if (
+            event.target.closest(
+              "a, button, input, textarea, select, label, summary"
+            )
+          ) {
+            return;
+          }
+
+          let selectedPaper = null;
+          let closestDistance = Number.POSITIVE_INFINITY;
+
+          papers.forEach((paper) => {
+            if (getComputedStyle(paper).display === "none") {
+              return;
+            }
+
+            const rect = paper.getBoundingClientRect();
+            const horizontalDistance = Math.max(
+              rect.left - event.clientX,
+              0,
+              event.clientX - rect.right
+            );
+
+            const verticalDistance = Math.max(
+              rect.top - event.clientY,
+              0,
+              event.clientY - rect.bottom
+            );
+
+            const distance = Math.hypot(
+              horizontalDistance,
+              verticalDistance
+            );
+
+            if (distance < 24 && distance < closestDistance) {
+              closestDistance = distance;
+              selectedPaper = paper;
+            }
+          });
+
+          if (selectedPaper) {
+            selectedPaper.classList.toggle("is-revealed");
+          }
+        });
+      }
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          scrollPosition = window.scrollY;
+          requestRender();
+        },
+        { passive: true }
+      );
+
+      window.addEventListener(
+        "resize",
+        () => {
+          requestRender();
+        },
+        { passive: true }
+      );
+
+      const sections = document.querySelectorAll(".publication-section");
+
+      if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        sections.forEach((section) => section.classList.add("is-visible"));
+      } else {
+        const sectionObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.08,
+            rootMargin: "0px 0px -8% 0px"
+          }
+        );
+
+        sections.forEach((section) => sectionObserver.observe(section));
+      }
+
+      requestRender();
+    })();
+  </script>
 
   <script src="script.js?v=7"></script>
 </body>
