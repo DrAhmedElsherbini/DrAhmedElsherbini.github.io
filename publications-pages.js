@@ -670,15 +670,21 @@
       messageTimer
     );
 
-    messageTimer =
-      window.setTimeout(
-        () => {
-          page.element.classList.remove(
-            "is-open"
-          );
-        },
-        3400
+const typingDuration =
+  message.length * 18;
+
+const readingTime =
+  7000;
+
+messageTimer =
+  window.setTimeout(
+    () => {
+      page.element.classList.remove(
+        "is-open"
       );
+    },
+    typingDuration + readingTime
+  );
   };
 
   const beginDrag = (
