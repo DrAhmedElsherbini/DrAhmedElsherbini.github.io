@@ -18,7 +18,7 @@
   }
 
   /*
-   * Add three extra manuscript butterflies.
+   * Add three additional manuscript butterflies.
    */
   const extraPages = [
     {
@@ -267,6 +267,15 @@
     const angle =
       Number(element.dataset.angle) || 0;
 
+    /*
+     * Improve dragging behavior without requiring CSS changes.
+     */
+    element.style.cursor = "grab";
+    element.style.touchAction = "none";
+    element.style.userSelect = "none";
+    element.style.webkitUserSelect = "none";
+    element.draggable = false;
+
     return {
       element,
 
@@ -296,7 +305,26 @@
       phase:
         index * 0.92,
 
-      lastSparkle: 0
+      lastSparkle: 0,
+
+      isDragging: false,
+      dragPointerId: null,
+
+      dragOffsetX: 0,
+      dragOffsetY: 0,
+
+      dragStartPointerX: 0,
+      dragStartPointerY: 0,
+
+      lastPointerX: 0,
+      lastPointerY: 0,
+      lastPointerTime: 0,
+
+      dragVelocityX: 0,
+      dragVelocityY: 0,
+
+      didDrag: false,
+      suppressClickUntil: 0
     };
   });
 
@@ -309,6 +337,18 @@
   let initialized = false;
   let previousTime = performance.now();
   let messageTimer = 0;
+  let activeDraggedPage = null;
+
+  const clamp = (
+    value,
+    minimum,
+    maximum
+  ) => {
+    return Math.max(
+      minimum,
+      Math.min(maximum, value)
+    );
+  };
 
   const normalizeAngle = (angle) => {
     return (
@@ -342,14 +382,20 @@
       layer.getBoundingClientRect();
 
     return {
+      left: rect.left,
+      top: rect.top,
+
       width:
-        Math.max(rect.width, 1),
+        Math.max(
+          rect.width,
+          1
+        ),
 
       height:
-        Math.max(rect.height, 1),
-
-      top:
-        rect.top
+        Math.max(
+          rect.height,
+          1
+        )
     };
   };
 
@@ -380,6 +426,65 @@
     });
 
     initialized = true;
+  };
+
+  const keepPageInsideLayer = (
+    page,
+    area
+  ) => {
+    const width =
+      page.element.offsetWidth;
+
+    const height =
+      page.element.offsetHeight;
+
+    const minimumX = 10;
+    const minimumY = 10;
+
+    const maximumX =
+      Math.max(
+        area.width -
+        width -
+        10,
+        minimumX
+      );
+
+    const maximumY =
+      Math.max(
+        area.height -
+        height -
+        10,
+        minimumY
+      );
+
+    page.x = clamp(
+      page.x,
+      minimumX,
+      maximumX
+    );
+
+    page.y = clamp(
+      page.y,
+      minimumY,
+      maximumY
+    );
+  };
+
+  const setFlappingPaused = (
+    page,
+    paused
+  ) => {
+    const animatedParts =
+      page.element.querySelectorAll(
+        ".page-wing, .page-sheet"
+      );
+
+    animatedParts.forEach((part) => {
+      part.style.animationPlayState =
+        paused
+          ? "paused"
+          : "";
+    });
   };
 
   const createSparkles = (
@@ -552,10 +657,10 @@
 
     createSparkles(
       rect.left +
-        rect.width / 2,
+      rect.width / 2,
 
       rect.top +
-        rect.height / 2,
+      rect.height / 2,
 
       36,
       130
@@ -576,11 +681,431 @@
       );
   };
 
+  const beginDrag = (
+    page,
+    event
+  ) => {
+    /*
+     * Only the primary mouse button should initiate dragging.
+     * Touch and pen events are still supported.
+     */
+    if (
+      event.pointerType === "mouse" &&
+      event.button !== 0
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    closeMessages();
+
+    const area =
+      getLayerBounds();
+
+    const localPointerX =
+      event.clientX -
+      area.left;
+
+    const localPointerY =
+      event.clientY -
+      area.top;
+
+    page.isDragging = true;
+    page.dragPointerId =
+      event.pointerId;
+
+    page.dragOffsetX =
+      localPointerX -
+      page.x;
+
+    page.dragOffsetY =
+      localPointerY -
+      page.y;
+
+    page.dragStartPointerX =
+      event.clientX;
+
+    page.dragStartPointerY =
+      event.clientY;
+
+    page.lastPointerX =
+      event.clientX;
+
+    page.lastPointerY =
+      event.clientY;
+
+    page.lastPointerTime =
+      performance.now();
+
+    page.dragVelocityX = 0;
+    page.dragVelocityY = 0;
+    page.didDrag = false;
+
+    page.escapeX = 0;
+    page.escapeY = 0;
+
+    activeDraggedPage = page;
+
+    page.element.style.cursor =
+      "grabbing";
+
+    page.element.style.zIndex =
+      "20";
+
+    setFlappingPaused(
+      page,
+      true
+    );
+
+    try {
+      page.element.setPointerCapture(
+        event.pointerId
+      );
+    } catch (error) {
+      /*
+       * Pointer capture may not be available
+       * in some older browsers.
+       */
+    }
+  };
+
+  const moveDraggedPage = (
+    page,
+    event
+  ) => {
+    if (
+      !page.isDragging ||
+      page.dragPointerId !==
+      event.pointerId
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const area =
+      getLayerBounds();
+
+    const localPointerX =
+      event.clientX -
+      area.left;
+
+    const localPointerY =
+      event.clientY -
+      area.top;
+
+    page.x =
+      localPointerX -
+      page.dragOffsetX;
+
+    page.y =
+      localPointerY -
+      page.dragOffsetY;
+
+    keepPageInsideLayer(
+      page,
+      area
+    );
+
+    const totalMovement =
+      Math.hypot(
+        event.clientX -
+        page.dragStartPointerX,
+
+        event.clientY -
+        page.dragStartPointerY
+      );
+
+    if (totalMovement > 7) {
+      page.didDrag = true;
+    }
+
+    const currentTime =
+      performance.now();
+
+    const elapsedSeconds =
+      Math.max(
+        (
+          currentTime -
+          page.lastPointerTime
+        ) /
+        1000,
+        0.001
+      );
+
+    const currentVelocityX =
+      (
+        event.clientX -
+        page.lastPointerX
+      ) /
+      elapsedSeconds;
+
+    const currentVelocityY =
+      (
+        event.clientY -
+        page.lastPointerY
+      ) /
+      elapsedSeconds;
+
+    /*
+     * Smooth the pointer velocity so the release
+     * does not produce a violent throw.
+     */
+    page.dragVelocityX +=
+      (
+        currentVelocityX -
+        page.dragVelocityX
+      ) *
+      0.24;
+
+    page.dragVelocityY +=
+      (
+        currentVelocityY -
+        page.dragVelocityY
+      ) *
+      0.24;
+
+    page.lastPointerX =
+      event.clientX;
+
+    page.lastPointerY =
+      event.clientY;
+
+    page.lastPointerTime =
+      currentTime;
+
+    /*
+     * Rotate the butterfly toward the current
+     * drag direction.
+     */
+    if (
+      Math.hypot(
+        page.dragVelocityX,
+        page.dragVelocityY
+      ) > 12
+    ) {
+      const dragHeading =
+        Math.atan2(
+          page.dragVelocityY,
+          page.dragVelocityX
+        ) *
+        (
+          180 /
+          Math.PI
+        ) +
+        90;
+
+      page.heading =
+        approachAngle(
+          page.heading,
+          dragHeading,
+          0.2
+        );
+    }
+
+    if (
+      currentTime -
+      page.lastSparkle >
+      80
+    ) {
+      const rect =
+        page.element.getBoundingClientRect();
+
+      createSparkles(
+        rect.left +
+        rect.width / 2,
+
+        rect.top +
+        rect.height / 2,
+
+        2,
+        22
+      );
+
+      page.lastSparkle =
+        currentTime;
+    }
+  };
+
+  const finishDrag = (
+    page,
+    event
+  ) => {
+    if (
+      !page.isDragging ||
+      (
+        event &&
+        page.dragPointerId !==
+        event.pointerId
+      )
+    ) {
+      return;
+    }
+
+    const pointerId =
+      page.dragPointerId;
+
+    page.isDragging = false;
+    page.dragPointerId = null;
+
+    page.element.style.cursor =
+      "grab";
+
+    page.element.style.zIndex =
+      "";
+
+    setFlappingPaused(
+      page,
+      false
+    );
+
+    if (page.didDrag) {
+      /*
+       * Convert the release movement into a gentle throw.
+       */
+      const rawThrowSpeed =
+        Math.hypot(
+          page.dragVelocityX,
+          page.dragVelocityY
+        );
+
+      if (rawThrowSpeed > 20) {
+        const directionX =
+          page.dragVelocityX /
+          rawThrowSpeed;
+
+        const directionY =
+          page.dragVelocityY /
+          rawThrowSpeed;
+
+        const throwSpeed =
+          clamp(
+            rawThrowSpeed * 0.12,
+            page.baseSpeed * 0.85,
+            page.baseSpeed * 2
+          );
+
+        page.vx =
+          directionX *
+          throwSpeed;
+
+        page.vy =
+          directionY *
+          throwSpeed;
+      }
+
+      page.suppressClickUntil =
+        performance.now() +
+        450;
+
+      const rect =
+        page.element.getBoundingClientRect();
+
+      createSparkles(
+        rect.left +
+        rect.width / 2,
+
+        rect.top +
+        rect.height / 2,
+
+        10,
+        55
+      );
+    }
+
+    activeDraggedPage = null;
+
+    if (
+      pointerId !== null
+    ) {
+      try {
+        page.element.releasePointerCapture(
+          pointerId
+        );
+      } catch (error) {
+        /*
+         * Safe fallback when capture has already ended.
+         */
+      }
+    }
+  };
+
   pages.forEach((page) => {
+    page.element.addEventListener(
+      "pointerdown",
+      (event) => {
+        beginDrag(
+          page,
+          event
+        );
+      }
+    );
+
+    page.element.addEventListener(
+      "pointermove",
+      (event) => {
+        moveDraggedPage(
+          page,
+          event
+        );
+      }
+    );
+
+    page.element.addEventListener(
+      "pointerup",
+      (event) => {
+        finishDrag(
+          page,
+          event
+        );
+      }
+    );
+
+    page.element.addEventListener(
+      "pointercancel",
+      (event) => {
+        finishDrag(
+          page,
+          event
+        );
+      }
+    );
+
+    page.element.addEventListener(
+      "lostpointercapture",
+      (event) => {
+        if (page.isDragging) {
+          finishDrag(
+            page,
+            event
+          );
+        }
+      }
+    );
+
     page.element.addEventListener(
       "click",
       (event) => {
         event.stopPropagation();
+
+        /*
+         * A real drag should not reveal the message.
+         */
+        if (
+          performance.now() <
+          page.suppressClickUntil
+        ) {
+          event.preventDefault();
+          return;
+        }
+
+        if (page.didDrag) {
+          page.didDrag = false;
+          event.preventDefault();
+          return;
+        }
 
         openMessage(page);
       }
@@ -618,6 +1143,13 @@
     window.addEventListener(
       "pointermove",
       (event) => {
+        /*
+         * Do not run cursor avoidance while dragging.
+         */
+        if (activeDraggedPage) {
+          return;
+        }
+
         pointer.x =
           event.clientX;
 
@@ -690,9 +1222,13 @@
           : 0.72;
 
       /*
-       * Gentle organic direction changes.
+       * Normal automatic flight is paused
+       * while the butterfly is being dragged.
        */
-      if (!isOpen) {
+      if (
+        !isOpen &&
+        !page.isDragging
+      ) {
         const wanderAmount =
           Math.sin(
             time * 0.44 +
@@ -710,24 +1246,24 @@
             wanderAmount
           );
 
-        const newVX =
+        const newVelocityX =
           page.vx *
           cosWander -
           page.vy *
           sinWander;
 
-        const newVY =
+        const newVelocityY =
           page.vx *
           sinWander +
           page.vy *
           cosWander;
 
-        page.vx = newVX;
-        page.vy = newVY;
+        page.vx =
+          newVelocityX;
 
-        /*
-         * Maintain a consistent speed.
-         */
+        page.vy =
+          newVelocityY;
+
         const currentSpeed =
           Math.hypot(
             page.vx,
@@ -756,7 +1292,7 @@
       }
 
       /*
-       * Normal screen-edge bouncing only.
+       * Keep normal flying pages inside the viewport.
        */
       const minimumX = 10;
       const minimumY = 10;
@@ -777,52 +1313,54 @@
           minimumY
         );
 
-      if (
-        page.x <=
-        minimumX
-      ) {
-        page.x =
-          minimumX;
+      if (!page.isDragging) {
+        if (
+          page.x <=
+          minimumX
+        ) {
+          page.x =
+            minimumX;
 
-        page.vx =
-          Math.abs(
-            page.vx
-          );
-      } else if (
-        page.x >=
-        maximumX
-      ) {
-        page.x =
-          maximumX;
+          page.vx =
+            Math.abs(
+              page.vx
+            );
+        } else if (
+          page.x >=
+          maximumX
+        ) {
+          page.x =
+            maximumX;
 
-        page.vx =
-          -Math.abs(
-            page.vx
-          );
-      }
+          page.vx =
+            -Math.abs(
+              page.vx
+            );
+        }
 
-      if (
-        page.y <=
-        minimumY
-      ) {
-        page.y =
-          minimumY;
+        if (
+          page.y <=
+          minimumY
+        ) {
+          page.y =
+            minimumY;
 
-        page.vy =
-          Math.abs(
-            page.vy
-          );
-      } else if (
-        page.y >=
-        maximumY
-      ) {
-        page.y =
-          maximumY;
+          page.vy =
+            Math.abs(
+              page.vy
+            );
+        } else if (
+          page.y >=
+          maximumY
+        ) {
+          page.y =
+            maximumY;
 
-        page.vy =
-          -Math.abs(
-            page.vy
-          );
+          page.vy =
+            -Math.abs(
+              page.vy
+            );
+        }
       }
 
       const centerX =
@@ -834,21 +1372,18 @@
         page.y +
         height / 2;
 
-      /*
-       * Gentle mouse avoidance.
-       *
-       * This changes only the visual offset.
-       * It does not modify the flight velocity,
-       * so it cannot trap the butterfly.
-       */
       let targetEscapeX = 0;
       let targetEscapeY = 0;
       let isAlert = false;
 
+      /*
+       * Gentle cursor avoidance is disabled while dragging.
+       */
       if (
         pointer.active &&
         finePointer &&
-        !isOpen
+        !isOpen &&
+        !page.isDragging
       ) {
         const deltaX =
           centerX -
@@ -913,42 +1448,43 @@
         }
       }
 
-      page.escapeX +=
-        (
-          targetEscapeX -
-          page.escapeX
-        ) *
-        0.028;
+      if (!page.isDragging) {
+        page.escapeX +=
+          (
+            targetEscapeX -
+            page.escapeX
+          ) *
+          0.028;
 
-      page.escapeY +=
-        (
-          targetEscapeY -
-          page.escapeY
-        ) *
-        0.028;
+        page.escapeY +=
+          (
+            targetEscapeY -
+            page.escapeY
+          ) *
+          0.028;
+      } else {
+        page.escapeX = 0;
+        page.escapeY = 0;
+      }
 
       const bob =
-        Math.sin(
-          time * 3.1 +
-          page.phase
-        ) *
-        4;
+        page.isDragging
+          ? 0
+          : Math.sin(
+              time * 3.1 +
+              page.phase
+            ) *
+            4;
 
       const tilt =
-        Math.sin(
-          time * 2 +
-          page.phase
-        ) *
-        4;
+        page.isDragging
+          ? 0
+          : Math.sin(
+              time * 2 +
+              page.phase
+            ) *
+            4;
 
-      /*
-       * Rotate naturally toward the flight direction.
-       *
-       * 0 degrees: head up
-       * 90 degrees: head right
-       * 180 degrees: head down
-       * -90 degrees: head left
-       */
       let targetHeading =
         Math.atan2(
           page.vy,
@@ -964,21 +1500,27 @@
         targetHeading = 0;
       }
 
-      page.heading =
-        approachAngle(
-          page.heading,
-          targetHeading,
-          isOpen
-            ? 0.18
-            : 0.075
-        );
+      if (
+        !page.isDragging
+      ) {
+        page.heading =
+          approachAngle(
+            page.heading,
+            targetHeading,
+            isOpen
+              ? 0.18
+              : 0.075
+          );
+      }
 
       const naturalBank =
-        Math.sin(
-          time * 1.8 +
-          page.phase
-        ) *
-        3;
+        page.isDragging
+          ? 0
+          : Math.sin(
+              time * 1.8 +
+              page.phase
+            ) *
+            3;
 
       const visualHeading =
         page.heading +
@@ -1030,10 +1572,11 @@
       );
 
       /*
-       * Passive magical sparkle trail.
+       * Passive sparkle trail remains active during normal flight.
        */
       if (
         !isOpen &&
+        !page.isDragging &&
         !reducedMotion &&
         timeNow -
         page.lastSparkle >
