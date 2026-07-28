@@ -87,19 +87,138 @@
   document.body.classList.add("pages-js-ready");
 
   const messages = [
-    "Reviewer 2 has escaped the restricted section.",
-    "The DOI is hiding beneath an invisibility cloak.",
-    "Ten points to the control group for doing absolutely nothing.",
-    "A minor revision hex has been detected. Chocolate may help.",
-    "The manuscript departed from Platform 0.05 exactly on time.",
-    "The citation owl is delayed because PubMed changed the address.",
-    "Supplementary Figure 8 vanished during transfiguration.",
-    "The methods section escaped before proofreading.",
-    "The p value refuses to reveal its true form without three more replicates.",
-    "Bone remodeling is in progress. Keep all wands outside the incubator.",
-    "Your discussion section has been sorted into House Overinterpretation.",
-    "The impact factor crystal ball remains suspiciously cloudy."
-  ];
+  "Reviewer 2 has escaped the restricted section.",
+
+  "The DOI is hiding beneath an invisibility cloak.",
+
+  "Ten points to the control group for doing absolutely nothing.",
+
+  "A minor revision hex has been detected. Chocolate may help.",
+
+  "The manuscript departed from Platform 0.05 exactly on time.",
+
+  "The citation owl is delayed because PubMed changed the address.",
+
+  "Supplementary Figure 8 vanished during transfiguration.",
+
+  "The methods section escaped before proofreading.",
+
+  "The p value refuses to reveal its true form without three more replicates.",
+
+  "Bone remodeling is in progress. Keep all wands outside the incubator.",
+
+  "Your discussion section has been sorted into House Overinterpretation.",
+
+  "The impact factor crystal ball remains suspiciously cloudy.",
+
+  "Reviewer 1 requests clarification. Reviewer 2 requests a new PhD.",
+
+  "The editor has summoned one final minor revision. It is not minor.",
+
+  "Your manuscript has been accepted... in an alternative universe.",
+
+  "The corresponding author has entered the Chamber of Corrections.",
+
+  "The statistical significance spell failed. Increase the sample size.",
+
+  "The osteoclasts have unionized and demand better culture conditions.",
+
+  "The osteoblasts are building something. Nobody approved the protocol.",
+
+  "The control group insists it was never informed about the experiment.",
+
+  "Your references have multiplied overnight. Do not feed them after midnight.",
+
+  "The manuscript is under review. Time now moves differently.",
+
+  "A reviewer has requested an experiment already shown in Figure 3.",
+
+  "The journal portal has forgotten your password again.",
+
+  "The supplementary file exceeds the magical upload limit.",
+
+  "Your confidence interval is wider than the forbidden forest.",
+
+  "The western blot has chosen not to cooperate today.",
+
+  "The microscope has detected movement. It may only be dust.",
+
+  "Your cells are communicating. Unfortunately, they excluded the researcher.",
+
+  "The incubator alarm knows when you are trying to leave early.",
+
+  "The negative control has become suspiciously positive.",
+
+  "The positive control has decided to explore alternative outcomes.",
+
+  "The manuscript title has grown by another twelve words.",
+
+  "The discussion section is now longer than the actual experiment.",
+
+  "The editor says the decision is coming soon. Define soon.",
+
+  "A wild reviewer comment appeared: Please cite our seventeen papers.",
+
+  "The figure legend has become self-aware.",
+
+  "Your error bars are attempting to leave the graph.",
+
+  "The raw data knows what happened, but it refuses to testify.",
+
+  "The replication spell requires three independent experiments.",
+
+  "The sample size calculator has delivered unfortunate news.",
+
+  "The protocol worked perfectly yesterday. Yesterday is gone.",
+
+  "The cells sensed the deadline and stopped growing.",
+
+  "The fluorescent signal appears only when nobody is watching.",
+
+  "The manuscript survived peer review but lost part of its soul.",
+
+  "The reviewer requests more clinical relevance from an in vitro experiment.",
+
+  "The editor has classified your revision as minor. This is dark magic.",
+
+  "The literature search has discovered another 247 relevant papers.",
+
+  "The abstract contains exactly one word too many.",
+
+  "The reference manager has duplicated every citation for ceremonial purposes.",
+
+  "The journal system saved everything except the final submission.",
+
+  "The corresponding author is currently trapped inside tracked changes.",
+
+  "The research question was simple before the reviewers arrived.",
+
+  "The results are significant, but the reviewer remains emotionally unconvinced.",
+
+  "Your manuscript has entered the final review stage. Again.",
+
+  "The cells have formed a functional model and now demand authorship.",
+
+  "PTH exposure detected. Remodeling mischief is now active.",
+
+  "The SHG signal has revealed collagen and several new problems.",
+
+  "The osteoclasts resorbed the matrix and possibly the discussion section.",
+
+  "The osteoblasts restored the matrix but refused to fix the references.",
+
+  "The functional bone model has achieved more balance than the research team.",
+
+  "Longitudinal imaging confirms that the deadline is approaching.",
+
+  "The manuscript has been revised so many times it qualifies as tissue remodeling.",
+
+  "Reviewer 2 has requested an additional control group for the control group.",
+
+  "The editor appreciates your revision and has attached fourteen new comments.",
+
+  "Your paper is currently somewhere between acceptance and character development."
+];
 
   const pages = elements.map((element, index) => {
     const speed = Number(element.dataset.speed) || 32;
