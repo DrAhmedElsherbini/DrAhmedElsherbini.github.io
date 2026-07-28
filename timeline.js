@@ -21,8 +21,6 @@
         "The first point in a journey shaped by movement between cultures, curiosity about living systems, and a growing desire to create meaningful scientific impact.",
       quote:
         "Every ambitious journey begins as a single, quiet point.",
-      institution: "Personal history",
-      status: "Foundation",
       accent: "#c99127"
     },
     {
@@ -46,13 +44,13 @@
       title: "Doctor of Dental Surgery",
       location: "Mansoura, Egypt",
       category: "achievement",
-      chapter: "Academic Excellence",
+      chapter: "Undergradute Completion",
       description:
-        "Graduation from dental school with Excellence and Honor completed a demanding clinical education and established a strong academic platform for advanced biomedical research.",
+        "Graduation from dental school and completed a demanding clinical education and established a strong academic platform for advanced biomedical research.",
       quote:
         "Clinical training supplied the questions that research could answer.",
       institution: "Mansoura University",
-      status: "DDS, Excellence and Honor",
+      status: "Bachelor of Dental Surgery, DDS",
       accent: "#c99127"
     },
     {
@@ -71,7 +69,7 @@
       accent: "#64151f"
     },
     {
-      id: "tokyo",
+      id: "utokyo",
       year: "April 2022",
       title: "University of Tokyo PhD Journey",
       location: "Tokyo, Japan",
@@ -86,14 +84,14 @@
       accent: "#8a1f2d"
     },
     {
-      id: "fbm",
+      id: "fbo",
       year: "Doctoral Research",
       title: "Functional Bone Model",
       location: "Tokyo, Japan",
       category: "research",
       chapter: "Building Living Bone",
       description:
-        "Development of a longitudinal three-dimensional platform integrating osteoblast-lineage cells, osteoclast precursors, a self-generated matrix, second harmonic generation imaging, and quantitative analysis.",
+        "Development of a 4D platform integrating osteoblast-lineage cells, osteoclast precursors, a self-generated matrix, second harmonic generation imaging, and quantitative analysis.",
       quote:
         "A model becomes powerful when it lets us watch biology unfold instead of only seeing the endpoint.",
       institution: "Tissue Engineering Laboratory",
