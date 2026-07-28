@@ -15,7 +15,7 @@
 
   /*
    * Add three extra manuscript butterflies.
-   * This produces ten in total when the HTML contains seven.
+   * Seven in the HTML become ten in total.
    */
   const extraPages = [
     {
@@ -51,9 +51,8 @@
   ];
 
   extraPages.forEach((settings, index) => {
-    const source = originalPages[
-      settings.template % originalPages.length
-    ];
+    const source =
+      originalPages[settings.template % originalPages.length];
 
     const clone = source.cloneNode(true);
 
@@ -154,23 +153,43 @@
 
     "The editor has summoned one final minor revision. It is not minor.",
 
+    "Your manuscript has been accepted... in an alternative universe.",
+
     "The corresponding author has entered the Chamber of Corrections.",
+
+    "The statistical significance spell failed. Increase the sample size.",
 
     "The osteoclasts have unionized and demand better culture conditions.",
 
     "The osteoblasts are building something. Nobody approved the protocol.",
 
-    "Your references have multiplied overnight. Do not feed them after midnight.",
+    "The control group insists it was never informed about the experiment.",
+
+    "Your references multiplied overnight. Do not feed them after midnight.",
 
     "The manuscript is under review. Time now moves differently.",
 
-    "A reviewer has requested an experiment already shown in Figure 3.",
+    "A reviewer requested an experiment already shown in Figure 3.",
 
     "The journal portal has forgotten your password again.",
 
+    "The supplementary file exceeds the magical upload limit.",
+
     "Your confidence interval is wider than the forbidden forest.",
 
+    "The western blot has chosen not to cooperate today.",
+
+    "The microscope detected movement. It may only be dust.",
+
+    "Your cells are communicating. Unfortunately, they excluded the researcher.",
+
+    "The incubator alarm knows when you are trying to leave early.",
+
     "The negative control has become suspiciously positive.",
+
+    "The positive control has decided to explore alternative outcomes.",
+
+    "The manuscript title has grown by another twelve words.",
 
     "The discussion section is now longer than the actual experiment.",
 
@@ -178,33 +197,99 @@
 
     "A wild reviewer comment appeared: Please cite our seventeen papers.",
 
+    "The figure legend has become self-aware.",
+
+    "Your error bars are attempting to leave the graph.",
+
     "The raw data knows what happened, but it refuses to testify.",
+
+    "The replication spell requires three independent experiments.",
+
+    "The sample size calculator has delivered unfortunate news.",
 
     "The protocol worked perfectly yesterday. Yesterday is gone.",
 
     "The cells sensed the deadline and stopped growing.",
 
+    "The fluorescent signal appears only when nobody is watching.",
+
     "The manuscript survived peer review but lost part of its soul.",
 
-    "The editor has classified your revision as minor. This is dark magic.",
+    "The reviewer requests more clinical relevance from an in vitro experiment.",
+
+    "The editor classified your revision as minor. This is dark magic.",
+
+    "The literature search discovered another 247 relevant papers.",
 
     "The abstract contains exactly one word too many.",
+
+    "The reference manager duplicated every citation for ceremonial purposes.",
+
+    "The journal system saved everything except the final submission.",
 
     "The corresponding author is currently trapped inside tracked changes.",
 
     "The research question was simple before the reviewers arrived.",
 
-    "The cells have formed a functional model and now demand authorship.",
+    "The results are significant, but the reviewer remains emotionally unconvinced.",
+
+    "The manuscript has entered the final review stage. Again.",
+
+    "The cells formed a functional model and now demand authorship.",
 
     "PTH exposure detected. Remodeling mischief is now active.",
 
-    "The SHG signal has revealed collagen and several new problems.",
+    "The SHG signal revealed collagen and several new problems.",
 
     "The osteoclasts resorbed the matrix and possibly the discussion section.",
 
+    "The osteoblasts restored the matrix but refused to fix the references.",
+
+    "The functional bone model has achieved more balance than the research team.",
+
     "Longitudinal imaging confirms that the deadline is approaching.",
 
+    "The manuscript has been revised so many times it qualifies as tissue remodeling.",
+
+    "Reviewer 2 requested an additional control group for the control group.",
+
+    "The editor appreciates your revision and attached fourteen new comments.",
+
     "Your paper is somewhere between acceptance and character development."
+  ];
+
+  /*
+   * Large content zones only.
+   * Individual lines and buttons are not separate obstacles.
+   */
+  const protectedZoneSelector = [
+    ".site-header",
+    ".publications-hero > .container",
+    ".publication-section",
+    ".site-footer > .container"
+  ].join(", ");
+
+  const protectedZoneElements = Array.from(
+    document.querySelectorAll(
+      protectedZoneSelector
+    )
+  );
+
+  /*
+   * Most butterflies prefer a side corridor.
+   * Two remain free-roaming.
+   */
+  const corridorPattern = [
+    "left",
+    "right",
+    "left",
+    "right",
+    "roam",
+    "left",
+    "right",
+    "roam",
+    "left",
+    "right"
   ];
 
   const pages = pageElements.map(
@@ -233,16 +318,31 @@
         vy:
           Math.sin(angle) * speed,
 
+        baseSpeed:
+          speed,
+
         escapeX: 0,
         escapeY: 0,
-
-        obstacleX: 0,
-        obstacleY: 0,
 
         phase:
           index * 0.92,
 
-        lastSparkle: 0
+        lastSparkle: 0,
+
+        blockedTime: 0,
+
+        emergencyUntil: 0,
+
+        heading:
+          angle *
+            (180 / Math.PI) +
+          90,
+
+        corridor:
+          corridorPattern[
+            index %
+            corridorPattern.length
+          ]
       };
     }
   );
@@ -252,28 +352,6 @@
     y: 0,
     active: false
   };
-
-  /*
-   * Elements treated as no-fly zones.
-   * Butterflies will gently turn away before covering them.
-   */
-  const obstacleSelector = [
-    ".site-header",
-    ".publications-hero-content",
-    ".profile-links",
-    ".publication-section-header",
-    ".status-entry",
-    ".publication-list",
-    ".publication-note",
-    ".presentation-card",
-    ".site-footer"
-  ].join(", ");
-
-  const obstacleElements = Array.from(
-    document.querySelectorAll(
-      obstacleSelector
-    )
-  );
 
   let initialized = false;
 
@@ -293,16 +371,71 @@
     );
   };
 
+  /*
+   * Keep angles between -180 and 180.
+   * This prevents long spinning when changing direction.
+   */
+  const normalizeAngle = (
+    angle
+  ) => {
+    return (
+      (
+        (
+          angle + 180
+        ) %
+        360 +
+        360
+      ) %
+      360
+    ) - 180;
+  };
+
+  const approachAngle = (
+    current,
+    target,
+    factor
+  ) => {
+    return (
+      current +
+      normalizeAngle(
+        target - current
+      ) *
+        factor
+    );
+  };
+
+  const normalizeVector = (
+    x,
+    y
+  ) => {
+    const length =
+      Math.hypot(x, y) || 1;
+
+    return {
+      x:
+        x / length,
+
+      y:
+        y / length
+    };
+  };
+
   const getLayerBounds = () => {
     const rect =
       layer.getBoundingClientRect();
 
     return {
       width:
-        Math.max(rect.width, 1),
+        Math.max(
+          rect.width,
+          1
+        ),
 
       height:
-        Math.max(rect.height, 1),
+        Math.max(
+          rect.height,
+          1
+        ),
 
       top:
         rect.top
@@ -339,13 +472,15 @@
   };
 
   /*
-   * Read the visible content positions.
+   * Read only the major visible content rectangles.
    */
-  const getObstacleRects = () => {
-    return obstacleElements
+  const getProtectedRects = () => {
+    return protectedZoneElements
       .filter((element) => {
         const style =
-          window.getComputedStyle(element);
+          window.getComputedStyle(
+            element
+          );
 
         return (
           style.display !== "none" &&
@@ -361,111 +496,237 @@
           rect.width > 0 &&
           rect.height > 0 &&
           rect.bottom > 0 &&
-          rect.top < window.innerHeight &&
+          rect.top <
+            window.innerHeight &&
           rect.right > 0 &&
-          rect.left < window.innerWidth
+          rect.left <
+            window.innerWidth
         );
       });
   };
 
   /*
-   * Find the nearest route out of a no-fly zone.
+   * Predict where the butterfly is heading.
+   * It begins turning before reaching the protected content.
    */
-  const getContentAvoidance = (
+  const getPredictiveAvoidance = (
+    page,
     centerX,
     centerY,
     pageWidth,
     pageHeight,
-    obstacleRects
+    protectedRects
   ) => {
+    const lookAheadSeconds =
+      0.85;
+
+    const projectedX =
+      centerX +
+      page.vx *
+        lookAheadSeconds;
+
+    const projectedY =
+      centerY +
+      page.vy *
+        lookAheadSeconds;
+
     let pushX = 0;
     let pushY = 0;
+    let strongestUrgency = 0;
+    let active = false;
 
     const horizontalPadding =
-      pageWidth * 0.48 + 18;
+      pageWidth * 0.52 + 18;
 
     const verticalPadding =
-      pageHeight * 0.48 + 16;
+      pageHeight * 0.52 + 16;
 
-    obstacleRects.forEach((rect) => {
-      const left =
-        rect.left - horizontalPadding;
+    protectedRects.forEach(
+      (rect) => {
+        const left =
+          rect.left -
+          horizontalPadding;
 
-      const right =
-        rect.right + horizontalPadding;
+        const right =
+          rect.right +
+          horizontalPadding;
 
-      const top =
-        rect.top - verticalPadding;
+        const top =
+          rect.top -
+          verticalPadding;
 
-      const bottom =
-        rect.bottom + verticalPadding;
+        const bottom =
+          rect.bottom +
+          verticalPadding;
 
-      const inside =
-        centerX > left &&
-        centerX < right &&
-        centerY > top &&
-        centerY < bottom;
+        const projectedInside =
+          projectedX > left &&
+          projectedX < right &&
+          projectedY > top &&
+          projectedY < bottom;
 
-      if (!inside) {
-        return;
-      }
+        const currentInside =
+          centerX > left &&
+          centerX < right &&
+          centerY > top &&
+          centerY < bottom;
 
-      const exits = [
-        {
-          x: left - centerX,
-          y: 0,
-          distance:
-            Math.abs(left - centerX)
-        },
-        {
-          x: right - centerX,
-          y: 0,
-          distance:
-            Math.abs(right - centerX)
-        },
-        {
-          x: 0,
-          y: top - centerY,
-          distance:
-            Math.abs(top - centerY)
-        },
-        {
-          x: 0,
-          y: bottom - centerY,
-          distance:
-            Math.abs(bottom - centerY)
+        if (
+          !projectedInside &&
+          !currentInside
+        ) {
+          return;
         }
-      ];
 
-      const nearestExit =
-        exits.reduce(
-          (nearest, current) => {
-            return (
-              current.distance <
-              nearest.distance
-            )
-              ? current
-              : nearest;
+        active = true;
+
+        const sampleX =
+          currentInside
+            ? centerX
+            : projectedX;
+
+        const sampleY =
+          currentInside
+            ? centerY
+            : projectedY;
+
+        const exits = [
+          {
+            x: -1,
+            y: 0,
+            distance:
+              Math.abs(
+                sampleX - left
+              )
+          },
+          {
+            x: 1,
+            y: 0,
+            distance:
+              Math.abs(
+                right - sampleX
+              )
+          },
+          {
+            x: 0,
+            y: -1,
+            distance:
+              Math.abs(
+                sampleY - top
+              )
+          },
+          {
+            x: 0,
+            y: 1,
+            distance:
+              Math.abs(
+                bottom - sampleY
+              )
           }
-        );
+        ];
 
-      pushX += nearestExit.x;
-      pushY += nearestExit.y;
-    });
+        const nearestExit =
+          exits.reduce(
+            (
+              nearest,
+              current
+            ) => {
+              return (
+                current.distance <
+                nearest.distance
+              )
+                ? current
+                : nearest;
+            }
+          );
+
+        const urgency =
+          currentInside
+            ? 1
+            : clamp(
+                1 -
+                  nearestExit.distance /
+                    Math.max(
+                      horizontalPadding,
+                      verticalPadding,
+                      1
+                    ),
+                0.28,
+                0.8
+              );
+
+        pushX +=
+          nearestExit.x *
+          urgency;
+
+        pushY +=
+          nearestExit.y *
+          urgency;
+
+        strongestUrgency =
+          Math.max(
+            strongestUrgency,
+            urgency
+          );
+      }
+    );
 
     return {
-      x: clamp(
-        pushX,
-        -42,
-        42
-      ),
-
-      y: clamp(
-        pushY,
-        -34,
-        34
-      )
+      x: pushX,
+      y: pushY,
+      urgency:
+        strongestUrgency,
+      active
     };
+  };
+
+  /*
+   * When content is ahead, guide the butterfly toward
+   * its preferred left or right flight corridor.
+   */
+  const getCorridorDirection = (
+    page,
+    centerX,
+    areaWidth,
+    pageWidth
+  ) => {
+    const leftTarget =
+      Math.max(
+        pageWidth * 0.65,
+        areaWidth * 0.055
+      );
+
+    const rightTarget =
+      Math.min(
+        areaWidth -
+          pageWidth * 0.65,
+
+        areaWidth * 0.945
+      );
+
+    let targetX = centerX;
+
+    if (
+      page.corridor === "left"
+    ) {
+      targetX = leftTarget;
+    } else if (
+      page.corridor === "right"
+    ) {
+      targetX = rightTarget;
+    } else {
+      targetX =
+        centerX <
+        areaWidth / 2
+          ? leftTarget
+          : rightTarget;
+    }
+
+    return normalizeVector(
+      targetX - centerX,
+      Math.sin(page.phase) *
+        0.22
+    );
   };
 
   const createSparkles = (
@@ -484,7 +745,9 @@
       index += 1
     ) {
       const sparkle =
-        document.createElement("span");
+        document.createElement(
+          "span"
+        );
 
       const angle =
         Math.random() *
@@ -494,17 +757,17 @@
       const distance =
         14 +
         Math.random() *
-        radius;
+          radius;
 
       const duration =
         520 +
         Math.random() *
-        500;
+          500;
 
       const size =
         5 +
         Math.random() *
-        7;
+          7;
 
       sparkle.className =
         "magic-sparkle";
@@ -636,8 +899,8 @@
       rect.top +
         rect.height / 2,
 
-      22,
-      105
+      36,
+      130
     );
 
     window.clearTimeout(
@@ -660,7 +923,6 @@
       "click",
       (event) => {
         event.stopPropagation();
-
         openMessage(page);
       }
     );
@@ -673,7 +935,6 @@
           event.key === " "
         ) {
           event.preventDefault();
-
           openMessage(page);
         }
       }
@@ -731,8 +992,8 @@
     const area =
       getLayerBounds();
 
-    const obstacleRects =
-      getObstacleRects();
+    const protectedRects =
+      getProtectedRects();
 
     const deltaTime =
       Math.min(
@@ -764,21 +1025,212 @@
           "is-open"
         );
 
-      const movement =
+      const previousX =
+        page.x;
+
+      const previousY =
+        page.y;
+
+      const movementMultiplier =
         reducedMotion
           ? 0.34
-          : 0.78;
+          : 0.72;
+
+      const centerX =
+        page.x +
+        width / 2;
+
+      const centerY =
+        area.top +
+        page.y +
+        height / 2;
+
+      const avoidance =
+        getPredictiveAvoidance(
+          page,
+          centerX,
+          centerY,
+          width,
+          height,
+          protectedRects
+        );
+
+      const inEmergency =
+        timeNow <
+        page.emergencyUntil;
+
+      if (
+        !isOpen &&
+        !inEmergency
+      ) {
+        /*
+         * Small organic turns stop the flight from
+         * looking like a straight screensaver path.
+         */
+        const wander =
+          Math.sin(
+            time * 0.47 +
+            page.phase
+          ) * 0.012;
+
+        const cosWander =
+          Math.cos(wander);
+
+        const sinWander =
+          Math.sin(wander);
+
+        const wanderedVX =
+          page.vx *
+            cosWander -
+          page.vy *
+            sinWander;
+
+        const wanderedVY =
+          page.vx *
+            sinWander +
+          page.vy *
+            cosWander;
+
+        page.vx =
+          wanderedVX;
+
+        page.vy =
+          wanderedVY;
+
+        if (
+          avoidance.active
+        ) {
+          const corridorDirection =
+            getCorridorDirection(
+              page,
+              centerX,
+              area.width,
+              width
+            );
+
+          const combinedDirection =
+            normalizeVector(
+              avoidance.x +
+                corridorDirection.x *
+                  0.42,
+
+              avoidance.y +
+                corridorDirection.y *
+                  0.22
+            );
+
+          const desiredVX =
+            combinedDirection.x *
+            page.baseSpeed;
+
+          const desiredVY =
+            combinedDirection.y *
+            page.baseSpeed;
+
+          const steeringStrength =
+            0.025 +
+            avoidance.urgency *
+              0.085;
+
+          page.vx +=
+            (
+              desiredVX -
+              page.vx
+            ) *
+            steeringStrength;
+
+          page.vy +=
+            (
+              desiredVY -
+              page.vy
+            ) *
+            steeringStrength;
+
+          page.blockedTime +=
+            deltaTime;
+        } else {
+          page.blockedTime =
+            Math.max(
+              0,
+              page.blockedTime -
+                deltaTime *
+                  2.4
+            );
+        }
+
+        /*
+         * Emergency escape.
+         * A butterfly that remains near the same protected
+         * edge for too long is sent toward a side margin.
+         */
+        if (
+          page.blockedTime >
+          1.05
+        ) {
+          let escapeDirectionX;
+
+          if (
+            page.corridor ===
+            "left"
+          ) {
+            escapeDirectionX = -1;
+          } else if (
+            page.corridor ===
+            "right"
+          ) {
+            escapeDirectionX = 1;
+          } else {
+            escapeDirectionX =
+              centerX <
+              area.width / 2
+                ? -1
+                : 1;
+          }
+
+          const escapeVector =
+            normalizeVector(
+              escapeDirectionX,
+              Math.sin(
+                time +
+                page.phase
+              ) * 0.34
+            );
+
+          page.vx =
+            escapeVector.x *
+            page.baseSpeed *
+            1.28;
+
+          page.vy =
+            escapeVector.y *
+            page.baseSpeed *
+            1.28;
+
+          page.x +=
+            escapeVector.x *
+            10;
+
+          page.y +=
+            escapeVector.y *
+            8;
+
+          page.emergencyUntil =
+            timeNow + 900;
+
+          page.blockedTime = 0;
+        }
+      }
 
       if (!isOpen) {
         page.x +=
           page.vx *
           deltaTime *
-          movement;
+          movementMultiplier;
 
         page.y +=
           page.vy *
           deltaTime *
-          movement;
+          movementMultiplier;
       }
 
       const maxX =
@@ -825,82 +1277,14 @@
           -Math.abs(page.vy);
       }
 
-      const centerX =
+      const updatedCenterX =
         page.x +
         width / 2;
 
-      const centerY =
+      const updatedCenterY =
         area.top +
         page.y +
         height / 2;
-
-      /*
-       * Content avoidance.
-       */
-      const avoidance =
-        getContentAvoidance(
-          centerX,
-          centerY,
-          width,
-          height,
-          obstacleRects
-        );
-
-      const targetObstacleX =
-        isOpen
-          ? 0
-          : avoidance.x;
-
-      const targetObstacleY =
-        isOpen
-          ? 0
-          : avoidance.y;
-
-      page.obstacleX +=
-        (
-          targetObstacleX -
-          page.obstacleX
-        ) * 0.08;
-
-      page.obstacleY +=
-        (
-          targetObstacleY -
-          page.obstacleY
-        ) * 0.08;
-
-      if (!isOpen) {
-        page.x +=
-          page.obstacleX *
-          0.055;
-
-        page.y +=
-          page.obstacleY *
-          0.055;
-
-        if (
-          Math.abs(
-            avoidance.x
-          ) > 1.5
-        ) {
-          page.vx =
-            Math.abs(page.vx) *
-            Math.sign(
-              avoidance.x
-            );
-        }
-
-        if (
-          Math.abs(
-            avoidance.y
-          ) > 1.5
-        ) {
-          page.vy =
-            Math.abs(page.vy) *
-            Math.sign(
-              avoidance.y
-            );
-        }
-      }
 
       /*
        * Gentle cursor avoidance.
@@ -915,11 +1299,11 @@
         !isOpen
       ) {
         const deltaX =
-          centerX -
+          updatedCenterX -
           pointer.x;
 
         const deltaY =
-          centerY -
+          updatedCenterY -
           pointer.y;
 
         const distance =
@@ -937,7 +1321,7 @@
           const rawForce =
             1 -
             distance /
-            radius;
+              radius;
 
           const force =
             rawForce *
@@ -965,14 +1349,14 @@
           if (
             timeNow -
               page.lastSparkle >
-              260 &&
-            force > 0.42
+              170 &&
+            force > 0.34
           ) {
             createSparkles(
-              centerX,
-              centerY,
-              1,
-              22
+              updatedCenterX,
+              updatedCenterY,
+              3,
+              30
             );
 
             page.lastSparkle =
@@ -1007,24 +1391,71 @@
           page.phase
         ) * 4;
 
-      const angle =
-        Math.atan2(
-          page.vy,
-          page.vx
-        ) *
-        (
-          180 /
-          Math.PI
+      /*
+       * Natural orientation.
+       *
+       * The butterfly design points upward at 0 degrees.
+       * Therefore:
+       * 0 degrees = head up
+       * 90 degrees = head right
+       * 180 degrees = head down
+       * -90 degrees = head left
+       */
+      const motionX =
+        page.x -
+        previousX;
+
+      const motionY =
+        page.y -
+        previousY;
+
+      let targetHeading =
+        page.heading;
+
+      if (
+        Math.hypot(
+          motionX,
+          motionY
+        ) > 0.04
+      ) {
+        targetHeading =
+          Math.atan2(
+            motionY,
+            motionX
+          ) *
+            (
+              180 /
+              Math.PI
+            ) +
+          90;
+      }
+
+      /*
+       * When clicked, gradually rotate upright
+       * so the parchment message remains readable.
+       */
+      if (isOpen) {
+        targetHeading = 0;
+      }
+
+      page.heading =
+        approachAngle(
+          page.heading,
+          targetHeading,
+          isOpen
+            ? 0.18
+            : 0.085
         );
 
-      const rotation =
-        Math.max(
-          -13,
-          Math.min(
-            13,
-            angle * 0.15
-          )
-        );
+      const naturalBank =
+        Math.sin(
+          time * 1.8 +
+          page.phase
+        ) * 3.5;
+
+      const visualHeading =
+        page.heading +
+        naturalBank;
 
       element.classList.toggle(
         "is-alert",
@@ -1063,40 +1494,58 @@
 
       element.style.setProperty(
         "--flight-rotation",
-        `${rotation}deg`
-      );
-
-      element.style.setProperty(
-        "--page-direction",
-        page.vx >= 0
-          ? "1"
-          : "-1"
+        `${visualHeading}deg`
       );
 
       /*
-       * Occasional passive sparkle.
+       * The complete butterfly rotates toward its direction.
+       * Horizontal mirroring is no longer necessary.
+       */
+      element.style.setProperty(
+        "--page-direction",
+        "1"
+      );
+
+      /*
+       * Passive magical sparkle trail.
+       * Its origin follows the direction of the butterfly.
        */
       if (
         !isOpen &&
         !reducedMotion &&
         timeNow -
           page.lastSparkle >
-          1550 +
+          760 +
           page.phase *
-          100
+            70
       ) {
+        const headingRadians =
+          (
+            visualHeading -
+            90
+          ) *
+          (
+            Math.PI /
+            180
+          );
+
         createSparkles(
-          centerX -
-            Math.sign(
-              page.vx || 1
+          updatedCenterX -
+            Math.cos(
+              headingRadians
             ) *
-            width *
-            0.25,
+              width *
+              0.25,
 
-          centerY,
+          updatedCenterY -
+            Math.sin(
+              headingRadians
+            ) *
+              width *
+              0.25,
 
-          1,
-          14
+          2,
+          24
         );
 
         page.lastSparkle =
