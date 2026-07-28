@@ -345,10 +345,10 @@
     }
 
     /* =========================================================
-       Interactive flying publication pages
+       Interactive origami paper birds
        ========================================================= */
 
-    body.has-paper-atmosphere {
+    body.has-origami-birds {
       overflow-x: hidden;
     }
 
@@ -361,7 +361,7 @@
       z-index: 1;
       overflow: hidden;
       pointer-events: none;
-      perspective: 1200px;
+      perspective: 1400px;
       contain: layout paint;
     }
 
@@ -372,191 +372,230 @@
       z-index: 2;
     }
 
-    .flying-paper {
+    .origami-bird {
       position: absolute;
-      top: var(--paper-top);
-      left: var(--paper-left);
-      width: var(--paper-width);
-      aspect-ratio: 0.72;
+      top: var(--bird-top);
+      left: var(--bird-left);
+      width: var(--bird-size);
+      aspect-ratio: 1.7 / 1;
       transform:
         translate3d(
           var(--interactive-x, 0px),
           calc(var(--interactive-y, 0px) + var(--scroll-shift, 0px)),
           0
         )
-        rotateX(var(--pointer-tilt-x, 0deg))
-        rotateY(var(--pointer-tilt-y, 0deg))
-        scale(var(--paper-scale, 1));
+        rotate(calc(var(--bird-rotation, 0deg) + var(--pointer-rotate, 0deg)))
+        scale(var(--bird-scale, 1));
       transform-style: preserve-3d;
       will-change: transform;
+      pointer-events: auto;
+      cursor: pointer;
+      outline: none;
     }
 
-    .flying-paper-card {
+    .origami-bird-core {
       position: relative;
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      border: 1px solid rgba(138, 31, 45, 0.18);
-      border-radius: 5px 9px 9px 5px;
-      background:
-        linear-gradient(90deg, rgba(138, 31, 45, 0.08) 0 4px, transparent 4px),
-        linear-gradient(160deg, rgba(255, 255, 255, 0.96), rgba(249, 246, 241, 0.88));
-      box-shadow:
-        0 24px 50px rgba(23, 32, 42, 0.13),
-        0 5px 12px rgba(23, 32, 42, 0.07);
-      opacity: var(--paper-opacity);
-      filter: blur(var(--paper-blur, 0px));
-      transform-origin: center;
       transform-style: preserve-3d;
-      animation: flyingPaperFloat var(--float-duration) ease-in-out infinite alternate;
-      transition:
-        opacity 0.35s ease,
-        filter 0.35s ease,
-        box-shadow 0.35s ease;
+      animation: birdGlide var(--bird-duration) ease-in-out infinite alternate;
+      filter: drop-shadow(0 14px 24px rgba(23, 32, 42, 0.14));
+      transition: filter 0.25s ease, opacity 0.25s ease;
+      opacity: var(--bird-opacity, 0.9);
     }
 
-    .flying-paper-card::before {
+    .origami-bird.is-alert .origami-bird-core,
+    .origami-bird:hover .origami-bird-core,
+    .origami-bird:focus-visible .origami-bird-core {
+      filter: drop-shadow(0 18px 28px rgba(138, 31, 45, 0.2));
+    }
+
+    .origami-bird-part {
       position: absolute;
-      top: 0;
-      right: 0;
-      width: 28%;
-      aspect-ratio: 1;
-      border-bottom: 1px solid rgba(138, 31, 45, 0.14);
-      border-left: 1px solid rgba(138, 31, 45, 0.12);
-      background: linear-gradient(
-        225deg,
-        rgba(201, 145, 39, 0.18),
-        rgba(255, 255, 255, 0.78) 58%,
-        transparent 59%
-      );
-      content: "";
-      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(245, 239, 233, 0.95));
+      border: 1px solid rgba(138, 31, 45, 0.18);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
     }
 
-    .flying-paper-card::after {
-      position: absolute;
-      right: 9%;
-      bottom: 10%;
-      width: 24%;
-      height: 2px;
-      background: rgba(201, 145, 39, 0.5);
-      content: "";
-      transform: rotate(-7deg);
-      transform-origin: right center;
+    .origami-bird-wing {
+      top: 23%;
+      width: 42%;
+      height: 47%;
+      transform-origin: 90% 42%;
+      animation: wingFlap var(--flap-duration) ease-in-out infinite;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 244, 239, 0.96)),
+        linear-gradient(180deg, rgba(138, 31, 45, 0.08), transparent);
     }
 
-    .paper-kicker {
-      display: block;
-      margin: 13% 12% 0;
-      color: rgba(138, 31, 45, 0.72);
-      font-size: clamp(0.42rem, 0.7vw, 0.62rem);
-      font-weight: 900;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+    .origami-bird-wing.left {
+      left: 10%;
+      clip-path: polygon(0 52%, 100% 0, 78% 100%);
+      transform-origin: 100% 46%;
+      transform: rotate(-17deg);
     }
 
-    .paper-title-line {
-      display: block;
-      width: 58%;
-      height: 4px;
-      margin: 8% 12% 0;
-      border-radius: 999px;
-      background: rgba(23, 32, 42, 0.38);
-    }
-
-    .paper-title-line.short {
-      width: 40%;
-      margin-top: 4%;
-      background: rgba(23, 32, 42, 0.22);
-    }
-
-    .paper-lines {
-      width: 76%;
-      height: 35%;
-      margin: 10% 12% 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(23, 32, 42, 0.15) 0 1px,
-        transparent 1px 10px
-      );
-      -webkit-mask-image: linear-gradient(
-        to right,
-        #000 0 72%,
-        transparent 72% 78%,
-        #000 78% 100%
-      );
-      mask-image: linear-gradient(
-        to right,
-        #000 0 72%,
-        transparent 72% 78%,
-        #000 78% 100%
-      );
-    }
-
-    .paper-figure {
-      display: flex;
-      width: 76%;
-      height: 17%;
-      align-items: flex-end;
-      gap: 7%;
-      margin: 8% 12% 0;
-      padding: 0 7% 4%;
-      border-right: 1px solid rgba(23, 32, 42, 0.14);
-      border-bottom: 1px solid rgba(23, 32, 42, 0.18);
-      border-left: 1px solid rgba(23, 32, 42, 0.14);
-    }
-
-    .paper-figure i {
-      display: block;
-      width: 14%;
-      height: var(--bar-height);
-      border-radius: 2px 2px 0 0;
-      background: rgba(138, 31, 45, 0.45);
-      transform: scaleY(0.35);
-      transform-origin: bottom;
-      transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .paper-keyword {
-      position: absolute;
+    .origami-bird-wing.right {
       right: 11%;
-      bottom: 8%;
-      max-width: 72%;
-      color: rgba(138, 31, 45, 0);
-      font-size: clamp(0.48rem, 0.75vw, 0.68rem);
+      clip-path: polygon(0 0, 100% 48%, 20% 100%);
+      transform-origin: 0% 46%;
+      transform: rotate(17deg);
+      animation-name: wingFlapRight;
+    }
+
+    .origami-bird-body {
+      top: 30%;
+      left: 37%;
+      width: 25%;
+      height: 36%;
+      border-color: rgba(138, 31, 45, 0.22);
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(244, 236, 229, 0.95));
+      clip-path: polygon(10% 24%, 62% 0, 100% 50%, 43% 100%, 0 60%);
+      z-index: 2;
+    }
+
+    .origami-bird-head {
+      top: 22%;
+      left: 58%;
+      width: 16%;
+      height: 20%;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(248, 242, 237, 0.96));
+      clip-path: polygon(0 100%, 58% 0, 100% 72%);
+      z-index: 3;
+    }
+
+    .origami-bird-beak {
+      top: 25%;
+      left: 70%;
+      width: 8%;
+      height: 10%;
+      background: linear-gradient(135deg, rgba(201, 145, 39, 0.95), rgba(170, 113, 20, 0.9));
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      border: none;
+      z-index: 4;
+    }
+
+    .origami-bird-tail {
+      top: 42%;
+      left: 28%;
+      width: 18%;
+      height: 20%;
+      background: linear-gradient(135deg, rgba(250, 246, 241, 0.98), rgba(238, 230, 220, 0.95));
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      z-index: 1;
+    }
+
+    .origami-bird-fold {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .origami-bird-fold::before,
+    .origami-bird-fold::after {
+      position: absolute;
+      background: rgba(138, 31, 45, 0.12);
+      content: "";
+      transform-origin: center;
+    }
+
+    .origami-bird-fold::before {
+      top: 40%;
+      left: 32%;
+      width: 34%;
+      height: 1px;
+      transform: rotate(-18deg);
+    }
+
+    .origami-bird-fold::after {
+      top: 38%;
+      left: 40%;
+      width: 22%;
+      height: 1px;
+      transform: rotate(28deg);
+    }
+
+    .origami-bird-glow {
+      position: absolute;
+      inset: 26% 20% 18%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201, 145, 39, 0.16), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .origami-bird.is-alert .origami-bird-glow,
+    .origami-bird:hover .origami-bird-glow,
+    .origami-bird:focus-visible .origami-bird-glow {
+      opacity: 1;
+    }
+
+    .origami-note {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      width: min(220px, 48vw);
+      padding: 0.85rem 0.95rem;
+      border: 1px solid rgba(138, 31, 45, 0.18);
+      border-left: 4px solid var(--primary);
+      border-radius: 16px;
+      background:
+        linear-gradient(155deg, rgba(255, 255, 255, 0.99), rgba(249, 245, 240, 0.98));
+      box-shadow: 0 18px 38px rgba(23, 32, 42, 0.16);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -92%) scale(0.9) rotate(-2deg);
+      transform-origin: bottom center;
+      transition:
+        opacity 0.28s ease,
+        transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 8;
+    }
+
+    .origami-note::before {
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      border-right: 1px solid rgba(138, 31, 45, 0.16);
+      border-bottom: 1px solid rgba(138, 31, 45, 0.16);
+      background: rgba(255, 255, 255, 0.98);
+      content: "";
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .origami-note-kicker {
+      display: inline-flex;
+      margin-bottom: 0.35rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(138, 31, 45, 0.08);
+      color: var(--primary);
+      font-size: 0.68rem;
       font-weight: 900;
       letter-spacing: 0.1em;
-      text-align: right;
       text-transform: uppercase;
-      transform: translateY(7px);
-      transition:
-        color 0.35s ease,
-        transform 0.35s ease;
     }
 
-    .flying-paper.is-revealed .flying-paper-card {
-      opacity: min(0.82, calc(var(--paper-opacity) + 0.28));
-      filter: blur(0);
-      box-shadow:
-        0 30px 70px rgba(23, 32, 42, 0.19),
-        0 0 0 1px rgba(201, 145, 39, 0.2);
+    .origami-note p {
+      margin: 0;
+      color: var(--text);
+      font-size: 0.88rem;
+      line-height: 1.55;
     }
 
-    .flying-paper.is-revealed .paper-figure i {
-      transform: scaleY(1);
+    .origami-bird.is-open .origami-note {
+      opacity: 1;
+      transform: translate(-50%, -112%) scale(1) rotate(0deg);
     }
 
-    .flying-paper.is-revealed .paper-keyword {
-      color: rgba(138, 31, 45, 0.82);
-      transform: translateY(0);
-    }
-
-    .flying-paper.is-near .flying-paper-card {
-      opacity: min(0.76, calc(var(--paper-opacity) + 0.18));
-      filter: blur(0);
-    }
-
-    body.has-paper-atmosphere .publication-section {
+    body.has-origami-birds .publication-section {
       opacity: 0;
       transform: translateY(24px) rotateX(2deg);
       transform-origin: top center;
@@ -565,26 +604,46 @@
         transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    body.has-paper-atmosphere .publication-section.is-visible {
+    body.has-origami-birds .publication-section.is-visible {
       opacity: 1;
       transform: translateY(0) rotateX(0);
     }
 
-    @keyframes flyingPaperFloat {
+    @keyframes birdGlide {
       0% {
         transform:
-          translate3d(0, -9px, 0)
-          rotate(var(--rotation-start))
-          rotateX(4deg)
-          rotateY(-5deg);
+          translate3d(0, -8px, 0)
+          rotate(-1.4deg)
+          rotateX(3deg)
+          rotateY(-4deg);
       }
 
       100% {
         transform:
-          translate3d(var(--drift-x), var(--drift-y), 0)
-          rotate(var(--rotation-end))
-          rotateX(-4deg)
-          rotateY(5deg);
+          translate3d(var(--glide-x), var(--glide-y), 0)
+          rotate(1.4deg)
+          rotateX(-2deg)
+          rotateY(4deg);
+      }
+    }
+
+    @keyframes wingFlap {
+      0%, 100% {
+        transform: rotate(-18deg) skewY(0deg);
+      }
+
+      50% {
+        transform: rotate(-42deg) skewY(7deg);
+      }
+    }
+
+    @keyframes wingFlapRight {
+      0%, 100% {
+        transform: rotate(18deg) skewY(0deg);
+      }
+
+      50% {
+        transform: rotate(42deg) skewY(-7deg);
       }
     }
 
@@ -593,42 +652,38 @@
         top: 68px;
       }
 
-      .flying-paper:nth-child(n + 8) {
+      .origami-bird:nth-child(n + 7) {
         display: none;
       }
     }
 
     @media (max-width: 720px) {
-      .flying-paper {
-        --paper-scale: 0.74;
+      .origami-bird {
+        --bird-scale: 0.84;
       }
 
-      .flying-paper:nth-child(n + 5) {
+      .origami-bird:nth-child(n + 5) {
         display: none;
       }
 
-      .flying-paper-card {
-        opacity: min(0.24, var(--paper-opacity));
-        filter: blur(0.5px);
-      }
-
-      .paper-keyword {
-        display: none;
+      .origami-note {
+        width: min(200px, 72vw);
       }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .flying-paper-card {
+      .origami-bird-core,
+      .origami-bird-wing {
         animation: none;
       }
 
-      body.has-paper-atmosphere .publication-section {
+      body.has-origami-birds .publication-section {
         opacity: 1;
         transform: none;
         transition: none;
       }
 
-      .flying-paper:nth-child(n + 5) {
+      .origami-bird:nth-child(n + 5) {
         display: none;
       }
     }
@@ -641,8 +696,9 @@
   <div
     class="paper-atmosphere"
     data-paper-atmosphere
-    aria-hidden="true"
+    aria-label="Interactive floating origami paper birds"
   ></div>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -868,7 +924,6 @@
     </div>
   </footer>
 
-
   <script>
     (() => {
       const layer = document.querySelector("[data-paper-atmosphere]");
@@ -883,224 +938,69 @@
 
       const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
-      document.body.classList.add("has-paper-atmosphere");
+      document.body.classList.add("has-origami-birds");
 
-      const paperBlueprints = [
-        {
-          left: -3,
-          top: 8,
-          width: 122,
-          opacity: 0.46,
-          blur: 0,
-          depth: 0.95,
-          duration: 8.8,
-          rotationStart: -16,
-          rotationEnd: -8,
-          driftX: 32,
-          driftY: 22
-        },
-        {
-          left: 90,
-          top: 12,
-          width: 108,
-          opacity: 0.43,
-          blur: 0.2,
-          depth: 0.88,
-          duration: 10.5,
-          rotationStart: 13,
-          rotationEnd: 21,
-          driftX: -26,
-          driftY: 28
-        },
-        {
-          left: 3,
-          top: 42,
-          width: 90,
-          opacity: 0.31,
-          blur: 0.5,
-          depth: 0.64,
-          duration: 12.2,
-          rotationStart: 9,
-          rotationEnd: 3,
-          driftX: 23,
-          driftY: -25
-        },
-        {
-          left: 92,
-          top: 48,
-          width: 132,
-          opacity: 0.42,
-          blur: 0,
-          depth: 1,
-          duration: 9.6,
-          rotationStart: -9,
-          rotationEnd: -18,
-          driftX: -36,
-          driftY: -16
-        },
-        {
-          left: 7,
-          top: 78,
-          width: 112,
-          opacity: 0.38,
-          blur: 0.25,
-          depth: 0.8,
-          duration: 11.4,
-          rotationStart: -12,
-          rotationEnd: -4,
-          driftX: 34,
-          driftY: -23
-        },
-        {
-          left: 86,
-          top: 81,
-          width: 94,
-          opacity: 0.34,
-          blur: 0.45,
-          depth: 0.68,
-          duration: 13,
-          rotationStart: 18,
-          rotationEnd: 10,
-          driftX: -20,
-          driftY: 20
-        },
-        {
-          left: 43,
-          top: 5,
-          width: 78,
-          opacity: 0.13,
-          blur: 1.2,
-          depth: 0.35,
-          duration: 15.5,
-          rotationStart: -7,
-          rotationEnd: 1,
-          driftX: 18,
-          driftY: 15
-        },
-        {
-          left: 58,
-          top: 33,
-          width: 82,
-          opacity: 0.11,
-          blur: 1.4,
-          depth: 0.3,
-          duration: 14.8,
-          rotationStart: 7,
-          rotationEnd: 14,
-          driftX: -16,
-          driftY: 19
-        },
-        {
-          left: 33,
-          top: 60,
-          width: 72,
-          opacity: 0.1,
-          blur: 1.6,
-          depth: 0.26,
-          duration: 16.2,
-          rotationStart: 12,
-          rotationEnd: 5,
-          driftX: 13,
-          driftY: -16
-        },
-        {
-          left: 68,
-          top: 69,
-          width: 86,
-          opacity: 0.12,
-          blur: 1.3,
-          depth: 0.32,
-          duration: 14.2,
-          rotationStart: -13,
-          rotationEnd: -5,
-          driftX: -18,
-          driftY: 14
-        },
-        {
-          left: 20,
-          top: 22,
-          width: 68,
-          opacity: 0.09,
-          blur: 1.8,
-          depth: 0.22,
-          duration: 17,
-          rotationStart: 4,
-          rotationEnd: 11,
-          driftX: 14,
-          driftY: 12
-        }
+      const birdBlueprints = [
+        { left: 2, top: 10, size: 106, rotation: -10, depth: 0.95, duration: 7.8, flap: 1.5, glideX: 24, glideY: 14, opacity: 0.96 },
+        { left: 88, top: 14, size: 96, rotation: 12, depth: 0.9, duration: 8.6, flap: 1.35, glideX: -22, glideY: 18, opacity: 0.92 },
+        { left: 7, top: 38, size: 88, rotation: 8, depth: 0.74, duration: 9.8, flap: 1.8, glideX: 20, glideY: -18, opacity: 0.82 },
+        { left: 91, top: 45, size: 116, rotation: -14, depth: 1, duration: 7.4, flap: 1.4, glideX: -28, glideY: -12, opacity: 0.95 },
+        { left: 8, top: 73, size: 102, rotation: -8, depth: 0.84, duration: 9.2, flap: 1.6, glideX: 26, glideY: -18, opacity: 0.88 },
+        { left: 84, top: 78, size: 90, rotation: 15, depth: 0.76, duration: 10.1, flap: 1.85, glideX: -20, glideY: 14, opacity: 0.8 },
+        { left: 44, top: 8, size: 74, rotation: 5, depth: 0.46, duration: 12, flap: 2.1, glideX: 16, glideY: 11, opacity: 0.48 },
+        { left: 59, top: 61, size: 72, rotation: -10, depth: 0.42, duration: 12.8, flap: 2.25, glideX: -14, glideY: 9, opacity: 0.44 }
       ];
 
-      const paperLabels = [
-        "Article",
-        "Methods",
-        "Figure 02",
-        "Results",
-        "Citation",
-        "Dataset",
-        "Discussion",
-        "Imaging",
-        "Analysis",
-        "Supplement",
-        "Abstract"
+      const funnyMessages = [
+        "Reviewer 2 stole my left wing again.",
+        "Methods section escaped peer review.",
+        "DOI loading... emotionally.",
+        "PTH says: one pulse only, darling.",
+        "Supplementary Figure 8 is hiding in the vents.",
+        "Statistically significant? Spiritually, yes.",
+        "This bird was accepted after minor revisions.",
+        "Impact factor not found. Vibes detected.",
+        "Bone remodeling in progress. Please flap softly.",
+        "Ctrl group says it did nothing wrong."
       ];
 
-      const paperKeywords = [
-        "PTH",
-        "SHG imaging",
-        "Bone remodeling",
-        "RANKL",
-        "SOST",
-        "Biomaterials",
-        "Matrix",
-        "Longitudinal imaging",
-        "Quantitative analysis",
-        "DOI",
-        "Functional bone model"
-      ];
+      const birds = birdBlueprints.map((birdData, index) => {
+        const bird = document.createElement("button");
+        bird.type = "button";
+        bird.className = "origami-bird";
+        bird.dataset.depth = String(birdData.depth);
+        bird.dataset.messageIndex = String(index % funnyMessages.length);
+        bird.setAttribute("aria-label", `Origami paper bird ${index + 1}`);
 
-      const papers = paperBlueprints.map((blueprint, index) => {
-        const paper = document.createElement("div");
-        const keyword = paperKeywords[index % paperKeywords.length];
+        bird.style.setProperty("--bird-left", `${birdData.left}%`);
+        bird.style.setProperty("--bird-top", `${birdData.top}%`);
+        bird.style.setProperty("--bird-size", `${birdData.size}px`);
+        bird.style.setProperty("--bird-rotation", `${birdData.rotation}deg`);
+        bird.style.setProperty("--bird-duration", `${birdData.duration}s`);
+        bird.style.setProperty("--flap-duration", `${birdData.flap}s`);
+        bird.style.setProperty("--glide-x", `${birdData.glideX}px`);
+        bird.style.setProperty("--glide-y", `${birdData.glideY}px`);
+        bird.style.setProperty("--bird-opacity", birdData.opacity);
 
-        paper.className = "flying-paper";
-        paper.dataset.depth = String(blueprint.depth);
-        paper.dataset.keyword = keyword;
-        paper.style.setProperty("--paper-left", `${blueprint.left}%`);
-        paper.style.setProperty("--paper-top", `${blueprint.top}%`);
-        paper.style.setProperty("--paper-width", `${blueprint.width}px`);
-        paper.style.setProperty("--paper-opacity", blueprint.opacity);
-        paper.style.setProperty("--paper-blur", `${blueprint.blur}px`);
-        paper.style.setProperty("--float-duration", `${blueprint.duration}s`);
-        paper.style.setProperty(
-          "--rotation-start",
-          `${blueprint.rotationStart}deg`
-        );
-        paper.style.setProperty(
-          "--rotation-end",
-          `${blueprint.rotationEnd}deg`
-        );
-        paper.style.setProperty("--drift-x", `${blueprint.driftX}px`);
-        paper.style.setProperty("--drift-y", `${blueprint.driftY}px`);
-
-        paper.innerHTML = `
-          <div class="flying-paper-card">
-            <span class="paper-kicker">${paperLabels[index]}</span>
-            <span class="paper-title-line"></span>
-            <span class="paper-title-line short"></span>
-            <span class="paper-lines"></span>
-            <span class="paper-figure">
-              <i style="--bar-height: 52%"></i>
-              <i style="--bar-height: 82%"></i>
-              <i style="--bar-height: 63%"></i>
-              <i style="--bar-height: 94%"></i>
-            </span>
-            <span class="paper-keyword">${keyword}</span>
-          </div>
+        bird.innerHTML = `
+          <span class="origami-bird-glow"></span>
+          <span class="origami-bird-core" aria-hidden="true">
+            <span class="origami-bird-part origami-bird-wing left"></span>
+            <span class="origami-bird-part origami-bird-wing right"></span>
+            <span class="origami-bird-part origami-bird-tail"></span>
+            <span class="origami-bird-part origami-bird-body"></span>
+            <span class="origami-bird-part origami-bird-head"></span>
+            <span class="origami-bird-part origami-bird-beak"></span>
+            <span class="origami-bird-fold"></span>
+          </span>
+          <span class="origami-note" aria-hidden="true">
+            <span class="origami-note-kicker">Paper bird memo</span>
+            <p>${funnyMessages[index % funnyMessages.length]}</p>
+          </span>
         `;
 
-        layer.appendChild(paper);
-        return paper;
+        layer.appendChild(bird);
+        return bird;
       });
 
       const pointer = {
@@ -1111,11 +1011,38 @@
 
       let scrollPosition = window.scrollY;
       let animationFrame = 0;
+      let openTimeout = 0;
+      let currentOpenBird = null;
 
       const requestRender = () => {
         if (!animationFrame) {
           animationFrame = window.requestAnimationFrame(render);
         }
+      };
+
+      const closeAllBirdNotes = () => {
+        birds.forEach((bird) => bird.classList.remove("is-open"));
+        currentOpenBird = null;
+      };
+
+      const openBirdNote = (bird) => {
+        const note = bird.querySelector(".origami-note p");
+        const messageIndex = Math.floor(Math.random() * funnyMessages.length);
+
+        if (note) {
+          note.textContent = funnyMessages[messageIndex];
+        }
+
+        closeAllBirdNotes();
+        bird.classList.add("is-open");
+        currentOpenBird = bird;
+        window.clearTimeout(openTimeout);
+        openTimeout = window.setTimeout(() => {
+          bird.classList.remove("is-open");
+          if (currentOpenBird === bird) {
+            currentOpenBird = null;
+          }
+        }, 2600);
       };
 
       const render = () => {
@@ -1125,63 +1052,58 @@
         const viewportHeight = Math.max(window.innerHeight, 1);
         const normalizedX = pointer.x / viewportWidth - 0.5;
         const normalizedY = pointer.y / viewportHeight - 0.5;
-        const repulsionRadius = 185;
+        const reactionRadius = 190;
 
-        papers.forEach((paper, index) => {
-          const depth = Number(paper.dataset.depth);
-          let repulsionX = 0;
-          let repulsionY = 0;
-          let tiltX = 0;
-          let tiltY = 0;
+        birds.forEach((bird, index) => {
+          const depth = Number(bird.dataset.depth);
+          let escapeX = 0;
+          let escapeY = 0;
+          let spin = 0;
+          let isAlert = false;
 
           if (pointer.active && hasFinePointer && !prefersReducedMotion) {
-            const rect = paper.getBoundingClientRect();
+            const rect = bird.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             const deltaX = centerX - pointer.x;
             const deltaY = centerY - pointer.y;
             const distance = Math.hypot(deltaX, deltaY) || 1;
 
-            if (distance < repulsionRadius) {
-              const force = 1 - distance / repulsionRadius;
-              repulsionX = (deltaX / distance) * force * 50 * depth;
-              repulsionY = (deltaY / distance) * force * 42 * depth;
-              paper.classList.add("is-near");
-            } else {
-              paper.classList.remove("is-near");
+            if (distance < reactionRadius) {
+              const force = 1 - distance / reactionRadius;
+              escapeX = (deltaX / distance) * force * 88 * depth;
+              escapeY = (deltaY / distance) * force * 68 * depth;
+              spin = (deltaX > 0 ? 1 : -1) * force * 8;
+              isAlert = true;
             }
-
-            tiltX = normalizedY * -8 * depth;
-            tiltY = normalizedX * 10 * depth;
-          } else {
-            paper.classList.remove("is-near");
           }
 
-          const pointerParallaxX = prefersReducedMotion
-            ? 0
-            : normalizedX * 26 * depth;
+          bird.classList.toggle("is-alert", isAlert);
 
-          const pointerParallaxY = prefersReducedMotion
+          const pointerDriftX = prefersReducedMotion
             ? 0
-            : normalizedY * 18 * depth;
+            : normalizedX * 24 * depth;
+
+          const pointerDriftY = prefersReducedMotion
+            ? 0
+            : normalizedY * 16 * depth;
 
           const scrollWave = prefersReducedMotion
             ? 0
-            : Math.sin(scrollPosition / 260 + index * 0.72) * 18 * depth;
+            : Math.sin(scrollPosition / 260 + index * 0.8) * 12 * depth;
 
-          paper.style.setProperty(
+          bird.style.setProperty(
             "--interactive-x",
-            `${pointerParallaxX + repulsionX}px`
+            `${pointerDriftX + escapeX}px`
           );
 
-          paper.style.setProperty(
+          bird.style.setProperty(
             "--interactive-y",
-            `${pointerParallaxY + repulsionY}px`
+            `${pointerDriftY + escapeY}px`
           );
 
-          paper.style.setProperty("--scroll-shift", `${scrollWave}px`);
-          paper.style.setProperty("--pointer-tilt-x", `${tiltX}deg`);
-          paper.style.setProperty("--pointer-tilt-y", `${tiltY}deg`);
+          bird.style.setProperty("--scroll-shift", `${scrollWave}px`);
+          bird.style.setProperty("--pointer-rotate", `${spin}deg`);
         });
       };
 
@@ -1205,53 +1127,27 @@
           },
           { passive: true }
         );
+      }
 
-        window.addEventListener("click", (event) => {
-          if (
-            event.target.closest(
-              "a, button, input, textarea, select, label, summary"
-            )
-          ) {
-            return;
-          }
+      birds.forEach((bird) => {
+        bird.addEventListener("click", (event) => {
+          event.stopPropagation();
+          openBirdNote(bird);
+        });
 
-          let selectedPaper = null;
-          let closestDistance = Number.POSITIVE_INFINITY;
-
-          papers.forEach((paper) => {
-            if (getComputedStyle(paper).display === "none") {
-              return;
-            }
-
-            const rect = paper.getBoundingClientRect();
-            const horizontalDistance = Math.max(
-              rect.left - event.clientX,
-              0,
-              event.clientX - rect.right
-            );
-
-            const verticalDistance = Math.max(
-              rect.top - event.clientY,
-              0,
-              event.clientY - rect.bottom
-            );
-
-            const distance = Math.hypot(
-              horizontalDistance,
-              verticalDistance
-            );
-
-            if (distance < 24 && distance < closestDistance) {
-              closestDistance = distance;
-              selectedPaper = paper;
-            }
-          });
-
-          if (selectedPaper) {
-            selectedPaper.classList.toggle("is-revealed");
+        bird.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openBirdNote(bird);
           }
         });
-      }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".origami-bird")) {
+          closeAllBirdNotes();
+        }
+      });
 
       window.addEventListener(
         "scroll",
@@ -1296,6 +1192,7 @@
       requestRender();
     })();
   </script>
+
 
   <script src="script.js?v=7"></script>
 </body>
