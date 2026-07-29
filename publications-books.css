@@ -1,0 +1,580 @@
+/* publications-books.css */
+
+body.has-flying-books {
+  overflow-x: hidden;
+}
+
+.book-atmosphere {
+  position: fixed;
+  top: 78px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  overflow: hidden;
+  pointer-events: none;
+  perspective: 1400px;
+  contain: layout paint;
+}
+
+.book-atmosphere::before,
+.book-atmosphere::after {
+  position: absolute;
+  inset: -12%;
+  content: "";
+  pointer-events: none;
+}
+
+.book-atmosphere::before {
+  background-image:
+    radial-gradient(
+      circle,
+      rgba(201, 145, 39, 0.72) 0 1.3px,
+      transparent 2.4px
+    ),
+    radial-gradient(
+      circle,
+      rgba(138, 31, 45, 0.26) 0 1.1px,
+      transparent 2.1px
+    ),
+    radial-gradient(
+      circle,
+      rgba(255, 241, 179, 0.54) 0 0.9px,
+      transparent 1.9px
+    );
+  background-position:
+    0 0,
+    25px 19px,
+    12px 31px;
+  background-size:
+    42px 42px,
+    57px 57px,
+    69px 69px;
+  opacity: 0.52;
+  animation: magicalDustDrift 17s linear infinite;
+}
+
+.book-atmosphere::after {
+  background:
+    radial-gradient(
+      circle at 18% 34%,
+      rgba(201, 145, 39, 0.14),
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 82% 70%,
+      rgba(138, 31, 45, 0.08),
+      transparent 24%
+    );
+  opacity: 0.72;
+  animation: magicalGlowBreathe 7.5s ease-in-out infinite alternate;
+}
+
+.publications-hero > .container,
+.section > .container,
+.site-footer > .container {
+  position: relative;
+  z-index: 2;
+}
+
+.magic-particle-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.magic-sparkle {
+  position: absolute;
+  top: var(--sparkle-y);
+  left: var(--sparkle-x);
+  width: var(--sparkle-size);
+  height: var(--sparkle-size);
+  opacity: 0;
+  filter:
+    drop-shadow(0 0 5px rgba(255, 238, 169, 0.95))
+    drop-shadow(0 0 12px rgba(201, 145, 39, 0.75));
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: sparkleFlight var(--sparkle-duration) ease-out forwards;
+}
+
+.magic-sparkle::before,
+.magic-sparkle::after {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border-radius: 999px;
+  background: rgba(255, 233, 148, 0.98);
+  box-shadow:
+    0 0 8px rgba(255, 240, 180, 0.95),
+    0 0 16px rgba(201, 145, 39, 0.82);
+  content: "";
+}
+
+.magic-sparkle::before {
+  width: 100%;
+  height: 2px;
+}
+
+.magic-sparkle::after {
+  width: 2px;
+  height: 100%;
+}
+
+.flying-book {
+  all: unset;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: var(--book-width, 120px);
+  aspect-ratio: var(--book-ratio, 1.45);
+  box-sizing: border-box;
+  overflow: visible;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transform:
+    translate3d(
+      calc(var(--flight-x, 0px) + var(--escape-x, 0px)),
+      calc(var(--flight-y, 0px) + var(--escape-y, 0px)),
+      0
+    )
+    rotate(var(--flight-rotation, 0deg))
+    scale(var(--book-scale, 1));
+  transform-origin: center;
+  will-change: transform;
+}
+
+.flying-book:focus-visible {
+  outline: 2px solid rgba(138, 31, 45, 0.72);
+  outline-offset: 7px;
+  border-radius: 10px;
+}
+
+.flying-book.is-dragging {
+  z-index: 20;
+  cursor: grabbing;
+}
+
+.flying-book.is-open {
+  z-index: 18;
+}
+
+.book-glow {
+  position: absolute;
+  inset: -12%;
+  z-index: -1;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(201, 145, 39, 0.28),
+      transparent 70%
+    );
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  pointer-events: none;
+}
+
+.flying-book:hover .book-glow,
+.flying-book:focus-visible .book-glow,
+.flying-book.is-alert .book-glow,
+.flying-book.is-open .book-glow,
+.flying-book.is-dragging .book-glow {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.flying-book-core {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: var(--book-opacity, 0.8);
+  filter: none;
+  transform:
+    translateY(var(--body-bob, 0px))
+    rotateX(var(--body-tilt, 0deg));
+  transform-origin: center;
+  transform-style: preserve-3d;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+
+.flying-book:hover .flying-book-core,
+.flying-book:focus-visible .flying-book-core,
+.flying-book.is-alert .flying-book-core,
+.flying-book.is-open .flying-book-core,
+.flying-book.is-dragging .flying-book-core {
+  opacity: 0.96;
+}
+
+.book-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  filter: none;
+  transform-origin: 50% 70%;
+  animation:
+    bookFlutter
+    var(--flutter-duration, 1.45s)
+    ease-in-out
+    infinite;
+}
+
+.flying-book.is-open .book-image,
+.flying-book.is-dragging .book-image {
+  animation-play-state: paused;
+}
+
+.flying-book.is-dragging .flying-book-core {
+  transform:
+    translateY(0)
+    rotateX(0deg)
+    scale(1.06);
+}
+
+/* Revealed parchment message */
+
+.enchanted-message {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 25;
+  width: min(265px, 58vw);
+  min-height: 124px;
+  padding: 1rem 1.05rem 1.25rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgba(108, 64, 20, 0.35);
+  border-radius: 4px 12px 8px 5px;
+  background:
+    radial-gradient(
+      circle at 8% 12%,
+      rgba(98, 56, 17, 0.11) 0 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(126, 83, 26, 0.055) 0 1px,
+      transparent 1px 22px
+    ),
+    linear-gradient(145deg, #fff6df, #dfc391);
+  box-shadow:
+    0 18px 42px rgba(23, 32, 42, 0.22),
+    inset 0 0 28px rgba(126, 83, 26, 0.09);
+  opacity: 0;
+  pointer-events: none;
+  clip-path: inset(48% 5% 48% 5% round 10px);
+  transform:
+    translate(-50%, -112%)
+    scale(0.72)
+    rotateX(76deg)
+    rotate(-3deg);
+  transform-origin: bottom center;
+  transition:
+    opacity 0.2s ease,
+    clip-path 0.48s cubic-bezier(0.2, 0.8, 0.2, 1),
+    transform 0.52s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.enchanted-message::before,
+.enchanted-message::after {
+  position: absolute;
+  left: 3%;
+  width: 94%;
+  height: 9px;
+  border: 1px solid rgba(126, 83, 26, 0.18);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f8ecd5, #dfc59b);
+  box-shadow: 0 2px 5px rgba(70, 45, 17, 0.12);
+  content: "";
+}
+
+.enchanted-message::before {
+  top: -5px;
+}
+
+.enchanted-message::after {
+  bottom: -5px;
+}
+
+.enchanted-message-kicker {
+  display: inline-flex;
+  margin-bottom: 0.5rem;
+  color: #7e1729;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.enchanted-message-text {
+  display: block;
+  min-height: 3.2rem;
+  color: #352317;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.92rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+.enchanted-message-text::after {
+  color: #7e1729;
+  content: "▌";
+  animation: inkBlink 0.78s steps(1) infinite;
+}
+
+.enchanted-message-seal {
+  position: absolute;
+  right: 0.66rem;
+  bottom: 0.58rem;
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #a62c3f, #711323);
+  color: #fff5e0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.74rem;
+  font-weight: 900;
+  opacity: 0;
+  transform: rotate(-9deg) scale(0.7);
+  transition:
+    opacity 0.3s ease 0.28s,
+    transform 0.38s ease 0.24s;
+}
+
+.flying-book.is-open .enchanted-message {
+  opacity: 1;
+  clip-path: inset(0 0 0 0 round 10px);
+  transform:
+    translate(-50%, -128%)
+    scale(1)
+    rotateX(0deg)
+    rotate(0deg);
+}
+
+.flying-book.is-open .enchanted-message-seal {
+  opacity: 1;
+  transform: rotate(-9deg) scale(1);
+}
+
+.magic-book-hint {
+  position: fixed;
+  right: 1.35rem;
+  bottom: 1.35rem;
+  z-index: 9;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.72rem 0.95rem;
+  border: 1px solid rgba(126, 83, 26, 0.28);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 250, 240, 0.96),
+      rgba(238, 224, 199, 0.96)
+    );
+  color: #5d3a1e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.78rem;
+  font-style: italic;
+  box-shadow:
+    0 12px 28px rgba(23, 32, 42, 0.16),
+    inset 0 0 18px rgba(126, 83, 26, 0.06);
+  pointer-events: none;
+  animation: hintFloat 2.8s ease-in-out infinite;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
+.magic-book-hint.is-hidden {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.magic-book-hint-icon {
+  color: #c99127;
+  font-size: 1rem;
+  text-shadow: 0 0 8px rgba(201, 145, 39, 0.55);
+}
+
+body.has-flying-books .publication-section {
+  opacity: 0;
+  transform: translateY(24px) rotateX(2deg);
+  transform-origin: top center;
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body.has-flying-books .publication-section.is-visible {
+  opacity: 1;
+  transform: translateY(0) rotateX(0);
+}
+
+@keyframes bookFlutter {
+  0%,
+  100% {
+    transform:
+      perspective(480px)
+      rotateX(0deg)
+      scaleY(1);
+  }
+
+  48% {
+    transform:
+      perspective(480px)
+      rotateX(7deg)
+      scaleY(0.975);
+  }
+
+  70% {
+    transform:
+      perspective(480px)
+      rotateX(3deg)
+      scaleY(0.99);
+  }
+}
+
+@keyframes magicalDustDrift {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  to {
+    transform: translate3d(42px, -28px, 0) rotate(1deg);
+  }
+}
+
+@keyframes magicalGlowBreathe {
+  from {
+    transform: scale(0.96);
+    opacity: 0.45;
+  }
+
+  to {
+    transform: scale(1.04);
+    opacity: 0.78;
+  }
+}
+
+@keyframes sparkleFlight {
+  0% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      rotate(45deg)
+      scale(0.35);
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      translate3d(
+        var(--sparkle-dx),
+        var(--sparkle-dy),
+        0
+      )
+      rotate(190deg)
+      scale(1.1);
+  }
+}
+
+@keyframes hintFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes inkBlink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .book-atmosphere {
+    top: 68px;
+  }
+
+  .flying-book:nth-child(n + 6) {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .magic-book-hint {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    max-width: calc(100vw - 1.5rem);
+    font-size: 0.72rem;
+  }
+
+  .flying-book {
+    --book-scale: 0.84;
+  }
+
+  .flying-book:nth-child(n + 4) {
+    display: none;
+  }
+
+  .enchanted-message {
+    width: min(220px, 76vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-atmosphere::before,
+  .book-atmosphere::after {
+    animation-duration: 40s;
+  }
+
+  .book-image {
+    animation-duration: 2.4s;
+  }
+
+  .flying-book:nth-child(n + 5) {
+    display: none;
+  }
+
+  body.has-flying-books .publication-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
