@@ -17,41 +17,9 @@ body.has-flying-books {
   contain: layout paint;
 }
 
-.book-atmosphere::before,
-.book-atmosphere::after {
-  position: absolute;
-  inset: -12%;
-  content: "";
-  pointer-events: none;
-}
-
 .book-atmosphere::before {
-  background-image:
-    radial-gradient(
-      circle,
-      rgba(201, 145, 39, 0.72) 0 1.3px,
-      transparent 2.4px
-    ),
-    radial-gradient(
-      circle,
-      rgba(138, 31, 45, 0.26) 0 1.1px,
-      transparent 2.1px
-    ),
-    radial-gradient(
-      circle,
-      rgba(255, 241, 179, 0.54) 0 0.9px,
-      transparent 1.9px
-    );
-  background-position:
-    0 0,
-    25px 19px,
-    12px 31px;
-  background-size:
-    42px 42px,
-    57px 57px,
-    69px 69px;
-  opacity: 0.52;
-  animation: magicalDustDrift 17s linear infinite;
+  display: none;
+  content: none;
 }
 
 .book-atmosphere::after {
