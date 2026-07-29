@@ -345,363 +345,223 @@
     }
 
   </style>
-  <link rel="stylesheet" href="publications-pages.css?v=2">
+  <link rel="stylesheet" href="publications-books.css?v=1">
 </head>
 
 <body>
 
   <div
-    class="page-atmosphere"
-    data-page-atmosphere
-    aria-label="Interactive enchanted flying pages"
+    class="book-atmosphere"
+    data-book-atmosphere
+    aria-label="Interactive magical flying books"
   >
 
     <button
-      class="enchanted-page"
+      class="flying-book"
       type="button"
-      aria-label="Open enchanted flying page 1"
-      data-start-x="0.03"
-      data-start-y="0.11"
-      data-speed="47"
-      data-angle="0.18"
+      aria-label="Open flying book 1"
+      data-start-x="0.06"
+      data-start-y="0.14"
+      data-speed="18"
+      data-angle="0.70"
       style="
-        --page-size: 122px;
-        --flap-duration: 0.72s;
-        --page-opacity: 0.96;
-        --fallback-left: 4%;
-        --fallback-top: 13%;
-        --fallback-duration: 19s;
-        --fallback-delay: -2.2s;
+        --book-width: 118px;
+        --flutter-duration: 1.30s;
+        --book-opacity: 0.82;
       "
     >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
+      <span class="book-glow" aria-hidden="true"></span>
 
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book1.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
       </span>
 
       <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">Reviewer 2 has escaped the restricted section.</span>
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
         <span class="enchanted-message-seal">AE</span>
       </span>
     </button>
 
     <button
-      class="enchanted-page"
+      class="flying-book"
       type="button"
-      aria-label="Open enchanted flying page 2"
-      data-start-x="0.77"
-      data-start-y="0.17"
-      data-speed="42"
-      data-angle="2.91"
-      style="
-        --page-size: 112px;
-        --flap-duration: 0.82s;
-        --page-opacity: 0.92;
-        --fallback-left: 78%;
-        --fallback-top: 18%;
-        --fallback-duration: 22s;
-        --fallback-delay: -4.4s;
-      "
-    >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
-
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
-      </span>
-
-      <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">The DOI is hiding beneath an invisibility cloak.</span>
-        <span class="enchanted-message-seal">AE</span>
-      </span>
-    </button>
-
-    <button
-      class="enchanted-page"
-      type="button"
-      aria-label="Open enchanted flying page 3"
-      data-start-x="0.08"
-      data-start-y="0.42"
-      data-speed="38"
-      data-angle="-0.46"
-      style="
-        --page-size: 104px;
-        --flap-duration: 0.88s;
-        --page-opacity: 0.88;
-        --fallback-left: 8%;
-        --fallback-top: 43%;
-        --fallback-duration: 24s;
-        --fallback-delay: -6.6s;
-      "
-    >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
-
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
-      </span>
-
-      <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">Ten points to the control group for doing absolutely nothing.</span>
-        <span class="enchanted-message-seal">AE</span>
-      </span>
-    </button>
-
-    <button
-      class="enchanted-page"
-      type="button"
-      aria-label="Open enchanted flying page 4"
-      data-start-x="0.82"
-      data-start-y="0.48"
-      data-speed="51"
-      data-angle="3.48"
-      style="
-        --page-size: 128px;
-        --flap-duration: 0.66s;
-        --page-opacity: 0.98;
-        --fallback-left: 82%;
-        --fallback-top: 50%;
-        --fallback-duration: 18s;
-        --fallback-delay: -8.8s;
-      "
-    >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
-
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
-      </span>
-
-      <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">A minor revision hex has been detected.</span>
-        <span class="enchanted-message-seal">AE</span>
-      </span>
-    </button>
-
-    <button
-      class="enchanted-page"
-      type="button"
-      aria-label="Open enchanted flying page 5"
-      data-start-x="0.11"
-      data-start-y="0.72"
-      data-speed="43"
-      data-angle="0.12"
-      style="
-        --page-size: 116px;
-        --flap-duration: 0.78s;
-        --page-opacity: 0.93;
-        --fallback-left: 11%;
-        --fallback-top: 73%;
-        --fallback-duration: 21s;
-        --fallback-delay: -11s;
-      "
-    >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
-
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
-      </span>
-
-      <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">The manuscript departed from Platform 0.05.</span>
-        <span class="enchanted-message-seal">AE</span>
-      </span>
-    </button>
-
-    <button
-      class="enchanted-page"
-      type="button"
-      aria-label="Open enchanted flying page 6"
-      data-start-x="0.7"
-      data-start-y="0.76"
-      data-speed="35"
+      aria-label="Open flying book 2"
+      data-start-x="0.79"
+      data-start-y="0.10"
+      data-speed="20"
       data-angle="2.55"
       style="
-        --page-size: 104px;
-        --flap-duration: 0.94s;
-        --page-opacity: 0.86;
-        --fallback-left: 72%;
-        --fallback-top: 77%;
-        --fallback-duration: 25s;
-        --fallback-delay: -13.2s;
+        --book-width: 132px;
+        --flutter-duration: 1.44s;
+        --book-opacity: 0.80;
       "
     >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
+      <span class="book-glow" aria-hidden="true"></span>
 
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book2.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
       </span>
 
       <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">The citation owl is delayed because PubMed changed the address.</span>
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
         <span class="enchanted-message-seal">AE</span>
       </span>
     </button>
 
     <button
-      class="enchanted-page"
+      class="flying-book"
       type="button"
-      aria-label="Open enchanted flying page 7"
-      data-start-x="0.43"
-      data-start-y="0.08"
-      data-speed="31"
-      data-angle="1.08"
+      aria-label="Open flying book 3"
+      data-start-x="0.32"
+      data-start-y="0.40"
+      data-speed="16"
+      data-angle="1.15"
       style="
-        --page-size: 94px;
-        --flap-duration: 1.02s;
-        --page-opacity: 0.76;
-        --fallback-left: 44%;
-        --fallback-top: 10%;
-        --fallback-duration: 27s;
-        --fallback-delay: -15.4s;
+        --book-width: 148px;
+        --flutter-duration: 1.58s;
+        --book-opacity: 0.84;
       "
     >
-      <span class="enchanted-page-glow" aria-hidden="true"></span>
+      <span class="book-glow" aria-hidden="true"></span>
 
-      <span class="enchanted-page-core" aria-hidden="true">
-        <span class="page-wing page-wing-left">
-          <span class="page-wing-fold"></span>
-        </span>
-
-        <span class="page-sheet">
-          <span class="page-header-line"></span>
-          <span class="page-text-lines"></span>
-          <span class="page-mini-chart">
-            <i style="--bar-height: 48%"></i>
-            <i style="--bar-height: 76%"></i>
-            <i style="--bar-height: 60%"></i>
-            <i style="--bar-height: 88%"></i>
-          </span>
-          <span class="page-wax-seal">AE</span>
-          <span class="page-corner"></span>
-        </span>
-
-        <span class="page-wing page-wing-right">
-          <span class="page-wing-fold"></span>
-        </span>
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book3.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
       </span>
 
       <span class="enchanted-message" aria-hidden="true">
-        <span class="enchanted-message-kicker">Enchanted archive memo</span>
-        <span class="enchanted-message-text">Supplementary Figure 8 vanished during transfiguration.</span>
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
+        <span class="enchanted-message-seal">AE</span>
+      </span>
+    </button>
+
+    <button
+      class="flying-book"
+      type="button"
+      aria-label="Open flying book 4"
+      data-start-x="0.08"
+      data-start-y="0.70"
+      data-speed="17"
+      data-angle="-0.85"
+      style="
+        --book-width: 92px;
+        --flutter-duration: 1.38s;
+        --book-opacity: 0.76;
+      "
+    >
+      <span class="book-glow" aria-hidden="true"></span>
+
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book1.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+      </span>
+
+      <span class="enchanted-message" aria-hidden="true">
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
+        <span class="enchanted-message-seal">AE</span>
+      </span>
+    </button>
+
+    <button
+      class="flying-book"
+      type="button"
+      aria-label="Open flying book 5"
+      data-start-x="0.76"
+      data-start-y="0.58"
+      data-speed="19"
+      data-angle="2.90"
+      style="
+        --book-width: 104px;
+        --flutter-duration: 1.52s;
+        --book-opacity: 0.78;
+      "
+    >
+      <span class="book-glow" aria-hidden="true"></span>
+
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book2.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+      </span>
+
+      <span class="enchanted-message" aria-hidden="true">
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
+        <span class="enchanted-message-seal">AE</span>
+      </span>
+    </button>
+
+    <button
+      class="flying-book"
+      type="button"
+      aria-label="Open flying book 6"
+      data-start-x="0.54"
+      data-start-y="0.82"
+      data-speed="15"
+      data-angle="-2.25"
+      style="
+        --book-width: 116px;
+        --flutter-duration: 1.66s;
+        --book-opacity: 0.80;
+      "
+    >
+      <span class="book-glow" aria-hidden="true"></span>
+
+      <span class="flying-book-core" aria-hidden="true">
+        <img
+          class="book-image"
+          src="book3.png"
+          alt=""
+          draggable="false"
+          decoding="async"
+        >
+      </span>
+
+      <span class="enchanted-message" aria-hidden="true">
+        <span class="enchanted-message-kicker">
+          Enchanted archive memo
+        </span>
+        <span class="enchanted-message-text"></span>
         <span class="enchanted-message-seal">AE</span>
       </span>
     </button>
@@ -714,14 +574,16 @@
     aria-hidden="true"
   ></div>
 
-<div
-  class="magic-page-hint"
-  data-page-hint
-  aria-hidden="true"
->
-  <span class="magic-page-hint-icon">✦</span>
-  Catch a flying page to reveal its secret
-</div>
+  <div
+    class="magic-book-hint"
+    data-book-hint
+    aria-hidden="true"
+  >
+    <span class="magic-book-hint-icon">✦</span>
+    Catch a flying book to reveal its secret
+  </div>
+
+
 
 
 
@@ -949,7 +811,7 @@
       </div>
     </div>
   </footer>
-  <script src="publications-pages.js?v=7"></script>
+  <script src="publications-books.js?v=1"></script>
 <script src="script.js?v=7"></script>
 </body>
 
