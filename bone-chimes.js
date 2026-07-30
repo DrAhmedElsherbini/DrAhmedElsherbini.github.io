@@ -16,14 +16,6 @@
     return;
   }
 
-  /*
-   * Ensure that the canvas remains visible even if an older
-   * stylesheet or cached rule affected its visibility.
-   */
-  canvas.style.display = "block";
-  canvas.style.visibility = "visible";
-  canvas.style.opacity = "1";
-
   const modeButtons = Array.from(
     shell.querySelectorAll("[data-bone-mode]")
   );
@@ -103,6 +95,13 @@
     points: [],
     columns: [],
 
+    shapeProfile: null,
+
+    layout: {
+      centerX: 0,
+      maximumHalfWidth: 1
+    },
+
     mode: "plain",
 
     tissueBlend: 0,
@@ -143,29 +142,50 @@
   );
 
   const clamp = (value, minimum, maximum) => (
-    Math.max(minimum, Math.min(maximum, value))
+    Math.max(
+      minimum,
+      Math.min(maximum, value)
+    )
   );
 
   const mix = (start, end, amount) => (
-    start + (end - start) * amount
+    start +
+    (end - start) *
+    amount
   );
 
   const mixColor = (start, end, amount) => ({
     red: Math.round(
-      mix(start.red, end.red, amount)
+      mix(
+        start.red,
+        end.red,
+        amount
+      )
     ),
 
     green: Math.round(
-      mix(start.green, end.green, amount)
+      mix(
+        start.green,
+        end.green,
+        amount
+      )
     ),
 
     blue: Math.round(
-      mix(start.blue, end.blue, amount)
+      mix(
+        start.blue,
+        end.blue,
+        amount
+      )
     )
   });
 
   const smoothStep = value => {
-    const normalized = clamp(value, 0, 1);
+    const normalized = clamp(
+      value,
+      0,
+      1
+    );
 
     return (
       normalized *
@@ -181,51 +201,229 @@
   );
 
   const seededWave = seed => (
-    Math.sin(seed * 12.9898) *
+    Math.sin(
+      seed *
+      12.9898
+    ) *
     43758.5453 %
     1
   );
 
+  const createFormationShapeProfile = () => ({
+    upperPosition: randomBetween(
+      0.14,
+      0.25
+    ),
+
+    upperSpread: randomBetween(
+      0.13,
+      0.2
+    ),
+
+    upperWidth: randomBetween(
+      0.31,
+      0.45
+    ),
+
+    lowerPosition: randomBetween(
+      0.73,
+      0.86
+    ),
+
+    lowerSpread: randomBetween(
+      0.15,
+      0.23
+    ),
+
+    lowerWidth: randomBetween(
+      0.29,
+      0.43
+    ),
+
+    shaftWidth: randomBetween(
+      0.085,
+      0.135
+    ),
+
+    shaftBulge: randomBetween(
+      0.012,
+      0.042
+    ),
+
+    waistPosition: randomBetween(
+      0.42,
+      0.59
+    ),
+
+    waistSpread: randomBetween(
+      0.12,
+      0.22
+    ),
+
+    waistDepth: randomBetween(
+      0.004,
+      0.032
+    ),
+
+    tilt: randomBetween(
+      -0.055,
+      0.055
+    ),
+
+    curve: randomBetween(
+      -0.048,
+      0.048
+    ),
+
+    upperLean: randomBetween(
+      -0.028,
+      0.028
+    ),
+
+    lowerLean: randomBetween(
+      -0.028,
+      0.028
+    )
+  });
+
+  const randomizeFormationShape = () => {
+    state.shapeProfile =
+      createFormationShapeProfile();
+  };
+
   const getBoneHalfWidth = normalizedY => {
+    const profile =
+      state.shapeProfile;
+
+    if (!profile) {
+      return 0.12;
+    }
+
     const upperHead =
       Math.exp(
         -Math.pow(
-          (normalizedY - 0.18) / 0.17,
+          (
+            normalizedY -
+            profile.upperPosition
+          ) /
+          profile.upperSpread,
           2
         )
       ) *
-      0.39;
+      profile.upperWidth;
 
     const lowerHead =
       Math.exp(
         -Math.pow(
-          (normalizedY - 0.8) / 0.19,
+          (
+            normalizedY -
+            profile.lowerPosition
+          ) /
+          profile.lowerSpread,
           2
         )
       ) *
-      0.36;
+      profile.lowerWidth;
 
     const shaft =
-      0.105 +
+      profile.shaftWidth +
       Math.sin(
         normalizedY *
         Math.PI
       ) *
-      0.025;
+      profile.shaftBulge;
 
-    return (
+    const waist =
+      Math.exp(
+        -Math.pow(
+          (
+            normalizedY -
+            profile.waistPosition
+          ) /
+          profile.waistSpread,
+          2
+        )
+      ) *
+      profile.waistDepth;
+
+    return Math.max(
+      0.065,
+
       shaft +
       upperHead +
-      lowerHead
+      lowerHead -
+      waist
+    );
+  };
+
+  const getBoneCenterOffset = normalizedY => {
+    const profile =
+      state.shapeProfile;
+
+    if (!profile) {
+      return 0;
+    }
+
+    const generalTilt =
+      (
+        normalizedY -
+        0.5
+      ) *
+      profile.tilt;
+
+    const centralCurve =
+      Math.sin(
+        normalizedY *
+        Math.PI
+      ) *
+      profile.curve;
+
+    const upperLean =
+      Math.exp(
+        -Math.pow(
+          (
+            normalizedY -
+            profile.upperPosition
+          ) /
+          0.18,
+          2
+        )
+      ) *
+      profile.upperLean;
+
+    const lowerLean =
+      Math.exp(
+        -Math.pow(
+          (
+            normalizedY -
+            profile.lowerPosition
+          ) /
+          0.2,
+          2
+        )
+      ) *
+      profile.lowerLean;
+
+    return (
+      generalTilt +
+      centralCurve +
+      upperLean +
+      lowerLean
     );
   };
 
   const getCanvasPosition = event => {
-    const bounds = canvas.getBoundingClientRect();
+    const bounds =
+      canvas.getBoundingClientRect();
 
     return {
-      x: event.clientX - bounds.left,
-      y: event.clientY - bounds.top
+      x:
+        event.clientX -
+        bounds.left,
+
+      y:
+        event.clientY -
+        bounds.top
     };
   };
 
@@ -235,6 +433,7 @@
     targetX,
     targetY,
     inside,
+    normalizedY,
     columnIndex,
     rowIndex,
     seed
@@ -249,6 +448,8 @@
     targetY,
 
     inside,
+    normalizedY,
+
     columnIndex,
     rowIndex,
     seed,
@@ -256,11 +457,21 @@
     label:
       labels[
         (
-          columnIndex * 3 +
-          rowIndex * 5
+          columnIndex *
+          3 +
+          rowIndex *
+          5
         ) %
         labels.length
       ],
+
+    labelEligible:
+      (
+        columnIndex +
+        rowIndex
+      ) %
+      4 ===
+      0,
 
     labelPoint:
       inside &&
@@ -272,26 +483,30 @@
       0,
 
     radius:
-      inside
-        ? randomBetween(1.15, 2.25)
-        : 0.65,
+      randomBetween(
+        1.15,
+        2.25
+      ),
 
     opacity:
-      inside
-        ? randomBetween(0.58, 0.94)
-        : 0.035,
+      randomBetween(
+        0.58,
+        0.94
+      ),
 
     erosion:
-      inside
-        ? Math.abs(
-            seededWave(seed + 3.14)
-          )
-        : 1,
+      Math.abs(
+        seededWave(
+          seed +
+          3.14
+        )
+      ),
 
     phase:
       randomBetween(
         0,
-        Math.PI * 2
+        Math.PI *
+        2
       ),
 
     spindleLength:
@@ -323,6 +538,10 @@
     state.points.length = 0;
     state.columns.length = 0;
 
+    if (!state.shapeProfile) {
+      randomizeFormationShape();
+    }
+
     const mobile =
       state.width < 720;
 
@@ -353,7 +572,8 @@
     const structureHeight =
       Math.max(
         290,
-        bottomY - topY
+        bottomY -
+        topY
       );
 
     const maximumHalfWidth =
@@ -366,6 +586,12 @@
           ? 155
           : 245
       );
+
+    state.layout.centerX =
+      centerX;
+
+    state.layout.maximumHalfWidth =
+      maximumHalfWidth;
 
     const columnSpacing =
       mobile
@@ -436,10 +662,17 @@
           normalizedY *
           structureHeight;
 
+        const shapeCenterX =
+          centerX +
+          getBoneCenterOffset(
+            normalizedY
+          ) *
+          maximumHalfWidth;
+
         const horizontalRatio =
           Math.abs(
             targetX -
-            centerX
+            shapeCenterX
           ) /
           maximumHalfWidth;
 
@@ -450,8 +683,10 @@
           );
 
         const seed =
-          columnIndex * 101 +
-          rowIndex * 17;
+          columnIndex *
+          101 +
+          rowIndex *
+          17;
 
         const point = createPoint({
           x: targetX,
@@ -461,6 +696,8 @@
           targetY,
 
           inside,
+          normalizedY,
+
           columnIndex,
           rowIndex,
           seed
@@ -478,21 +715,178 @@
       }
 
       state.columns.push({
-        anchorX: targetX,
+        anchorX:
+          targetX,
 
         anchorY:
           mobile
             ? 112
             : 84,
 
-        points: column,
+        points:
+          column,
 
         phase:
           randomBetween(
             0,
-            Math.PI * 2
+            Math.PI *
+            2
           )
       });
+    }
+  };
+
+  const applyNewFormationShape = () => {
+    const centerX =
+      state.layout.centerX;
+
+    const maximumHalfWidth =
+      state.layout.maximumHalfWidth;
+
+    if (
+      !state.shapeProfile ||
+      maximumHalfWidth <= 0
+    ) {
+      return;
+    }
+
+    for (
+      const point of
+      state.points
+    ) {
+      const previousInside =
+        point.inside;
+
+      const shapeCenterX =
+        centerX +
+        getBoneCenterOffset(
+          point.normalizedY
+        ) *
+        maximumHalfWidth;
+
+      const horizontalRatio =
+        Math.abs(
+          point.targetX -
+          shapeCenterX
+        ) /
+        maximumHalfWidth;
+
+      const newInside =
+        horizontalRatio <=
+        getBoneHalfWidth(
+          point.normalizedY
+        );
+
+      point.inside =
+        newInside;
+
+      point.labelPoint =
+        newInside &&
+        point.labelEligible;
+
+      if (
+        previousInside !==
+        newInside
+      ) {
+        point.x +=
+          randomBetween(
+            -4,
+            4
+          );
+
+        point.y +=
+          randomBetween(
+            -2.5,
+            2.5
+          );
+
+        point.previousX =
+          point.x +
+          randomBetween(
+            -1.5,
+            1.5
+          );
+
+        point.previousY =
+          point.y +
+          randomBetween(
+            -1.5,
+            1.5
+          );
+      }
+    }
+  };
+
+  const resizeCanvas = () => {
+    const bounds =
+      shell.getBoundingClientRect();
+
+    state.width =
+      Math.max(
+        1,
+        bounds.width
+      );
+
+    state.height =
+      Math.max(
+        1,
+        bounds.height
+      );
+
+    state.pixelRatio =
+      Math.min(
+        window.devicePixelRatio ||
+        1,
+        1.75
+      );
+
+    canvas.width =
+      Math.round(
+        state.width *
+        state.pixelRatio
+      );
+
+    canvas.height =
+      Math.round(
+        state.height *
+        state.pixelRatio
+      );
+
+    canvas.style.width =
+      `${state.width}px`;
+
+    canvas.style.height =
+      `${state.height}px`;
+
+    context.setTransform(
+      state.pixelRatio,
+      0,
+      0,
+      state.pixelRatio,
+      0,
+      0
+    );
+
+    state.pointer.x =
+      state.width *
+      0.5;
+
+    state.pointer.y =
+      state.height *
+      0.45;
+
+    state.pointer.previousX =
+      state.pointer.x;
+
+    state.pointer.previousY =
+      state.pointer.y;
+
+    buildStructure();
+
+    if (
+      prefersReducedMotion
+    ) {
+      drawScene();
     }
   };
 
@@ -512,7 +906,8 @@
       state.tissueBlend < 0.35
     );
 
-    state.mode = mode;
+    state.mode =
+      mode;
 
     state.transition = {
       active: true,
@@ -543,7 +938,9 @@
     const transition =
       state.transition;
 
-    if (!transition.active) {
+    if (
+      !transition.active
+    ) {
       return;
     }
 
@@ -610,14 +1007,17 @@
         );
     }
 
-    if (progress >= 1) {
+    if (
+      progress >= 1
+    ) {
       state.tissueBlend =
         transition.toTissue;
 
       state.erosionBlend =
         transition.toErosion;
 
-      transition.active = false;
+      transition.active =
+        false;
     }
   };
 
@@ -642,7 +1042,8 @@
     point.previousY =
       point.y;
 
-    point.x += velocityX;
+    point.x +=
+      velocityX;
 
     point.y +=
       velocityY +
@@ -714,17 +1115,10 @@
         point.erosion <
         erosionThreshold
       ) {
-        const centerX =
-          state.width *
-          (
-            state.width < 720
-              ? 0.5
-              : 0.53
-          );
-
         const direction =
           point.targetX <
-          centerX
+          state.width *
+          0.53
             ? -1
             : 1;
 
@@ -750,7 +1144,9 @@
       }
     }
 
-    if (state.pointer.active) {
+    if (
+      state.pointer.active
+    ) {
       const horizontalDistance =
         point.x -
         state.pointer.x;
@@ -823,7 +1219,9 @@
     const points =
       column.points;
 
-    if (!points.length) {
+    if (
+      !points.length
+    ) {
       return;
     }
 
@@ -849,7 +1247,9 @@
         column.anchorY
       );
 
-    if (anchorDistance > 0) {
+    if (
+      anchorDistance > 0
+    ) {
       const anchorDifference =
         (
           anchorDistance -
@@ -881,7 +1281,10 @@
     ) {
       const previousPoint =
         state.points[
-          points[index - 1]
+          points[
+            index -
+            1
+          ]
         ];
 
       const currentPoint =
@@ -911,7 +1314,9 @@
           previousPoint.targetY
         );
 
-      if (distance === 0) {
+      if (
+        distance === 0
+      ) {
         continue;
       }
 
@@ -947,7 +1352,9 @@
   };
 
   const updateStructure = (
-    deltaTime = 1000 / 60
+    deltaTime =
+      1000 /
+      60
   ) => {
     updateTransition(
       deltaTime
@@ -993,7 +1400,9 @@
   };
 
   const getPointVisibility = point => {
-    if (!point.inside) {
+    if (
+      !point.inside
+    ) {
       return (
         point.opacity *
         state.tissueBlend *
@@ -1047,40 +1456,6 @@
     return tissueVisibility;
   };
 
-  const getErosionDepth = point => {
-    if (
-      !point.inside ||
-      state.erosionBlend <= 0.001
-    ) {
-      return 0;
-    }
-
-    const erosionThreshold =
-      clamp(
-        state.erosionBlend *
-        1.1,
-        0,
-        1
-      );
-
-    if (
-      point.erosion >=
-      erosionThreshold
-    ) {
-      return 0;
-    }
-
-    return clamp(
-      (
-        erosionThreshold -
-        point.erosion
-      ) *
-      3.6,
-      0,
-      1
-    );
-  };
-
   const drawPaperDust = () => {
     context.save();
 
@@ -1110,7 +1485,8 @@
         y,
         0.55,
         0,
-        Math.PI * 2
+        Math.PI *
+        2
       );
 
       context.fillStyle =
@@ -1151,20 +1527,28 @@
         : 84;
 
     context.save();
-    context.lineCap = "round";
+
+    context.lineCap =
+      "round";
 
     context.beginPath();
 
     context.moveTo(
-      left - 16,
-      y + 3
+      left -
+      16,
+      y +
+      3
     );
 
     context.quadraticCurveTo(
-      state.width * 0.5,
-      y - 10,
-      right + 16,
-      y + 3
+      state.width *
+      0.5,
+      y -
+      10,
+      right +
+      16,
+      y +
+      3
     );
 
     context.strokeStyle =
@@ -1173,19 +1557,23 @@
         0.82
       );
 
-    context.lineWidth = 5;
+    context.lineWidth =
+      5;
+
     context.stroke();
 
     context.beginPath();
 
     context.moveTo(
       left,
-      y - 3
+      y -
+      3
     );
 
     context.lineTo(
       right,
-      y - 3
+      y -
+      3
     );
 
     context.strokeStyle =
@@ -1194,25 +1582,31 @@
         0.72
       );
 
-    context.lineWidth = 2;
+    context.lineWidth =
+      2;
+
     context.stroke();
 
     context.beginPath();
 
     context.arc(
       left,
-      y - 3,
+      y -
+      3,
       4,
       0,
-      Math.PI * 2
+      Math.PI *
+      2
     );
 
     context.arc(
       right,
-      y - 3,
+      y -
+      3,
       4,
       0,
-      Math.PI * 2
+      Math.PI *
+      2
     );
 
     context.fillStyle =
@@ -1224,6 +1618,40 @@
     context.fill();
 
     context.restore();
+  };
+
+  const getErosionDepth = point => {
+    if (
+      !point.inside ||
+      state.erosionBlend <= 0.001
+    ) {
+      return 0;
+    }
+
+    const erosionThreshold =
+      clamp(
+        state.erosionBlend *
+        1.1,
+        0,
+        1
+      );
+
+    if (
+      point.erosion >=
+      erosionThreshold
+    ) {
+      return 0;
+    }
+
+    return clamp(
+      (
+        erosionThreshold -
+        point.erosion
+      ) *
+      3.6,
+      0,
+      1
+    );
   };
 
   const drawSpindleCell = ({
@@ -1336,28 +1764,28 @@
 
     context.bezierCurveTo(
       centerX -
-        unitX *
-        shoulderDistance +
-        normalX *
-        halfWidth,
+      unitX *
+      shoulderDistance +
+      normalX *
+      halfWidth,
 
       centerY -
-        unitY *
-        shoulderDistance +
-        normalY *
-        halfWidth,
+      unitY *
+      shoulderDistance +
+      normalY *
+      halfWidth,
 
       centerX +
-        unitX *
-        shoulderDistance +
-        normalX *
-        halfWidth,
+      unitX *
+      shoulderDistance +
+      normalX *
+      halfWidth,
 
       centerY +
-        unitY *
-        shoulderDistance +
-        normalY *
-        halfWidth,
+      unitY *
+      shoulderDistance +
+      normalY *
+      halfWidth,
 
       endX,
       endY
@@ -1365,28 +1793,28 @@
 
     context.bezierCurveTo(
       centerX +
-        unitX *
-        shoulderDistance -
-        normalX *
-        halfWidth,
+      unitX *
+      shoulderDistance -
+      normalX *
+      halfWidth,
 
       centerY +
-        unitY *
-        shoulderDistance -
-        normalY *
-        halfWidth,
+      unitY *
+      shoulderDistance -
+      normalY *
+      halfWidth,
 
       centerX -
-        unitX *
-        shoulderDistance -
-        normalX *
-        halfWidth,
+      unitX *
+      shoulderDistance -
+      normalX *
+      halfWidth,
 
       centerY -
-        unitY *
-        shoulderDistance -
-        normalY *
-        halfWidth,
+      unitY *
+      shoulderDistance -
+      normalY *
+      halfWidth,
 
       startX,
       startY
@@ -1398,7 +1826,7 @@
       rgba(
         bodyColor,
         visibility *
-        0.38
+        0.28
       );
 
     context.fill();
@@ -1407,7 +1835,7 @@
       rgba(
         outlineColor,
         visibility *
-        0.96
+        0.82
       );
 
     context.lineWidth =
@@ -1454,14 +1882,15 @@
 
       0,
       0,
-      Math.PI * 2
+      Math.PI *
+      2
     );
 
     context.fillStyle =
       rgba(
         nucleusColor,
         visibility *
-        0.82
+        0.72
       );
 
     context.fill();
@@ -1520,10 +1949,6 @@
           pointIndexes[0]
         ];
 
-      /*
-       * Short attachment filament between each cell column
-       * and the upper scaffold.
-       */
       context.beginPath();
 
       context.moveTo(
@@ -1539,7 +1964,7 @@
       context.strokeStyle =
         rgba(
           palette.ink,
-          0.12
+          0.1
         );
 
       context.lineWidth =
@@ -1550,7 +1975,8 @@
       for (
         let index = 1;
         index <
-        pointIndexes.length - 1;
+        pointIndexes.length -
+        1;
         index += cellStep
       ) {
         const point =
@@ -1563,7 +1989,8 @@
             pointIndexes[
               Math.max(
                 0,
-                index - 1
+                index -
+                1
               )
             ]
           ];
@@ -1572,8 +1999,10 @@
           state.points[
             pointIndexes[
               Math.min(
-                pointIndexes.length - 1,
-                index + 1
+                pointIndexes.length -
+                1,
+                index +
+                1
               )
             ]
           ];
@@ -1583,17 +2012,13 @@
             point
           );
 
-        /*
-         * In the plain state, all columns remain visible.
-         * Formation emphasizes the cells inside the bone structure.
-         */
         const baseVisibility =
           mix(
-            0.68,
+            0.44,
 
             point.inside
-              ? 0.5
-              : 0.24,
+              ? 0.4
+              : 0.16,
 
             state.tissueBlend
           );
@@ -1654,7 +2079,8 @@
       if (
         point.labelPoint &&
         point.inside &&
-        visibility > 0.18
+        visibility >
+        0.18
       ) {
         const angle =
           Math.atan2(
@@ -1712,7 +2138,8 @@
           point.y,
           point.radius,
           0,
-          Math.PI * 2
+          Math.PI *
+          2
         );
 
         context.fillStyle =
@@ -1730,7 +2157,8 @@
 
         if (
           point.inside &&
-          point.radius > 1.6
+          point.radius >
+          1.6
         ) {
           context.beginPath();
 
@@ -1747,7 +2175,8 @@
             0.34,
 
             0,
-            Math.PI * 2
+            Math.PI *
+            2
           );
 
           context.fillStyle =
@@ -1824,30 +2253,15 @@
       state.pointer.y -
       radius,
 
-      radius * 2,
-      radius * 2
+      radius *
+      2,
+
+      radius *
+      2
     );
   };
 
   const drawScene = () => {
-    if (
-      state.width <= 1 ||
-      state.height <= 1
-    ) {
-      return;
-    }
-
-    context.setTransform(
-      state.pixelRatio,
-      0,
-      0,
-      state.pixelRatio,
-      0,
-      0
-    );
-
-    context.globalAlpha = 1;
-
     context.clearRect(
       0,
       0,
@@ -1862,74 +2276,6 @@
     drawPoints();
   };
 
-  const resizeCanvas = () => {
-    const bounds =
-      shell.getBoundingClientRect();
-
-    state.width =
-      Math.max(
-        1,
-        bounds.width
-      );
-
-    state.height =
-      Math.max(
-        1,
-        bounds.height
-      );
-
-    state.pixelRatio =
-      Math.min(
-        window.devicePixelRatio ||
-        1,
-        1.75
-      );
-
-    canvas.width =
-      Math.round(
-        state.width *
-        state.pixelRatio
-      );
-
-    canvas.height =
-      Math.round(
-        state.height *
-        state.pixelRatio
-      );
-
-    canvas.style.width =
-      `${state.width}px`;
-
-    canvas.style.height =
-      `${state.height}px`;
-
-    context.setTransform(
-      state.pixelRatio,
-      0,
-      0,
-      state.pixelRatio,
-      0,
-      0
-    );
-
-    state.pointer.x =
-      state.width *
-      0.5;
-
-    state.pointer.y =
-      state.height *
-      0.45;
-
-    state.pointer.previousX =
-      state.pointer.x;
-
-    state.pointer.previousY =
-      state.pointer.y;
-
-    buildStructure();
-    drawScene();
-  };
-
   const settleStructure = iterations => {
     for (
       let index = 0;
@@ -1937,7 +2283,8 @@
       index += 1
     ) {
       updateStructure(
-        1000 / 60
+        1000 /
+        60
       );
     }
   };
@@ -1959,7 +2306,8 @@
             state.lastTime,
             34
           )
-        : 1000 / 60;
+        : 1000 /
+          60;
 
     state.lastTime =
       currentTime;
@@ -1985,7 +2333,8 @@
       return;
     }
 
-    state.lastTime = 0;
+    state.lastTime =
+      0;
 
     state.animationFrame =
       requestAnimationFrame(
@@ -1995,17 +2344,16 @@
 
   const stopAnimation = () => {
     if (
-      state.animationFrame === null
+      state.animationFrame !==
+      null
     ) {
-      return;
+      cancelAnimationFrame(
+        state.animationFrame
+      );
+
+      state.animationFrame =
+        null;
     }
-
-    cancelAnimationFrame(
-      state.animationFrame
-    );
-
-    state.animationFrame =
-      null;
   };
 
   const setMode = mode => {
@@ -2013,6 +2361,32 @@
       !modeCopy[mode]
     ) {
       return;
+    }
+
+    const repeatedFormation =
+      mode === "formation" &&
+      state.mode === "formation";
+
+    if (
+      mode === "formation"
+    ) {
+      randomizeFormationShape();
+      applyNewFormationShape();
+
+      state.tissueBlend =
+        Math.min(
+          state.tissueBlend,
+
+          repeatedFormation
+            ? 0.16
+            : 0.24
+        );
+
+      state.erosionBlend =
+        Math.min(
+          state.erosionBlend,
+          0.12
+        );
     }
 
     startTransition(
@@ -2038,14 +2412,20 @@
       );
     }
 
-    if (statusTitle) {
+    if (
+      statusTitle
+    ) {
       statusTitle.textContent =
         modeCopy[mode].title;
     }
 
-    if (statusText) {
+    if (
+      statusText
+    ) {
       statusText.textContent =
-        modeCopy[mode].text;
+        mode === "formation"
+          ? "A new osteoblast-associated tissue morphology is assembling."
+          : modeCopy[mode].text;
     }
 
     if (
@@ -2092,10 +2472,12 @@
       state.points
     ) {
       const horizontalDistance =
-        point.x - x;
+        point.x -
+        x;
 
       const verticalDistance =
-        point.y - y;
+        point.y -
+        y;
 
       const distance =
         Math.hypot(
@@ -2108,7 +2490,8 @@
 
       if (
         distance === 0 ||
-        distance >= radius
+        distance >=
+        radius
       ) {
         continue;
       }
@@ -2136,7 +2519,11 @@
         force;
     }
 
-    drawScene();
+    if (
+      prefersReducedMotion
+    ) {
+      drawScene();
+    }
   };
 
   for (
@@ -2180,8 +2567,6 @@
 
       state.pointer.active =
         true;
-
-      drawScene();
     }
   );
 
@@ -2219,7 +2604,11 @@
       state.pointer.pressed =
         false;
 
-      drawScene();
+      if (
+        prefersReducedMotion
+      ) {
+        drawScene();
+      }
     }
   );
 
@@ -2261,8 +2650,6 @@
       canvas.releasePointerCapture?.(
         event.pointerId
       );
-
-      drawScene();
     }
   );
 
@@ -2271,14 +2658,14 @@
     () => {
       state.pointer.pressed =
         false;
-
-      drawScene();
     }
   );
 
   const resizeObserver =
     new ResizeObserver(
-      resizeCanvas
+      () => {
+        resizeCanvas();
+      }
     );
 
   resizeObserver.observe(
@@ -2295,14 +2682,14 @@
         if (
           state.isVisible
         ) {
-          drawScene();
           startAnimation();
         } else {
           stopAnimation();
         }
       },
       {
-        threshold: 0.02
+        threshold:
+          0.02
       }
     );
 
@@ -2312,33 +2699,12 @@
 
   resizeCanvas();
   setMode("plain");
-  drawScene();
 
   if (
-    !prefersReducedMotion
+    prefersReducedMotion
   ) {
+    drawScene();
+  } else {
     startAnimation();
-
-    requestAnimationFrame(
-      () => {
-        updateStructure(
-          1000 / 60
-        );
-
-        drawScene();
-      }
-    );
   }
-
-  window.addEventListener(
-    "load",
-    () => {
-      resizeCanvas();
-      drawScene();
-      startAnimation();
-    },
-    {
-      once: true
-    }
-  );
 })();
