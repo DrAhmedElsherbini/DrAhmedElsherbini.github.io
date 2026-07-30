@@ -1,0 +1,2179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Research by Ahmed E. Elshal in functional bone models, PTH regulated remodeling, advanced microscopy, tissue engineering, and quantitative analysis."
+  >
+
+  <meta name="theme-color" content="#8a1f2d">
+
+  <title>Research | Ahmed E. Elshal</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="Ahmed_Black_Logo.png"
+  >
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="bone-chimes.css?v=1">
+
+  <style>
+    .brand-name {
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+    .research-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding: 6rem 0 5rem;
+      border-bottom: 1px solid var(--line);
+      cursor: crosshair;
+      background:
+        radial-gradient(
+          circle at 88% 18%,
+          rgba(201, 145, 39, 0.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 8% 85%,
+          rgba(138, 31, 45, 0.08),
+          transparent 30%
+        ),
+        var(--surface);
+    }
+
+    .research-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.25;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(23, 32, 42, 0.12) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+    }
+
+
+    #research-cell-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .research-hero > .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .research-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .research-hero h1 {
+      max-width: 860px;
+      margin-bottom: 1.4rem;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+    }
+
+    .research-hero p {
+      max-width: 760px;
+      margin-bottom: 0;
+      font-size: 1.12rem;
+      line-height: 1.8;
+    }
+
+    .research-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+
+    .research-summary-item {
+      padding: 1.3rem;
+      border: 1px solid rgba(220, 227, 234, 0.9);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+    }
+
+    .research-summary-item strong {
+      display: block;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+      font-size: 1.1rem;
+    }
+
+    .research-summary-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .research-interaction-hint {
+      width: 100%;
+      max-width: none;
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 400;
+      line-height: 1.5;
+      letter-spacing: 0;
+      text-align: right;
+      opacity: 1;
+      pointer-events: none;
+    }
+
+    .research-introduction {
+      max-width: 800px;
+      margin-bottom: 3rem;
+    }
+
+    .research-projects {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .research-project {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 2rem;
+      align-items: start;
+      padding: 2rem;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 15px 45px rgba(23, 32, 42, 0.055);
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .research-project.with-image {
+      grid-template-columns:
+        150px
+        minmax(0, 1fr)
+        minmax(300px, 420px);
+      align-items: stretch;
+    }
+
+    .research-project:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 23px 55px rgba(23, 32, 42, 0.1);
+    }
+
+    .project-number {
+      width: 120px;
+      height: 120px;
+      display: grid;
+      place-items: center;
+      align-self: start;
+      border-radius: 24px;
+      background:
+        radial-gradient(
+          circle at 28% 24%,
+          rgba(201, 145, 39, 0.25),
+          transparent 42%
+        ),
+        rgba(138, 31, 45, 0.08);
+      color: var(--primary);
+      font-size: 2.1rem;
+      font-weight: 900;
+    }
+
+    .project-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-label {
+      display: inline-block;
+      margin-bottom: 0.65rem;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .research-project h2 {
+      margin-bottom: 0.9rem;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .research-project p {
+      max-width: 780px;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-image-wrap {
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      align-self: stretch;
+      margin: 0;
+    }
+
+    .project-image {
+      display: block;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      align-self: stretch;
+    }
+
+    .project-bottom-image-wrap {
+      width: 100%;
+      margin: 1.75rem 0 0;
+    }
+
+    .project-bottom-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 540px;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .workflow-section {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .workflow-list {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .workflow-item {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 1rem;
+      padding: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--background);
+    }
+
+    .workflow-number {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .workflow-item h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .workflow-item p {
+      margin-bottom: 0;
+      font-size: 0.94rem;
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .method-card {
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .method-card h3 {
+      margin-bottom: 0.7rem;
+    }
+
+    .method-card p {
+      margin-bottom: 0;
+    }
+
+    .future-section {
+      position: relative;
+      overflow: hidden;
+      padding: 6rem 0;
+      background:
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(201, 145, 39, 0.22),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+    }
+
+    .future-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.14;
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 1px,
+          transparent 1px
+        );
+      background-size: 28px 28px;
+    }
+
+    .future-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.65fr);
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .future-section .eyebrow {
+      color: #f4d99f;
+    }
+
+    .future-section .eyebrow::before {
+      background: #f4d99f;
+    }
+
+    .future-section h2 {
+      color: #ffffff;
+    }
+
+    .future-section p {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .future-card {
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .future-card h3 {
+      color: #ffffff;
+    }
+
+    .future-list {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: rgba(255, 255, 255, 0.82);
+    }
+
+    .future-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .future-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 920px) {
+      .research-summary,
+      .methods-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .research-project {
+        grid-template-columns: 110px minmax(0, 1fr);
+      }
+
+      .research-project.with-image {
+        grid-template-columns: 110px minmax(0, 1fr);
+        align-items: start;
+      }
+
+      .research-project.with-image .project-image-wrap {
+        grid-column: 2;
+        margin-top: 0.5rem;
+      }
+
+      .project-number {
+        width: 92px;
+        height: 92px;
+      }
+
+      .project-image {
+        width: 100%;
+        height: auto;
+        max-height: 420px;
+      }
+
+      .project-bottom-image {
+        max-height: 460px;
+      }
+
+      .workflow-grid,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .brand-name {
+        font-size: 1rem;
+      }
+
+      .research-hero {
+        padding: 4.5rem 0 3.5rem;
+        cursor: default;
+      }
+
+      .research-project,
+      .research-project.with-image {
+        grid-template-columns: 1fr;
+        padding: 1.4rem;
+      }
+
+      .research-project.with-image .project-image-wrap {
+        grid-column: 1;
+        margin-top: 0.25rem;
+      }
+
+      .project-number {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        font-size: 1.4rem;
+      }
+
+      .project-image {
+        width: 100%;
+        height: auto;
+        max-height: none;
+      }
+
+      .project-bottom-image-wrap {
+        margin-top: 1.25rem;
+      }
+
+      .project-bottom-image {
+        max-height: none;
+      }
+
+      .research-interaction-hint {
+        margin-top: 0.8rem;
+        font-size: 0.75rem;
+        text-align: right;
+      }
+
+      .future-section {
+        padding: 4.5rem 0;
+      }
+
+      .future-card {
+        padding: 1.4rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+
+  <header class="site-header">
+
+    <div class="container nav-wrap">
+
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Ahmed E. Elshal homepage"
+      >
+
+        <img
+          class="site-logo"
+          src="Ahmed_Black_Logo.png"
+          alt="Ahmed Elshal logo"
+        >
+
+        <span class="brand-name">
+          Ahmed E. Elshal
+        </span>
+
+      </a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
+
+      <nav class="site-nav" aria-label="Main navigation">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a
+          class="active"
+          href="research.html"
+          aria-current="page"
+        >
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+  <main id="main">
+
+    <section
+      class="research-hero"
+      id="interactive-research-hero"
+    >
+
+      <canvas
+        id="research-cell-background"
+        aria-hidden="true"
+      ></canvas>
+
+      <div class="container">
+
+        <div class="research-hero-content">
+
+          <div class="eyebrow">
+            Research
+          </div>
+
+          <h1>
+            Three dimensional models for regenerative bone medicine
+          </h1>
+
+          <p>
+            I develop experimental and quantitative platforms that reveal how
+            cells, signaling pathways, and extracellular matrix dynamics
+            regulate bone remodeling and regeneration.
+          </p>
+
+          <div class="research-summary">
+
+            <div class="research-summary-item">
+
+              <strong>
+                Biological system
+              </strong>
+
+              <span>
+                Multicellular functional bone models
+              </span>
+
+            </div>
+
+            <div class="research-summary-item">
+
+              <strong>
+                Imaging platform
+              </strong>
+
+              <span>
+                Longitudinal two photon and SHG microscopy
+              </span>
+
+            </div>
+
+            <div class="research-summary-item">
+
+              <strong>
+                Quantitative analysis
+              </strong>
+
+              <span>
+                Imaris, MATLAB, ImageJ, and statistical workflows
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <p class="research-interaction-hint">
+          Click and move the arrow to interact with cells
+        </p>
+
+      </div>
+
+    </section>
+
+    <section
+      class="bone-chimes-section"
+      aria-labelledby="bone-chimes-title"
+    >
+
+      <div class="container">
+
+        <div
+          class="bone-chimes-shell"
+          id="bone-chimes-experience"
+        >
+
+          <div class="bone-chimes-topbar">
+
+            <p class="bone-chimes-kicker">
+              Interactive tissue model
+            </p>
+
+            <button
+              class="bone-chimes-reset"
+              type="button"
+              data-bone-reset
+            >
+              Reset strings
+            </button>
+
+          </div>
+
+          <canvas
+            id="bone-chimes-canvas"
+            aria-label="Interactive suspended strings. Move or drag through them, or select Formation or Resorption to transform the structure."
+          ></canvas>
+
+          <button
+            class="bone-mode-control"
+            type="button"
+            data-bone-mode="formation"
+            aria-pressed="false"
+          >
+
+            <span class="bone-mode-symbol" aria-hidden="true">
+              OB
+            </span>
+
+            <span class="bone-mode-title">
+              Formation
+            </span>
+
+            <span class="bone-mode-subtitle">
+              Matrix assembly
+            </span>
+
+          </button>
+
+          <button
+            class="bone-mode-control"
+            type="button"
+            data-bone-mode="resorption"
+            aria-pressed="false"
+          >
+
+            <span class="bone-mode-symbol" aria-hidden="true">
+              OC
+            </span>
+
+            <span class="bone-mode-title">
+              Resorption
+            </span>
+
+            <span class="bone-mode-subtitle">
+              Matrix remodeling
+            </span>
+
+          </button>
+
+          <div class="bone-chimes-copy">
+
+            <small>
+              Functional bone remodeling
+            </small>
+
+            <h2 id="bone-chimes-title">
+              Cells shape
+              <br>
+              living tissue
+            </h2>
+
+            <p>
+              A coded tissue structure inspired by osteoblast and
+              osteoclast communication during bone remodeling.
+            </p>
+
+          </div>
+
+          <p class="bone-chimes-status" aria-live="polite">
+
+            <strong data-bone-status-title>
+              Interactive strings
+            </strong>
+
+            <span data-bone-status-text>
+              Move through the suspended strings, then select a remodeling mode.
+            </span>
+
+          </p>
+
+          <p class="bone-chimes-instruction">
+            Move or drag through the strings
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="research-introduction">
+
+          <div class="eyebrow">
+            Research overview
+          </div>
+
+          <h2>
+            Controllable systems for studying bone remodeling
+          </h2>
+
+          <p class="lead">
+            My central objective is to develop controllable tissue engineering
+            systems that connect mechanistic bone biology with translational
+            regenerative strategies.
+          </p>
+
+        </div>
+
+        <div class="research-projects">
+
+          <article class="research-project with-image">
+
+            <div class="project-number">
+              01
+            </div>
+
+            <div class="project-content">
+
+              <span class="project-label">
+                Doctoral research
+              </span>
+
+              <h2>
+                Functional bone remodeling models
+              </h2>
+
+              <p>
+                I develop and maintain multicellular three dimensional bone
+                models that reproduce sequential tissue formation, resorption,
+                and reformation. These systems allow controlled investigation
+                of osteoblast and osteoclast coupling within a self-generated
+                bone-like extracellular matrix.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  Long-term 3D culture
+                </span>
+
+                <span class="tag">
+                  Bone remodeling
+                </span>
+
+                <span class="tag">
+                  Multicellular systems
+                </span>
+
+                <span class="tag">
+                  Matrix regeneration
+                </span>
+
+              </div>
+
+            </div>
+
+            <figure class="project-image-wrap">
+
+              <img
+                class="project-image"
+                src="FBO.png"
+                alt="Functional bone remodeling model"
+                loading="lazy"
+                decoding="async"
+              >
+
+            </figure>
+
+          </article>
+
+          <article class="research-project">
+
+            <div class="project-number">
+              02
+            </div>
+
+            <div>
+
+              <span class="project-label">
+                Pharmacologic regulation
+              </span>
+
+              <h2>
+                PTH exposure and remodeling dynamics
+              </h2>
+
+              <p>
+                I investigate how intermittent and continuous PTH(1-34)
+                exposure patterns regulate tissue-level remodeling. The work
+                examines matrix loss and recovery, cellular distribution,
+                migration, spatial coupling, and molecular readouts associated
+                with bone formation and resorption.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  PTH signaling
+                </span>
+
+                <span class="tag">
+                  Formation
+                </span>
+
+                <span class="tag">
+                  Resorption
+                </span>
+
+                <span class="tag">
+                  Reformation
+                </span>
+
+              </div>
+
+              <figure class="project-bottom-image-wrap">
+
+                <img
+                  class="project-bottom-image"
+                  src="PTH_Effects.png"
+                  alt="Effects of PTH exposure patterns on bone remodeling"
+                  loading="lazy"
+                  decoding="async"
+                >
+
+              </figure>
+
+            </div>
+
+          </article>
+
+          <article class="research-project">
+
+            <div class="project-number">
+              03
+            </div>
+
+            <div>
+
+              <span class="project-label">
+                Imaging and analytics
+              </span>
+
+              <h2>
+                Longitudinal imaging and quantitative analysis
+              </h2>
+
+              <p>
+                I combine two photon microscopy, second harmonic generation
+                imaging, fluorescent cell tracking, tissue clearing, Imaris
+                reconstruction, and MATLAB analysis to follow cellular and
+                extracellular matrix changes through time.
+              </p>
+
+              <div class="tag-list">
+
+                <span class="tag">
+                  Two photon imaging
+                </span>
+
+                <span class="tag">
+                  SHG
+                </span>
+
+                <span class="tag">
+                  Imaris
+                </span>
+
+                <span class="tag">
+                  MATLAB
+                </span>
+
+                <span class="tag">
+                  ImageJ and Fiji
+                </span>
+
+              </div>
+
+              <figure class="project-bottom-image-wrap">
+
+                <img
+                  class="project-bottom-image"
+                  src="Longitudinal_imaging.png"
+                  alt="Longitudinal imaging and quantitative analysis workflow"
+                  loading="lazy"
+                  decoding="async"
+                >
+
+              </figure>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section workflow-section">
+
+      <div class="container workflow-grid">
+
+        <div>
+
+          <div class="eyebrow">
+            Experimental workflow
+          </div>
+
+          <h2>
+            Following remodeling through multiple phases
+          </h2>
+
+          <p class="lead">
+            Longitudinal imaging allows the same three dimensional tissue to be
+            evaluated across formation, resorption, and regenerative recovery.
+          </p>
+
+        </div>
+
+        <div class="workflow-list">
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              01
+            </span>
+
+            <div>
+
+              <h3>
+                Formation
+              </h3>
+
+              <p>
+                Osteogenic cells generate mineralized bone-like tissue and
+                collagen-rich extracellular matrix.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              02
+            </span>
+
+            <div>
+
+              <h3>
+                Resorption
+              </h3>
+
+              <p>
+                Osteoclast-lineage cells remodel the matrix and generate
+                localized resorption regions.
+              </p>
+
+            </div>
+
+          </div>
+
+          <div class="workflow-item">
+
+            <span class="workflow-number">
+              03
+            </span>
+
+            <div>
+
+              <h3>
+                Reformation
+              </h3>
+
+              <p>
+                Osteoblast-lineage cells respond to the remodeled
+                microenvironment and generate new matrix.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <div class="eyebrow">
+            Methods
+          </div>
+
+          <h2>
+            Integrated experimental capabilities
+          </h2>
+
+          <p>
+            The research platform connects biological experimentation,
+            advanced imaging, molecular analysis, and computational
+            quantification.
+          </p>
+
+        </div>
+
+        <div class="methods-grid">
+
+          <article class="method-card">
+
+            <h3>
+              Tissue engineering
+            </h3>
+
+            <p>
+              Functional bone models, osteospheroid systems, long-term culture,
+              multicellular labeling, and remodeling assays.
+            </p>
+
+          </article>
+
+          <article class="method-card">
+
+            <h3>
+              Advanced imaging
+            </h3>
+
+            <p>
+              Two photon microscopy, SHG imaging, fluorescence tracking,
+              tissue clearing, micro-CT, and three dimensional reconstruction.
+            </p>
+
+          </article>
+
+          <article class="method-card">
+
+            <h3>
+              Quantitative analysis
+            </h3>
+
+            <p>
+              Imaris segmentation, MATLAB pipelines, ImageJ and Fiji analysis,
+              repeated-measures statistics, and scientific visualization.
+            </p>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <section class="future-section">
+
+      <div class="container future-grid">
+
+        <div>
+
+          <div class="eyebrow">
+            Future direction
+          </div>
+
+          <h2>
+            Controllable platforms for therapeutic regeneration
+          </h2>
+
+          <p class="lead">
+            My long-term research direction integrates biomaterials, three
+            dimensional bone models, cellular signaling, quantitative imaging,
+            and regenerative therapy development.
+          </p>
+
+        </div>
+
+        <div class="future-card">
+
+          <h3>
+            Areas of interest
+          </h3>
+
+          <ul class="future-list">
+
+            <li>
+              Biomaterial scaffold design and cell-instructive
+              microenvironments
+            </li>
+
+            <li>
+              Stem cell differentiation and immunomodulatory bone repair
+            </li>
+
+            <li>
+              Osteocyte signaling, sclerostin, Wnt pathways, and tissue
+              coupling
+            </li>
+
+            <li>
+              Craniofacial, alveolar, and musculoskeletal bone regeneration
+            </li>
+
+            <li>
+              Reproducible imaging and open quantitative analysis workflows
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+
+    <div class="container footer-grid">
+
+      <span>
+        © <span data-year></span> Designed and coded by Ahmed E. Elshal
+      </span>
+
+      <div class="footer-links">
+
+        <a href="index.html">
+          Home
+        </a>
+
+        <a href="research.html">
+          Research
+        </a>
+
+        <a href="publications.html">
+          Publications
+        </a>
+
+        <a href="gallery.html">
+          Gallery
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <script src="script.js?v=5"></script>
+  <script src="bone-chimes.js?v=1"></script>
+
+  <script>
+    (() => {
+      const hero = document.getElementById("interactive-research-hero");
+      const canvas = document.getElementById("research-cell-background");
+
+      if (!hero || !canvas) {
+        return;
+      }
+
+      const context = canvas.getContext("2d", {
+        alpha: true
+      });
+
+      if (!context) {
+        return;
+      }
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const rootStyles = getComputedStyle(document.documentElement);
+
+      const primaryColor =
+        rootStyles.getPropertyValue("--primary").trim() ||
+        "#8a1f2d";
+
+      const goldColor =
+        rootStyles.getPropertyValue("--accent").trim() ||
+        "#c99127";
+
+      const textColor =
+        rootStyles.getPropertyValue("--text").trim() ||
+        "#17202a";
+
+      const colorToRgb = color => {
+        const normalized = color.trim();
+
+        if (normalized.startsWith("#")) {
+          const hex = normalized.slice(1);
+
+          if (hex.length === 3) {
+            return {
+              red: parseInt(hex[0] + hex[0], 16),
+              green: parseInt(hex[1] + hex[1], 16),
+              blue: parseInt(hex[2] + hex[2], 16)
+            };
+          }
+
+          if (hex.length >= 6) {
+            return {
+              red: parseInt(hex.slice(0, 2), 16),
+              green: parseInt(hex.slice(2, 4), 16),
+              blue: parseInt(hex.slice(4, 6), 16)
+            };
+          }
+        }
+
+        const rgbMatch = normalized.match(
+          /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/
+        );
+
+        if (rgbMatch) {
+          return {
+            red: Number(rgbMatch[1]),
+            green: Number(rgbMatch[2]),
+            blue: Number(rgbMatch[3])
+          };
+        }
+
+        return {
+          red: 138,
+          green: 31,
+          blue: 45
+        };
+      };
+
+      const primaryRgb = colorToRgb(primaryColor);
+      const goldRgb = colorToRgb(goldColor);
+      const textRgb = colorToRgb(textColor);
+
+      const rgba = (color, alpha) => (
+        `rgba(${color.red}, ${color.green}, ${color.blue}, ${alpha})`
+      );
+
+      let width = 0;
+      let height = 0;
+      let pixelRatio = 1;
+      let animationFrame = null;
+      let isVisible = true;
+      let lastFrameTime = 0;
+
+      const cells = [];
+      const nodules = [];
+
+      const pointer = {
+        x: 0,
+        y: 0,
+        active: false
+      };
+
+      const settings = {
+        maximumNodules: 6,
+        connectionDistance: 82,
+        pointerDistance: 145,
+        attractionDistance: 310,
+        targetFrameInterval: 1000 / 45
+      };
+
+      const randomBetween = (minimum, maximum) => (
+        minimum + Math.random() * (maximum - minimum)
+      );
+
+      const getCellCount = () => {
+        const area = width * height;
+
+        return Math.max(
+          52,
+          Math.min(110, Math.floor(area / 7800))
+        );
+      };
+
+      class Cell {
+        constructor(x = Math.random() * width, y = Math.random() * height) {
+          this.x = x;
+          this.y = y;
+          this.vx = randomBetween(-0.35, 0.35);
+          this.vy = randomBetween(-0.35, 0.35);
+          this.radius = randomBetween(2.2, 4.1);
+          this.phase = Math.random() * Math.PI * 2;
+          this.opacity = randomBetween(0.34, 0.68);
+          this.aggregation = 0;
+        }
+
+        update() {
+          this.phase += 0.018;
+
+          this.vx += randomBetween(-0.012, 0.012);
+          this.vy += randomBetween(-0.012, 0.012);
+
+          let nearestNodule = null;
+          let nearestDistance = Infinity;
+
+          for (const nodule of nodules) {
+            const horizontalDistance = nodule.x - this.x;
+            const verticalDistance = nodule.y - this.y;
+            const distance = Math.hypot(
+              horizontalDistance,
+              verticalDistance
+            );
+
+            if (
+              distance < nearestDistance &&
+              distance < settings.attractionDistance
+            ) {
+              nearestDistance = distance;
+              nearestNodule = nodule;
+            }
+          }
+
+          if (nearestNodule) {
+            const horizontalDistance = nearestNodule.x - this.x;
+            const verticalDistance = nearestNodule.y - this.y;
+            const safeDistance = Math.max(nearestDistance, 0.01);
+            const directionX = horizontalDistance / safeDistance;
+            const directionY = verticalDistance / safeDistance;
+
+            const attraction =
+              0.0018 +
+              nearestNodule.maturity * 0.0034;
+
+            this.vx += directionX * attraction;
+            this.vy += directionY * attraction;
+
+            const aggregationRadius =
+              nearestNodule.radius +
+              22 +
+              Math.sin(this.phase) * 4;
+
+            if (nearestDistance < aggregationRadius) {
+              this.aggregation = Math.min(
+                1,
+                this.aggregation + 0.008
+              );
+
+              nearestNodule.recruitment = Math.min(
+                1,
+                nearestNodule.recruitment + 0.0005
+              );
+
+              const tangentX = -directionY;
+              const tangentY = directionX;
+
+              this.vx += tangentX * 0.0035;
+              this.vy += tangentY * 0.0035;
+
+              this.vx *= 0.955;
+              this.vy *= 0.955;
+            }
+          }
+
+          if (pointer.active) {
+            const horizontalDistance = pointer.x - this.x;
+            const verticalDistance = pointer.y - this.y;
+            const distance = Math.hypot(
+              horizontalDistance,
+              verticalDistance
+            );
+
+            if (
+              distance > 0 &&
+              distance < settings.pointerDistance
+            ) {
+              const force =
+                (
+                  1 -
+                  distance / settings.pointerDistance
+                ) * 0.015;
+
+              this.vx +=
+                (horizontalDistance / distance) * force;
+
+              this.vy +=
+                (verticalDistance / distance) * force;
+            }
+          }
+
+          const speed = Math.hypot(this.vx, this.vy);
+          const maximumSpeed = this.aggregation > 0.4 ? 0.55 : 0.82;
+
+          if (speed > maximumSpeed) {
+            this.vx = (this.vx / speed) * maximumSpeed;
+            this.vy = (this.vy / speed) * maximumSpeed;
+          }
+
+          this.x += this.vx;
+          this.y += this.vy;
+
+          this.vx *= 0.993;
+          this.vy *= 0.993;
+
+          const margin = 18;
+
+          if (this.x < -margin) {
+            this.x = width + margin;
+          }
+
+          if (this.x > width + margin) {
+            this.x = -margin;
+          }
+
+          if (this.y < -margin) {
+            this.y = height + margin;
+          }
+
+          if (this.y > height + margin) {
+            this.y = -margin;
+          }
+        }
+
+        draw() {
+          const pulse = Math.sin(this.phase) * 0.22;
+          const membraneRadius = this.radius + pulse;
+
+          context.beginPath();
+
+          context.arc(
+            this.x,
+            this.y,
+            membraneRadius,
+            0,
+            Math.PI * 2
+          );
+
+          context.fillStyle = rgba(
+            primaryRgb,
+            this.opacity * 0.12
+          );
+
+          context.fill();
+
+          context.strokeStyle = rgba(
+            primaryRgb,
+            this.opacity * 0.58
+          );
+
+          context.lineWidth = 0.85;
+          context.stroke();
+
+          context.beginPath();
+
+          context.arc(
+            this.x,
+            this.y,
+            Math.max(0.9, this.radius * 0.35),
+            0,
+            Math.PI * 2
+          );
+
+          context.fillStyle = rgba(
+            goldRgb,
+            this.opacity * 0.82
+          );
+
+          context.fill();
+        }
+      }
+
+      class BoneNodule {
+        constructor(x, y, initialMaturity = 0) {
+          this.x = x;
+          this.y = y;
+          this.radius = 8 + initialMaturity * 18;
+          this.targetRadius = randomBetween(34, 58);
+          this.maturity = initialMaturity;
+          this.recruitment = initialMaturity * 0.45;
+          this.phase = Math.random() * Math.PI * 2;
+          this.points = this.createShape();
+        }
+
+        createShape() {
+          const points = [];
+          const pointCount = 24;
+
+          for (let index = 0; index < pointCount; index += 1) {
+            points.push({
+              angle: (index / pointCount) * Math.PI * 2,
+              variation: randomBetween(0.8, 1.17)
+            });
+          }
+
+          return points;
+        }
+
+        update() {
+          this.phase += 0.008;
+
+          const maturationRate =
+            0.00016 +
+            this.recruitment * 0.00036;
+
+          this.maturity = Math.min(
+            1,
+            this.maturity + maturationRate
+          );
+
+          const growthTarget =
+            8 +
+            this.targetRadius *
+              (
+                this.maturity * 0.62 +
+                this.recruitment * 0.38
+              );
+
+          this.radius +=
+            (growthTarget - this.radius) * 0.011;
+        }
+
+        drawHalo() {
+          const haloRadius =
+            this.radius *
+            (
+              1.65 +
+              Math.sin(this.phase) * 0.035
+            );
+
+          const gradient = context.createRadialGradient(
+            this.x,
+            this.y,
+            this.radius * 0.15,
+            this.x,
+            this.y,
+            haloRadius
+          );
+
+          gradient.addColorStop(
+            0,
+            rgba(goldRgb, 0.11 + this.maturity * 0.12)
+          );
+
+          gradient.addColorStop(
+            0.58,
+            rgba(primaryRgb, 0.045 + this.maturity * 0.05)
+          );
+
+          gradient.addColorStop(
+            1,
+            rgba(primaryRgb, 0)
+          );
+
+          context.beginPath();
+
+          context.arc(
+            this.x,
+            this.y,
+            haloRadius,
+            0,
+            Math.PI * 2
+          );
+
+          context.fillStyle = gradient;
+          context.fill();
+        }
+
+        drawBody() {
+          if (!this.points.length) {
+            return;
+          }
+
+          const firstPoint = this.points[0];
+          const firstRadius =
+            this.radius * firstPoint.variation;
+
+          context.beginPath();
+
+          context.moveTo(
+            this.x + Math.cos(firstPoint.angle) * firstRadius,
+            this.y + Math.sin(firstPoint.angle) * firstRadius
+          );
+
+          for (
+            let index = 1;
+            index < this.points.length;
+            index += 1
+          ) {
+            const point = this.points[index];
+
+            const currentRadius =
+              this.radius *
+              point.variation *
+              (
+                1 +
+                Math.sin(
+                  this.phase + point.angle * 3
+                ) * 0.022
+              );
+
+            context.lineTo(
+              this.x + Math.cos(point.angle) * currentRadius,
+              this.y + Math.sin(point.angle) * currentRadius
+            );
+          }
+
+          context.closePath();
+
+          const gradient = context.createRadialGradient(
+            this.x - this.radius * 0.25,
+            this.y - this.radius * 0.25,
+            this.radius * 0.08,
+            this.x,
+            this.y,
+            this.radius * 1.2
+          );
+
+          gradient.addColorStop(
+            0,
+            rgba(goldRgb, 0.15 + this.maturity * 0.34)
+          );
+
+          gradient.addColorStop(
+            0.48,
+            rgba(primaryRgb, 0.08 + this.maturity * 0.25)
+          );
+
+          gradient.addColorStop(
+            1,
+            rgba(primaryRgb, 0.02 + this.maturity * 0.08)
+          );
+
+          context.fillStyle = gradient;
+          context.fill();
+
+          context.strokeStyle = rgba(
+            primaryRgb,
+            0.16 + this.maturity * 0.28
+          );
+
+          context.lineWidth = 1;
+          context.stroke();
+        }
+
+        drawMineralPoints() {
+          const pointCount = Math.floor(
+            4 + this.maturity * 22
+          );
+
+          for (
+            let index = 0;
+            index < pointCount;
+            index += 1
+          ) {
+            const angle =
+              index * 2.39996 +
+              this.phase * 0.08;
+
+            const radialPosition = Math.sqrt(
+              index / Math.max(pointCount, 1)
+            );
+
+            const pointRadius =
+              radialPosition * this.radius * 0.72;
+
+            const x =
+              this.x + Math.cos(angle) * pointRadius;
+
+            const y =
+              this.y + Math.sin(angle) * pointRadius;
+
+            context.beginPath();
+
+            context.arc(
+              x,
+              y,
+              0.65 + this.maturity * 0.95,
+              0,
+              Math.PI * 2
+            );
+
+            context.fillStyle = rgba(
+              textRgb,
+              0.08 + this.maturity * 0.2
+            );
+
+            context.fill();
+          }
+        }
+
+        draw() {
+          this.drawHalo();
+          this.drawBody();
+          this.drawMineralPoints();
+        }
+      }
+
+      const synchronizeCells = () => {
+        const targetCellCount = getCellCount();
+
+        while (cells.length < targetCellCount) {
+          cells.push(new Cell());
+        }
+
+        if (cells.length > targetCellCount) {
+          cells.length = targetCellCount;
+        }
+      };
+
+      const positionInitialNodules = () => {
+        nodules.length = 0;
+
+        nodules.push(
+          new BoneNodule(
+            width * 0.76,
+            height * 0.3,
+            0.42
+          )
+        );
+
+        nodules.push(
+          new BoneNodule(
+            width * 0.88,
+            height * 0.72,
+            0.18
+          )
+        );
+
+        if (width > 860) {
+          nodules.push(
+            new BoneNodule(
+              width * 0.56,
+              height * 0.82,
+              0.08
+            )
+          );
+        }
+      };
+
+      const resizeCanvas = () => {
+        const bounds = hero.getBoundingClientRect();
+
+        width = Math.max(1, bounds.width);
+        height = Math.max(1, bounds.height);
+
+        pixelRatio = Math.min(
+          window.devicePixelRatio || 1,
+          1.75
+        );
+
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+
+        context.setTransform(
+          pixelRatio,
+          0,
+          0,
+          pixelRatio,
+          0,
+          0
+        );
+
+        pointer.x = width * 0.75;
+        pointer.y = height * 0.5;
+
+        synchronizeCells();
+        positionInitialNodules();
+
+        if (reduceMotion) {
+          drawScene(false);
+        }
+      };
+
+      const drawCellConnections = () => {
+        const maximumDistanceSquared =
+          settings.connectionDistance *
+          settings.connectionDistance;
+
+        for (
+          let firstIndex = 0;
+          firstIndex < cells.length;
+          firstIndex += 1
+        ) {
+          const firstCell = cells[firstIndex];
+
+          for (
+            let secondIndex = firstIndex + 1;
+            secondIndex < cells.length;
+            secondIndex += 1
+          ) {
+            const secondCell = cells[secondIndex];
+            const horizontalDistance =
+              secondCell.x - firstCell.x;
+
+            const verticalDistance =
+              secondCell.y - firstCell.y;
+
+            const distanceSquared =
+              horizontalDistance * horizontalDistance +
+              verticalDistance * verticalDistance;
+
+            if (distanceSquared < maximumDistanceSquared) {
+              const distance = Math.sqrt(distanceSquared);
+
+              const opacity =
+                (
+                  1 -
+                  distance / settings.connectionDistance
+                ) * 0.075;
+
+              context.beginPath();
+
+              context.moveTo(
+                firstCell.x,
+                firstCell.y
+              );
+
+              context.lineTo(
+                secondCell.x,
+                secondCell.y
+              );
+
+              context.strokeStyle = rgba(
+                primaryRgb,
+                opacity
+              );
+
+              context.lineWidth = 0.6;
+              context.stroke();
+            }
+          }
+        }
+      };
+
+      const drawNoduleConnections = () => {
+        for (
+          let firstIndex = 0;
+          firstIndex < nodules.length;
+          firstIndex += 1
+        ) {
+          const firstNodule = nodules[firstIndex];
+
+          for (
+            let secondIndex = firstIndex + 1;
+            secondIndex < nodules.length;
+            secondIndex += 1
+          ) {
+            const secondNodule = nodules[secondIndex];
+
+            const distance = Math.hypot(
+              secondNodule.x - firstNodule.x,
+              secondNodule.y - firstNodule.y
+            );
+
+            if (distance < 360) {
+              const opacity =
+                (
+                  1 -
+                  distance / 360
+                ) *
+                0.055 *
+                (
+                  firstNodule.maturity +
+                  secondNodule.maturity
+                );
+
+              context.beginPath();
+
+              context.moveTo(
+                firstNodule.x,
+                firstNodule.y
+              );
+
+              context.lineTo(
+                secondNodule.x,
+                secondNodule.y
+              );
+
+              context.strokeStyle = rgba(
+                goldRgb,
+                opacity
+              );
+
+              context.lineWidth = 1.05;
+              context.stroke();
+            }
+          }
+        }
+      };
+
+      const drawPointerHalo = () => {
+        if (!pointer.active) {
+          return;
+        }
+
+        const gradient = context.createRadialGradient(
+          pointer.x,
+          pointer.y,
+          0,
+          pointer.x,
+          pointer.y,
+          settings.pointerDistance
+        );
+
+        gradient.addColorStop(
+          0,
+          rgba(goldRgb, 0.055)
+        );
+
+        gradient.addColorStop(
+          1,
+          rgba(goldRgb, 0)
+        );
+
+        context.fillStyle = gradient;
+
+        context.fillRect(
+          pointer.x - settings.pointerDistance,
+          pointer.y - settings.pointerDistance,
+          settings.pointerDistance * 2,
+          settings.pointerDistance * 2
+        );
+      };
+
+      function drawScene(shouldUpdate = true) {
+        context.clearRect(0, 0, width, height);
+
+        drawPointerHalo();
+        drawNoduleConnections();
+        drawCellConnections();
+
+        for (const nodule of nodules) {
+          if (shouldUpdate) {
+            nodule.update();
+          }
+
+          nodule.draw();
+        }
+
+        for (const cell of cells) {
+          if (shouldUpdate) {
+            cell.update();
+          }
+
+          cell.draw();
+        }
+      }
+
+      const animate = currentTime => {
+        if (!isVisible) {
+          animationFrame = null;
+          return;
+        }
+
+        const elapsed = currentTime - lastFrameTime;
+
+        if (elapsed >= settings.targetFrameInterval) {
+          lastFrameTime =
+            currentTime -
+            (
+              elapsed % settings.targetFrameInterval
+            );
+
+          drawScene(true);
+        }
+
+        animationFrame = requestAnimationFrame(animate);
+      };
+
+      const startAnimation = () => {
+        if (
+          reduceMotion ||
+          animationFrame !== null ||
+          !isVisible
+        ) {
+          return;
+        }
+
+        animationFrame = requestAnimationFrame(animate);
+      };
+
+      const stopAnimation = () => {
+        if (animationFrame !== null) {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+        }
+      };
+
+      const createNodule = (x, y) => {
+        nodules.push(
+          new BoneNodule(x, y, 0.02)
+        );
+
+        for (let index = 0; index < 10; index += 1) {
+          const angle = Math.random() * Math.PI * 2;
+          const distance = randomBetween(55, 150);
+
+          cells.push(
+            new Cell(
+              x + Math.cos(angle) * distance,
+              y + Math.sin(angle) * distance
+            )
+          );
+        }
+
+        if (nodules.length > settings.maximumNodules) {
+          nodules.shift();
+        }
+
+        if (reduceMotion) {
+          drawScene(false);
+        }
+      };
+
+      hero.addEventListener("pointermove", event => {
+        const bounds = hero.getBoundingClientRect();
+
+        pointer.x = event.clientX - bounds.left;
+        pointer.y = event.clientY - bounds.top;
+        pointer.active = true;
+      });
+
+      hero.addEventListener("pointerleave", () => {
+        pointer.active = false;
+      });
+
+      hero.addEventListener("pointerdown", event => {
+        if (
+          event.target.closest(
+            "a, button, input, textarea, select"
+          )
+        ) {
+          return;
+        }
+
+        const bounds = hero.getBoundingClientRect();
+
+        createNodule(
+          event.clientX - bounds.left,
+          event.clientY - bounds.top
+        );
+      });
+
+      const resizeObserver = new ResizeObserver(() => {
+        resizeCanvas();
+      });
+
+      resizeObserver.observe(hero);
+
+      const visibilityObserver = new IntersectionObserver(
+        entries => {
+          isVisible = entries[0]?.isIntersecting ?? true;
+
+          if (isVisible) {
+            startAnimation();
+          } else {
+            stopAnimation();
+          }
+        },
+        {
+          threshold: 0.02
+        }
+      );
+
+      visibilityObserver.observe(hero);
+
+      resizeCanvas();
+
+      if (reduceMotion) {
+        drawScene(false);
+      } else {
+        startAnimation();
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
