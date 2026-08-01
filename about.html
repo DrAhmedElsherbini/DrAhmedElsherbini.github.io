@@ -96,27 +96,33 @@
         </div>
 
         <aside class="journey-guide">
-          <strong>Interactive timeline</strong>
-          <p>Drag horizontally, filter the chapters, or select any dot to open its full story.</p>
+          <p>Drag horizontally or select any dot to open its full story.</p>
         </aside>
       </div>
 
       <div class="journey-timeline" data-journey-timeline>
-        <div class="journey-toolbar">
-          <div class="journey-filters" role="group" aria-label="Filter timeline events">
-            <button class="journey-filter active" type="button" data-filter="all">All chapters</button>
-            <button class="journey-filter" type="button" data-filter="origin">Origins</button>
-            <button class="journey-filter" type="button" data-filter="education">Education</button>
-            <button class="journey-filter" type="button" data-filter="research">Research</button>
-            <button class="journey-filter" type="button" data-filter="achievement">Achievements</button>
-            <button class="journey-filter" type="button" data-filter="future">Future</button>
-          </div>
 
-          <div class="journey-actions" aria-label="Timeline navigation">
-            <button id="journeyPrevious" class="journey-nav" type="button" aria-label="Previous timeline event">←</button>
-            <button id="journeyNext" class="journey-nav" type="button" aria-label="Next timeline event">→</button>
-          </div>
-        </div>
+<div class="journey-toolbar">
+  <div class="journey-actions" aria-label="Timeline navigation">
+    <button
+      id="journeyPrevious"
+      class="journey-nav"
+      type="button"
+      aria-label="Previous timeline event"
+    >
+      ←
+    </button>
+
+    <button
+      id="journeyNext"
+      class="journey-nav"
+      type="button"
+      aria-label="Next timeline event"
+    >
+      →
+    </button>
+  </div>
+</div>
 
         <div id="journeyViewport" class="journey-viewport" aria-label="Scrollable personal timeline">
           <div id="journeyStage" class="journey-stage">
