@@ -267,7 +267,6 @@ let resizeTimer = null;
 
 function renderTimeline() {
   visibleEvents = [...timelineEvents];
-          );
 
     stage
       .querySelectorAll(".journey-node")
