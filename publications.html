@@ -225,6 +225,58 @@
       line-height: 1.85;
     }
 
+    .accepted-publication-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 360px);
+      gap: 2rem;
+      align-items: center;
+      padding: 1.6rem;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--primary);
+      border-radius: 20px;
+      background: var(--surface);
+      box-shadow: 0 14px 40px rgba(23, 32, 42, 0.055);
+    }
+
+    .accepted-publication-content {
+      min-width: 0;
+    }
+
+    .accepted-publication-content .status-label {
+      margin-bottom: 0.9rem;
+      background: rgba(201, 145, 39, 0.14);
+      color: #8a6517;
+    }
+
+    .accepted-publication-content p {
+      margin-bottom: 0;
+      color: var(--text);
+      line-height: 1.85;
+    }
+
+    .accepted-publication-date {
+      display: block;
+      margin-top: 0.8rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .accepted-publication-image-wrap {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--surface-alt);
+      box-shadow: 0 12px 30px rgba(23, 32, 42, 0.08);
+    }
+
+    .accepted-publication-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
     .presentation-card {
       padding: 1.8rem;
       border: 1px solid var(--line);
@@ -336,6 +388,16 @@
       }
 
       .profile-link {
+        width: 100%;
+      }
+
+      .accepted-publication-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+        padding: 1.3rem;
+      }
+
+      .accepted-publication-image-wrap {
         width: 100%;
       }
 
@@ -633,21 +695,34 @@
       <div class="container publications-content">
         <section class="publication-section">
           <div class="publication-section-header">
-            <div class="eyebrow">Current manuscript</div>
-            <h2>Manuscript under revision</h2>
+            <div class="eyebrow">Latest achievement</div>
+            <h2>Accepted publication</h2>
             <hr class="publication-divider">
           </div>
 
-          <div class="status-entry">
-            <span class="status-label">Scientific Reports</span>
-            <p>
-              <strong>Elsherbini A</strong>, et al.
-              “Parathyroid hormone exposure frequency regulates spatiotemporal
-              coupling during bone remodeling in a functional bone model.”
-              <span class="publication-journal">Scientific Reports.</span>
-              Manuscript under revision.
-            </p>
-          </div>
+          <article class="accepted-publication-card">
+            <div class="accepted-publication-content">
+              <span class="status-label">Accepted in Scientific Reports</span>
+              <p>
+                <strong>Elsherbini A</strong>, et al.
+                “Parathyroid hormone exposure frequency regulates spatiotemporal
+                coupling during bone remodeling in a functional bone model.”
+                <span class="publication-journal">Scientific Reports.</span>
+                Accepted for publication.
+                <span class="accepted-publication-date">Accepted on July 31, 2026.</span>
+              </p>
+            </div>
+
+            <div class="accepted-publication-image-wrap">
+              <img
+                class="accepted-publication-image"
+                src="Publication_accepted.jpg"
+                alt="Scientific Reports publication acceptance announcement"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+          </article>
         </section>
 
         <section class="publication-section">
