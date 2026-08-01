@@ -78,12 +78,12 @@
 .bone-chimes-topbar {
   position: absolute;
   top: 0;
-  left: 0;
   right: 0;
-  z-index: 5;
+  left: 0;
+  z-index: 8;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid rgba(77, 66, 54, 0.12);
@@ -144,6 +144,10 @@
   touch-action: none;
 }
 
+.bone-mode-controls {
+  display: contents;
+}
+
 .bone-mode-control {
   position: absolute;
   top: 50%;
@@ -170,15 +174,17 @@
 
 .bone-mode-control:hover,
 .bone-mode-control:focus-visible {
-  transform: translateY(-50%) scale(1.035);
   border-color: rgba(138, 31, 45, 0.45);
   box-shadow: 0 16px 35px rgba(45, 41, 36, 0.1);
+  transform: translateY(-50%) scale(1.035);
 }
 
 .bone-mode-control.is-active {
   border-color: var(--bone-primary);
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: inset 0 0 0 1px rgba(138, 31, 45, 0.12);
+  box-shadow:
+    inset 0 0 0 1px rgba(138, 31, 45, 0.12),
+    0 12px 30px rgba(45, 41, 36, 0.08);
 }
 
 .bone-mode-control[data-bone-mode="formation"] {
@@ -201,6 +207,11 @@
   font-family: Georgia, "Times New Roman", serif;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.32);
+  transition:
+    color 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
 }
 
 .bone-mode-control.is-active .bone-mode-symbol {
@@ -224,8 +235,8 @@
 
 .bone-chimes-copy {
   position: absolute;
-  left: clamp(1.25rem, 5vw, 5rem);
   bottom: clamp(1.4rem, 4vw, 3.5rem);
+  left: clamp(1.25rem, 5vw, 5rem);
   z-index: 4;
   max-width: 360px;
   pointer-events: none;
@@ -283,8 +294,8 @@
 
 .bone-chimes-instruction {
   position: absolute;
-  left: 50%;
   bottom: 1.15rem;
+  left: 50%;
   z-index: 5;
   display: flex;
   align-items: center;
@@ -347,8 +358,8 @@
   }
 
   .bone-chimes-copy {
-    left: 1.4rem;
     bottom: 3.8rem;
+    left: 1.4rem;
   }
 
   .bone-chimes-status {
@@ -362,10 +373,18 @@
     padding: 1rem 0 4rem;
   }
 
+  .bone-chimes-section > .container {
+    width: 100%;
+    max-width: none;
+    padding-right: 0;
+    padding-left: 0;
+  }
+
   .bone-chimes-shell {
     min-height: 650px;
     border-right: 0;
     border-left: 0;
+    border-radius: 0;
   }
 
   .bone-chimes-topbar {
@@ -373,7 +392,9 @@
   }
 
   .bone-chimes-kicker {
+    gap: 0.45rem;
     font-size: 0.62rem;
+    letter-spacing: 0.08em;
   }
 
   .bone-chimes-kicker::before {
@@ -385,39 +406,111 @@
     font-size: 0.65rem;
   }
 
+  #bone-chimes-canvas {
+    cursor: default;
+  }
+
+  /*
+   * Mobile control row
+   * Located below the spindle-cell structure.
+   */
+  .bone-mode-controls {
+    position: absolute;
+    right: 0;
+    bottom: 4rem;
+    left: 0;
+    z-index: 7;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.15rem;
+
+    pointer-events: none;
+  }
+
   .bone-mode-control {
-    top: 4.85rem;
-    min-width: 0;
-    width: calc(50% - 1.25rem);
-    min-height: 62px;
-    padding: 0.65rem;
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+
+    width: 48px;
+    min-width: 48px;
+    height: 48px;
+    min-height: 48px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+
+    gap: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+
+    color: var(--bone-primary);
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+
+    transform: none;
+    pointer-events: auto;
   }
 
-  .bone-mode-control[data-bone-mode="formation"] {
-    left: 0.75rem;
-  }
-
+  .bone-mode-control[data-bone-mode="formation"],
   .bone-mode-control[data-bone-mode="resorption"] {
-    right: 0.75rem;
+    right: auto;
+    left: auto;
   }
 
-  .bone-mode-symbol {
-    width: 36px;
-    height: 36px;
-    font-size: 0.82rem;
+  .bone-mode-control:hover,
+  .bone-mode-control:focus-visible {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+    transform: scale(1.08);
   }
 
-  .bone-mode-title {
-    font-size: 0.77rem;
+  .bone-mode-control.is-active {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 
+  /*
+   * Only OB and OC are visible on mobile.
+   */
+  .bone-mode-title,
   .bone-mode-subtitle {
     display: none;
   }
 
+  .bone-mode-symbol {
+    grid-row: auto;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(77, 66, 54, 0.25);
+    font-size: 0.82rem;
+    background: rgba(255, 255, 255, 0.58);
+    box-shadow: 0 7px 20px rgba(45, 41, 36, 0.1);
+  }
+
+  .bone-mode-control:hover .bone-mode-symbol,
+  .bone-mode-control:focus-visible .bone-mode-symbol {
+    transform: scale(1.04);
+  }
+
+  .bone-mode-control.is-active .bone-mode-symbol {
+    color: #ffffff;
+    border-color: var(--bone-primary);
+    background: var(--bone-primary);
+    box-shadow: 0 8px 22px rgba(138, 31, 45, 0.2);
+  }
+
   .bone-chimes-copy {
     right: 1.1rem;
-    bottom: 4.1rem;
+    bottom: 7.8rem;
     left: 1.1rem;
     max-width: none;
   }
@@ -446,12 +539,5 @@
   .bone-chimes-instruction::before,
   .bone-chimes-instruction::after {
     width: 18px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bone-mode-control,
-  .bone-chimes-reset {
-    transition: none;
   }
 }
