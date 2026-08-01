@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The personal and scientific journey of Ahmed E. Elshal.">
+  <title>My Journey | Ahmed E. Elshal</title>
+
+  <style>
+    :root {
+      --background: #050706;
+      --background-soft: #0a0f0c;
+      --text: #f2efe6;
+      --muted: rgba(242, 239, 230, 0.68);
+      --accent: #c7a66b;
+      --accent-soft: rgba(199, 166, 107, 0.18);
+      --panel: rgba(10, 15, 12, 0.76);
+      --border: rgba(242, 239, 230, 0.14);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.38);
+      --content-width: 860px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--background);
+      scroll-behavior: auto;
+      scrollbar-color: rgba(199, 166, 107, 0.52) rgba(255, 255, 255, 0.04);
+      scrollbar-width: thin;
+    }
+
+    body {
+      min-height: 100%;
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 18% 14%, rgba(65, 103, 80, 0.17), transparent 34%),
+        radial-gradient(circle at 82% 52%, rgba(109, 78, 42, 0.12), transparent 30%),
+        linear-gradient(180deg, #040605 0%, #080c09 50%, #030504 100%);
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.23;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+      background-size: 4px 4px;
+      mask-image: linear-gradient(to bottom, black, transparent 86%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      pointer-events: none;
+      background:
+        linear-gradient(to bottom,
+          rgba(3, 5, 4, 0.94) 0%,
+          rgba(3, 5, 4, 0.20) 8%,
+          transparent 18%,
+          transparent 82%,
+          rgba(3, 5, 4, 0.20) 92%,
+          rgba(3, 5, 4, 0.94) 100%);
+    }
+
+    ::selection {
+      color: #10130f;
+      background: var(--accent);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    select {
+      font: inherit;
+    }
+
+    .page-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 80;
+      width: 100%;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .page-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #8d7043, #e0c794);
+      transform-origin: left center;
+      transition: width 90ms linear;
+    }
+
+    .back-link {
+      position: fixed;
+      top: max(20px, env(safe-area-inset-top));
+      left: max(20px, env(safe-area-inset-left));
+      z-index: 70;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: rgba(242, 239, 230, 0.86);
+      background: rgba(6, 9, 7, 0.58);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    .back-link:hover {
+      border-color: rgba(199, 166, 107, 0.6);
+      background: rgba(18, 24, 19, 0.82);
+      transform: translateY(-2px);
+    }
+
+    .back-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .controls {
+      position: fixed;
+      right: max(18px, env(safe-area-inset-right));
+      bottom: max(18px, env(safe-area-inset-bottom));
+      z-index: 70;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .control-button,
+    .speed-select {
+      min-height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.055);
+      transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    .control-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 15px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.035em;
+    }
+
+    .control-button:hover,
+    .speed-select:hover {
+      border-color: rgba(199, 166, 107, 0.55);
+      background: rgba(199, 166, 107, 0.13);
+    }
+
+    .control-button:active {
+      transform: scale(0.97);
+    }
+
+    .control-button svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .speed-select {
+      padding: 0 30px 0 12px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color-scheme: dark;
+    }
+
+    .status-note {
+      position: fixed;
+      left: 50%;
+      bottom: max(28px, env(safe-area-inset-bottom));
+      z-index: 65;
+      max-width: min(430px, calc(100vw - 44px));
+      padding: 10px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 999px;
+      color: rgba(242, 239, 230, 0.72);
+      background: rgba(5, 8, 6, 0.62);
+      backdrop-filter: blur(12px);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.035em;
+      text-align: center;
+      transform: translateX(-50%);
+      opacity: 1;
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .status-note.is-hidden {
+      opacity: 0;
+      transform: translate(-50%, 10px);
+      pointer-events: none;
+    }
+
+    .cinema-shell {
+      position: relative;
+      width: 100%;
+    }
+
+    .opening-space {
+      min-height: 82vh;
+      display: grid;
+      place-items: end center;
+      padding: 0 24px 8vh;
+      text-align: center;
+    }
+
+    .opening-kicker {
+      margin: 0;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(0.72rem, 1.1vw, 0.92rem);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+
+    .credits {
+      position: relative;
+      width: min(var(--content-width), calc(100% - 44px));
+      margin: 0 auto;
+      padding: 7vh 0 8vh;
+      text-align: center;
+    }
+
+    .credits::before {
+      content: "";
+      display: block;
+      width: 1px;
+      height: 90px;
+      margin: 0 auto 56px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    }
+
+    .credits-title {
+      margin: 0;
+      color: #fffaf0;
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: -0.055em;
+      text-wrap: balance;
+      text-shadow: 0 14px 50px rgba(0, 0, 0, 0.55);
+    }
+
+    .opening-line {
+      max-width: 720px;
+      margin: 34px auto 0;
+      color: var(--accent);
+      font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+      line-height: 1.45;
+      font-style: italic;
+      text-wrap: balance;
+    }
+
+    .credit-section {
+      margin-top: clamp(110px, 16vw, 190px);
+      scroll-margin-top: 100px;
+    }
+
+    .section-title {
+      max-width: 780px;
+      margin: 0 auto 48px;
+      color: #fffaf0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: clamp(1.45rem, 3.2vw, 2.65rem);
+      font-weight: 650;
+      line-height: 1.16;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      text-wrap: balance;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 58px;
+      height: 1px;
+      margin: 24px auto 0;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(199, 166, 107, 0.55);
+    }
+
+    .credit-paragraph {
+      max-width: 760px;
+      margin: 0 auto 24px;
+      color: rgba(242, 239, 230, 0.86);
+      font-size: clamp(1rem, 1.65vw, 1.24rem);
+      line-height: 1.88;
+      text-align: left;
+      text-wrap: pretty;
+    }
+
+    .credit-paragraph.emphasis {
+      max-width: 680px;
+      margin-top: 34px;
+      margin-bottom: 34px;
+      color: #fffaf0;
+      font-size: clamp(1.08rem, 1.9vw, 1.38rem);
+      line-height: 1.65;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .credit-paragraph.question {
+      max-width: 700px;
+      margin-top: 16px;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-size: clamp(1.08rem, 2vw, 1.42rem);
+      line-height: 1.55;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .closing-card {
+      min-height: 82vh;
+      display: grid;
+      place-items: center;
+      padding: 100px 24px;
+      text-align: center;
+    }
+
+    .closing-card-inner {
+      max-width: 700px;
+    }
+
+    .closing-label {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.76rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .closing-title {
+      margin: 0;
+      color: #fffaf0;
+      font-size: clamp(2.6rem, 8vw, 6.2rem);
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .closing-credit {
+      margin: 26px 0 0;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.12em;
+      line-height: 1.8;
+      text-transform: uppercase;
+    }
+
+    .end-space {
+      height: 36vh;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 760px) {
+      body::after {
+        background:
+          linear-gradient(to bottom,
+            rgba(3, 5, 4, 0.88) 0%,
+            transparent 12%,
+            transparent 88%,
+            rgba(3, 5, 4, 0.88) 100%);
+      }
+
+      .back-link {
+        top: 14px;
+        left: 14px;
+        padding: 9px 12px;
+      }
+
+      .controls {
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        justify-content: center;
+        border-radius: 16px;
+      }
+
+      .control-button {
+        flex: 1;
+        padding: 0 10px;
+      }
+
+      .speed-select {
+        width: 84px;
+      }
+
+      .status-note {
+        bottom: 72px;
+      }
+
+      .opening-space {
+        min-height: 76vh;
+        padding-bottom: 5vh;
+      }
+
+      .credits {
+        width: min(100% - 32px, var(--content-width));
+        padding-top: 4vh;
+      }
+
+      .credits::before {
+        height: 64px;
+        margin-bottom: 42px;
+      }
+
+      .credit-section {
+        margin-top: 105px;
+      }
+
+      .section-title {
+        margin-bottom: 36px;
+      }
+
+      .credit-paragraph {
+        margin-bottom: 21px;
+        line-height: 1.76;
+      }
+
+      .closing-card {
+        min-height: 75vh;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-progress" aria-hidden="true">
+    <span id="progressBar"></span>
+  </div>
+
+  <a class="back-link" href="about.html" aria-label="Return to the About page">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M15 18l-6-6 6-6"/>
+    </svg>
+    About
+  </a>
+
+  <div class="status-note" id="statusNote" role="status" aria-live="polite">
+    Credits are moving automatically. Scroll, drag, or press an arrow key to take control.
+  </div>
+
+  <div class="controls" aria-label="Credits controls">
+    <button class="control-button" id="playPauseButton" type="button" aria-pressed="false">
+      <svg id="pauseIcon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M7 5h4v14H7zm6 0h4v14h-4z"/>
+      </svg>
+      <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true" hidden>
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <span id="playPauseLabel">Pause</span>
+    </button>
+
+    <label class="sr-only" for="speedSelect">Credits speed</label>
+    <select class="speed-select" id="speedSelect" aria-label="Credits speed">
+      <option value="18">Slow</option>
+      <option value="30" selected>Normal</option>
+      <option value="46">Fast</option>
+    </select>
+
+    <button class="control-button" id="restartButton" type="button" title="Restart credits">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 5V2L7 7l5 5V9c3.31 0 6 2.69 6 6a6 6 0 0 1-10.89 3.5l-1.46 1.37A8 8 0 1 0 12 5z"/>
+      </svg>
+      <span>Restart</span>
+    </button>
+  </div>
+
+  <main class="cinema-shell" id="cinemaShell">
+    <header class="opening-space" aria-hidden="true">
+      <p class="opening-kicker">A personal and scientific journey</p>
+    </header>
+
+    <article class="credits" id="credits">
+      <h1 class="credits-title">My Journey</h1>
+          <p class="opening-line">My academic journey has never followed a single straight path.</p>
+          <p class="credit-paragraph">It has been shaped by movement, adaptation, curiosity, and a growing determination to understand how damaged tissues can be restored. Long before I entered a laboratory or began studying tissue engineering, I learned how to adjust to unfamiliar environments and continue moving forward despite constant change.</p>
+          <section class="credit-section" aria-labelledby="section-1">
+          <h2 id="section-1" class="section-title">Twelve Schools, One Continuing Journey</h2>
+          <p class="credit-paragraph">Because of my parents’ frequent relocations and travel, I attended 12 different schools during my childhood and adolescence. Each move meant leaving behind familiar classrooms, teachers, routines, and friendships. I repeatedly entered new schools where I had to understand a different environment, meet new people, and establish myself again.</p>
+          <p class="credit-paragraph">At first, every transition could feel like starting from zero. Over time, however, I realized that I was not arriving empty-handed. I carried the experiences, lessons, and confidence gained from every previous school with me. Attending multiple schools taught me how to adapt without losing my identity. It taught me to communicate with people from different backgrounds, observe before judging, and remain open to unfamiliar ways of thinking. I learned how to enter a new environment, understand its expectations, build relationships, and continue working toward my goals even when everything around me changed.</p>
+          <p class="credit-paragraph">What could have been viewed as instability gradually became one of the most important forms of preparation in my life.</p>
+          <p class="credit-paragraph">Every new school required me to become more independent. I could not rely entirely on familiarity, long-established friendships, or comfortable routines. I had to develop the ability to focus wherever I was. This experience taught me that consistency does not mean living under permanently stable conditions. True consistency is the ability to continue working even when the circumstances surrounding you are changing.</p>
+          <p class="credit-paragraph emphasis">My parents were among my earliest and strongest sources of inspiration.</p>
+          <p class="credit-paragraph">Watching them manage repeated transitions, responsibilities, travel, and unfamiliar environments showed me that dedication is not simply enthusiasm for a goal. It is the decision to continue fulfilling your responsibilities regardless of difficulty, uncertainty, or inconvenience. Their example shaped the way I approach my own work. I learned that meaningful achievement is rarely created by one dramatic moment. It is built through repeated effort, patience, discipline, and the willingness to begin again whenever necessary. Later, teachers, supervisors, colleagues, and scientific mentors strengthened this lesson. They showed me that dedication in academic and scientific work requires attention to detail, openness to criticism, patience with difficult experiments, and the determination to improve even when progress is slow.</p>
+          <p class="credit-paragraph">The 12 schools I attended gave me more than 12 different educational experiences. Together, they taught me adaptability, resilience, independence, communication, and persistence.</p>
+          <p class="credit-paragraph">These qualities later became essential when I moved between countries, entered new academic systems, transitioned from clinical dentistry to tissue engineering, and began conducting interdisciplinary research in Japan. It taught me that belonging is not limited to one place. It can be created through curiosity, respect, effort, and contribution.</p>
+          <p class="credit-paragraph">Wherever I go, I try not only to adapt to the environment, but also to contribute something meaningful through my work.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-2">
+          <h2 id="section-2" class="section-title">Beginning with Dentistry</h2>
+          <p class="credit-paragraph">During my undergraduate dental education in Egypt, I developed a strong foundation in oral biology, anatomy, pathology, surgery, and patient care. Dentistry introduced me to the complexity of the craniofacial region and to the challenges involved in treating damaged bone and soft tissues. I became increasingly interested in questions that extended beyond conventional clinical treatment.</p>
+          <p class="credit-paragraph question">Why do some tissues regenerate effectively while others heal incompletely?</p>
+          <p class="credit-paragraph question">Why does bone sometimes fail to recover after trauma, disease, or surgery?</p>
+          <p class="credit-paragraph question">Could biological systems be engineered to support more predictable regeneration?</p>
+          <p class="credit-paragraph emphasis">These questions gradually changed the direction of my interests.</p>
+          <p class="credit-paragraph">I began to think beyond the repair of damaged tissues and toward the possibility of creating biological environments that could actively support regeneration.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-3">
+          <h2 id="section-3" class="section-title">Moving from Clinical Dentistry to Tissue Engineering</h2>
+          <p class="credit-paragraph">To explore these questions, I decided to pursue research in tissue engineering and regenerative medicine.</p>
+          <p class="credit-paragraph">This transition allowed me to connect my clinical background with cell biology, biomaterials, molecular analysis, advanced microscopy, and quantitative research.</p>
+          <p class="credit-paragraph">I joined the Department of Oral and Maxillofacial Surgery at the Graduate School of Medicine, The University of Tokyo, where I began my doctoral research in tissue engineering.</p>
+          <p class="credit-paragraph emphasis">Entering an interdisciplinary research environment changed the way I understood bone.</p>
+          <p class="credit-paragraph">I was no longer viewing it only as a clinical structure requiring repair. I began studying it as a living, dynamic, multicellular system in which osteoblasts, osteoclasts, extracellular matrix, molecular signals, and mechanical conditions continuously interact.</p>
+          <p class="credit-paragraph emphasis">Bone is not a static material. It is constantly formed, resorbed, reorganized, and renewed.</p>
+          <p class="credit-paragraph emphasis">This understanding shaped the central direction of my research.</p>
+          <p class="credit-paragraph">My goal became to develop experimental systems that could reproduce these cellular and structural interactions under controlled laboratory conditions.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-4">
+          <h2 id="section-4" class="section-title">Building a Functional Bone Remodeling Model</h2>
+          <p class="credit-paragraph">During my doctoral research, I worked on the development and application of a three dimensional functional bone remodeling model.</p>
+          <p class="credit-paragraph">Many conventional cell culture systems examine one cell type or one biological process at a time. However, bone remodeling depends on coordinated interactions between bone forming cells, bone resorbing cells, extracellular matrix, and molecular signals.</p>
+          <p class="credit-paragraph">The model was designed to reproduce multiple stages of the remodeling cycle, including bone formation, resorption, and subsequent reformation.</p>
+          <p class="credit-paragraph">It provided a controlled environment in which the behavior of bone forming and bone resorbing cells could be observed over time.</p>
+          <p class="credit-paragraph">The system combined fluorescently labelled osteoblast lineage cells, osteoclast precursors, a self generated mineralized matrix, and longitudinal imaging.</p>
+          <p class="credit-paragraph">This enabled us to follow cellular and structural changes within the same experimental region instead of relying only on separate samples collected at different time points.</p>
+          <p class="credit-paragraph emphasis">Developing and analysing this model required the integration of several scientific disciplines.</p>
+          <p class="credit-paragraph">My work involved primary cell culture, osteogenic differentiation, osteoclast formation, molecular biology, immunostaining, two photon microscopy, second harmonic generation imaging, three dimensional image segmentation, quantitative analysis, and statistical programming.</p>
+          <p class="credit-paragraph">Through this work, I became particularly interested in how cellular communication determines the balance between bone loss and bone recovery.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-5">
+          <h2 id="section-5" class="section-title">Investigating Parathyroid Hormone Dynamics</h2>
+          <p class="credit-paragraph">A major part of my doctoral research focused on parathyroid hormone, one of the principal regulators of bone metabolism.</p>
+          <p class="credit-paragraph">Parathyroid hormone can produce different biological outcomes depending on how cells and tissues are exposed to it.</p>
+          <p class="credit-paragraph">Intermittent exposure can support anabolic responses, while prolonged exposure may promote bone resorption. However, these effects are difficult to investigate using conventional culture systems because they involve communication between multiple cell populations over time.</p>
+          <p class="credit-paragraph">Using the functional bone model, I investigated how different frequencies and durations of parathyroid hormone exposure affected the spatial and temporal relationship between bone resorption and reformation.</p>
+          <p class="credit-paragraph">The study allowed us to compare intermittent and continuous exposure patterns while longitudinally tracking osteoblasts, osteoclasts, and collagen rich bone matrix.</p>
+          <p class="credit-paragraph">The results showed that the exposure schedule influenced not only the extent of bone loss, but also the capacity of the tissue to recover after resorption.</p>
+          <p class="credit-paragraph">This research strengthened my interest in developing experimental platforms that connect molecular signalling with three dimensional tissue behaviour.</p>
+          <p class="credit-paragraph">It also reinforced my belief that the timing, duration, and context of a biological signal can be as important as the signal itself.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-6">
+          <h2 id="section-6" class="section-title">Learning Through Imaging and Quantitative Analysis</h2>
+          <p class="credit-paragraph">One of the most important parts of my research journey has been learning how to convert biological observations into measurable and reproducible data.</p>
+          <p class="credit-paragraph emphasis">Advanced imaging allowed me to observe processes that would otherwise remain hidden.</p>
+          <p class="credit-paragraph">Two photon microscopy enabled deep imaging of three dimensional samples, while second harmonic generation imaging provided label free visualization of collagen organization.</p>
+          <p class="credit-paragraph">Using three dimensional image analysis, I measured changes in osteoblast structures, osteoclast activity, collagen volume, resorption regions, and reformation patterns.</p>
+          <p class="credit-paragraph">I also developed and adapted computational workflows to analyse longitudinal datasets and examine relationships between different stages of bone remodeling.</p>
+          <p class="credit-paragraph">This combination of experimental biology, advanced imaging, and quantitative analysis became central to my scientific approach.</p>
+          <p class="credit-paragraph">I believe that regenerative medicine advances most effectively when biological models, imaging technologies, and computational methods are developed together.</p>
+          <p class="credit-paragraph">Observation can reveal what is happening, but quantitative analysis helps explain how much it is changing, where it is changing, and whether the change is reproducible.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-7">
+          <h2 id="section-7" class="section-title">Scholarships, Scientific Events, and International Experience</h2>
+          <p class="credit-paragraph emphasis">My journey has also been shaped by experiences beyond the laboratory.</p>
+          <p class="credit-paragraph">Scholarships supported my academic development and allowed me to continue my studies and research in Japan.</p>
+          <p class="credit-paragraph">Scientific meetings, presentations, university events, professional visits, and interactions with researchers from different backgrounds helped me communicate my work more clearly and evaluate it from broader perspectives.</p>
+          <p class="credit-paragraph emphasis">Each scholarship, conference, meeting, and presentation represents more than an isolated achievement.</p>
+          <p class="credit-paragraph emphasis">Together, they document the gradual development of my identity as a researcher.</p>
+          <p class="credit-paragraph emphasis">They also remind me that scientific progress does not depend only on technical ability.</p>
+          <p class="credit-paragraph">It requires collaboration, communication, discipline, humility, and the willingness to continue learning from others.</p>
+          <p class="credit-paragraph">Meeting researchers from different fields also showed me that important scientific questions are rarely solved by one discipline alone.</p>
+          <p class="credit-paragraph">The future of regenerative medicine depends on collaboration between clinicians, biologists, engineers, imaging scientists, data analysts, and material scientists.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-8">
+          <h2 id="section-8" class="section-title">The Meaning of Dedication</h2>
+          <p class="credit-paragraph">My understanding of dedication began with my parents and continued to develop through my academic and scientific experiences.</p>
+          <p class="credit-paragraph emphasis">From my parents, I learned how to remain responsible during uncertainty.</p>
+          <p class="credit-paragraph emphasis">From my teachers, I learned the value of knowledge and preparation.</p>
+          <p class="credit-paragraph">From my supervisors and mentors, I learned that scientific quality depends on patience, accuracy, critical thinking, and the willingness to revise one’s work.</p>
+          <p class="credit-paragraph emphasis">From research itself, I learned that failure is not always the opposite of progress.</p>
+          <p class="credit-paragraph">An unsuccessful experiment can reveal a technical limitation, challenge an assumption, or lead to a better question.</p>
+          <p class="credit-paragraph emphasis">Dedication in research means returning to the problem with greater understanding.</p>
+          <p class="credit-paragraph">It means repeating experiments when necessary, examining unexpected results honestly, accepting criticism, and continuing to refine the work until the conclusions are supported by evidence.</p>
+          <p class="credit-paragraph emphasis">For me, dedication is not a temporary period of intense effort.</p>
+          <p class="credit-paragraph emphasis">It is a long term commitment to becoming more capable, more precise, and more useful through one’s work.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-9">
+          <h2 id="section-9" class="section-title">Looking Toward the Future</h2>
+          <p class="credit-paragraph">My long term goal is to become an independent researcher developing controllable tissue engineering platforms for regenerative bone medicine.</p>
+          <p class="credit-paragraph">I aim to combine biomaterials, bone organoids and functional tissue models, osteocyte biology, cellular signalling, advanced microscopy, quantitative imaging, and computational analysis.</p>
+          <p class="credit-paragraph">Through these approaches, I hope to investigate how bone cells communicate, how remodeling can be therapeutically controlled, and how engineered tissues can support craniofacial and skeletal regeneration.</p>
+          <p class="credit-paragraph">I am particularly interested in experimental models that bridge the gap between simplified cell culture and complex animal studies.</p>
+          <p class="credit-paragraph">Such platforms could improve our understanding of bone biology while supporting the evaluation of drugs, biomaterials, and regenerative strategies in physiologically relevant environments.</p>
+          <p class="credit-paragraph emphasis">My journey began with constant movement between schools.</p>
+          <p class="credit-paragraph emphasis">It continued through dentistry, tissue engineering, advanced imaging, and functional bone research.</p>
+          <p class="credit-paragraph">Although the environments changed, one principle remained constant: progress depends on the ability to adapt without abandoning the goal.</p>
+          <p class="credit-paragraph emphasis">The twelve schools of my childhood taught me how to begin again.</p>
+          <p class="credit-paragraph emphasis">Dentistry taught me to understand disease and clinical need.</p>
+          <p class="credit-paragraph emphasis">Tissue engineering taught me to think about regeneration.</p>
+          <p class="credit-paragraph emphasis">Research taught me to question, measure, revise, and persist.</p>
+          <p class="credit-paragraph">Every stage has brought me closer to the same objective: understanding regeneration deeply enough to help design better ways to restore human tissues.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-10">
+          <h2 id="section-10" class="section-title">Advice to My Younger Self</h2>
+          <p class="credit-paragraph emphasis">Do not be afraid of beginning again.</p>
+          <p class="credit-paragraph">You will enter new schools, new cities, new countries, and unfamiliar environments. At times, you may feel that everyone else has already found their place while you are still trying to understand where you belong. Do not mistake unfamiliarity for failure. Every new beginning is teaching you how to adapt, observe, communicate, and grow.</p>
+          <p class="credit-paragraph">You do not need to have your entire future planned from the beginning. Your path will change. Your interests will develop. Dentistry will lead you toward tissue engineering, and questions from clinical practice will lead you into research. What appears to be a change in direction may actually be the next stage of the same journey.</p>
+          <p class="credit-paragraph">Do not compare your progress too closely with the progress of others. People begin from different places, face different circumstances, and move at different speeds. Focus instead on becoming more knowledgeable, disciplined, and capable than you were yesterday.</p>
+          <p class="credit-paragraph">Learn to value consistency more than motivation. Motivation rises and falls, but steady effort will carry you through difficult experiments, demanding academic periods, rejection, uncertainty, and slow progress. Continue working even when the result is not immediate.</p>
+          <p class="credit-paragraph">Do not fear mistakes. Some of your most important lessons will come from unsuccessful attempts, unexpected results, and decisions you later reconsider. A mistake becomes valuable when you examine it honestly and use it to improve.</p>
+          <p class="credit-paragraph">Listen carefully to your teachers, supervisors, colleagues, and critics, but do not lose your own curiosity. Respect experience, ask questions, and remain willing to revise your thinking. Growth requires both confidence and humility.</p>
+          <p class="credit-paragraph">Take care of the people who support you. Your achievements will never be yours alone. Your parents, teachers, mentors, colleagues, friends, and institutions will each contribute something to your journey. Remember their support and try to offer the same support to others.</p>
+          <p class="credit-paragraph">Do not wait until you feel completely ready. Many important opportunities will arrive before you feel prepared for them. Apply, speak, present, ask, travel, and begin. Readiness often develops after the first step, not before it.</p>
+          <p class="credit-paragraph">Most importantly, do not allow difficult circumstances to define the limits of your ambition. Let them develop your resilience instead.</p>
+          <p class="credit-paragraph">You will not always know where the road is leading, but continue learning, continue adapting, and continue doing your work with sincerity.</p>
+          <p class="credit-paragraph">One day, you will understand that the uncertainty, movement, and repeated beginnings were not interruptions to your story.</p>
+          <p class="credit-paragraph emphasis">They were the preparation.</p>
+          </section>
+          <section class="credit-section" aria-labelledby="section-11">
+          <h2 id="section-11" class="section-title">Curiosity Beyond the Laboratory</h2>
+          <p class="credit-paragraph emphasis">I have always been conscious of what I do not yet know.</p>
+          <p class="credit-paragraph">Whenever I recognized a missing skill, I felt compelled to explore it rather than accept it as a permanent limitation. This habit gradually led me beyond my formal academic training.</p>
+          <p class="credit-paragraph">I began learning coding because I wanted greater control over how I analysed data, presented ideas, and built digital tools. I became interested in website development because I wanted to create complete platforms rather than depend entirely on existing templates. I also learned visual design through Photoshop and Canva to communicate scientific and professional ideas more clearly.</p>
+          <p class="credit-paragraph">These skills were not originally part of my training in dentistry or tissue engineering. I pursued them because I believe that researchers should continuously expand their ability to solve problems, communicate discoveries, and translate ideas into visible forms.</p>
+          <p class="credit-paragraph">Coding taught me to think in systems, sequences, conditions, and logical relationships. Design taught me to consider clarity, proportion, hierarchy, and the experience of the viewer. Together, they strengthened the way I organize scientific questions and present complex information.</p>
+          <p class="credit-paragraph emphasis">My fascination with architecture and the beauty of nature has also shaped the way I understand research.</p>
+          <p class="credit-paragraph">Architecture demonstrates how individual components can be arranged to create structures that are stable, functional, and adaptable. Nature achieves something even more remarkable. It creates complex forms through continuous interaction, self organization, remodeling, and response to the surrounding environment.</p>
+          <p class="credit-paragraph emphasis">Bone reflects many of these principles.</p>
+          <p class="credit-paragraph">It is both a biological tissue and a dynamic structure. Its strength does not come only from its material composition, but also from its organization, adaptation, and continuous renewal. It is constructed, resorbed, repaired, and reshaped according to cellular signals and environmental demands.</p>
+          <p class="credit-paragraph emphasis">This connection between structure and life became central to my research vision.</p>
+          <p class="credit-paragraph emphasis">I became fascinated not only by the presence of cells, but by what they do.</p>
+          <p class="credit-paragraph">I wanted to observe how cells move, how they change their morphology, how they respond to signals, and how they communicate with neighbouring cells. I became particularly interested in how individual cellular behaviours combine to produce changes at the tissue level.</p>
+          <p class="credit-paragraph">An isolated image of a cell can provide valuable information, but it captures only one moment. I wanted to understand the process itself.</p>
+          <p class="credit-paragraph question">Where does the cell move?</p>
+          <p class="credit-paragraph question">How does its shape change?</p>
+          <p class="credit-paragraph question">Which cells approach or avoid one another?</p>
+          <p class="credit-paragraph question">How does one population influence another?</p>
+          <p class="credit-paragraph question">How do these interactions eventually alter the surrounding matrix?</p>
+          <p class="credit-paragraph">This fascination with cellular activity, movement, and communication drew me toward longitudinal imaging and three dimensional analysis.</p>
+          <p class="credit-paragraph">Instead of observing only the final result of an experiment, I wanted to follow the biological events that produced it. This perspective shaped my interest in models that allow cells, tissues, and extracellular structures to be studied as dynamic systems rather than static endpoints.</p>
+          <p class="credit-paragraph emphasis">My research vision has therefore been influenced by several worlds.</p>
+          <p class="credit-paragraph emphasis">Dentistry taught me to recognize clinical problems.</p>
+          <p class="credit-paragraph emphasis">Tissue engineering taught me to rebuild biological environments.</p>
+          <p class="credit-paragraph emphasis">Architecture taught me to think about structure, organization, and function.</p>
+          <p class="credit-paragraph emphasis">Nature taught me to appreciate adaptation and self organization.</p>
+          <p class="credit-paragraph emphasis">Coding taught me to translate complex processes into logical and measurable forms.</p>
+          <p class="credit-paragraph emphasis">Design taught me to communicate those processes with clarity.</p>
+          <p class="credit-paragraph emphasis">Cell biology taught me that even the smallest movements and interactions can reshape an entire tissue.</p>
+          <p class="credit-paragraph">Together, these interests continue to guide the kind of researcher I want to become: one who studies living systems not as isolated parts, but as coordinated, evolving structures.</p>
+          </section>
+    </article>
+
+    <section class="closing-card" aria-label="Closing credit">
+      <div class="closing-card-inner">
+        <p class="closing-label">The journey continues</p>
+        <h2 class="closing-title">Ahmed E. Elshal</h2>
+        <p class="closing-credit">Researcher · Dentist · Tissue Engineer · Creator</p>
+      </div>
+    </section>
+
+    <div class="end-space" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const scrollingElement = document.scrollingElement || root;
+      const playPauseButton = document.getElementById('playPauseButton');
+      const playPauseLabel = document.getElementById('playPauseLabel');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const playIcon = document.getElementById('playIcon');
+      const restartButton = document.getElementById('restartButton');
+      const speedSelect = document.getElementById('speedSelect');
+      const statusNote = document.getElementById('statusNote');
+      const progressBar = document.getElementById('progressBar');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      let isPlaying = !reducedMotion.matches;
+      let speed = Number(speedSelect.value);
+      let lastFrameTime = performance.now();
+      let frameId = null;
+      let noteTimer = null;
+      let reachedEnd = false;
+
+      function maxScrollTop() {
+        return Math.max(0, scrollingElement.scrollHeight - window.innerHeight);
+      }
+
+      function setStatus(message, persist = false) {
+        window.clearTimeout(noteTimer);
+        statusNote.textContent = message;
+        statusNote.classList.remove('is-hidden');
+
+        if (!persist) {
+          noteTimer = window.setTimeout(() => {
+            statusNote.classList.add('is-hidden');
+          }, 2600);
+        }
+      }
+
+      function updateControls() {
+        playPauseButton.setAttribute('aria-pressed', String(!isPlaying));
+        playPauseLabel.textContent = isPlaying ? 'Pause' : (reachedEnd ? 'Replay' : 'Resume');
+        pauseIcon.hidden = !isPlaying;
+        playIcon.hidden = isPlaying;
+      }
+
+      function updateProgress() {
+        const maximum = maxScrollTop();
+        const progress = maximum > 0 ? (scrollingElement.scrollTop / maximum) * 100 : 0;
+        progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+      }
+
+      function pauseForManualControl(message = 'Automatic movement paused. You can scroll freely.') {
+        if (!isPlaying) return;
+        isPlaying = false;
+        reachedEnd = false;
+        updateControls();
+        setStatus(message);
+      }
+
+      function playCredits() {
+        if (reachedEnd || scrollingElement.scrollTop >= maxScrollTop() - 2) {
+          scrollingElement.scrollTop = 0;
+          reachedEnd = false;
+        }
+
+        isPlaying = true;
+        lastFrameTime = performance.now();
+        updateControls();
+        setStatus('Automatic credits resumed.');
+      }
+
+      function stopAtEnd() {
+        isPlaying = false;
+        reachedEnd = true;
+        updateControls();
+        setStatus('End of journey. Select Replay to begin again.', true);
+      }
+
+      function animate(now) {
+        const deltaSeconds = Math.min((now - lastFrameTime) / 1000, 0.05);
+        lastFrameTime = now;
+
+        if (isPlaying && !document.hidden) {
+          const maximum = maxScrollTop();
+          const nextPosition = scrollingElement.scrollTop + speed * deltaSeconds;
+
+          if (nextPosition >= maximum - 1) {
+            scrollingElement.scrollTop = maximum;
+            stopAtEnd();
+          } else {
+            scrollingElement.scrollTop = nextPosition;
+          }
+        }
+
+        updateProgress();
+        frameId = window.requestAnimationFrame(animate);
+      }
+
+      playPauseButton.addEventListener('click', () => {
+        if (isPlaying) {
+          pauseForManualControl();
+        } else {
+          playCredits();
+        }
+      });
+
+      restartButton.addEventListener('click', () => {
+        scrollingElement.scrollTop = 0;
+        reachedEnd = false;
+        playCredits();
+      });
+
+      speedSelect.addEventListener('change', () => {
+        speed = Number(speedSelect.value);
+        setStatus(`Credits speed set to ${speedSelect.options[speedSelect.selectedIndex].text.toLowerCase()}.`);
+      });
+
+      window.addEventListener('wheel', () => {
+        pauseForManualControl();
+      }, { passive: true });
+
+      window.addEventListener('touchstart', () => {
+        pauseForManualControl();
+      }, { passive: true });
+
+      window.addEventListener('pointerdown', (event) => {
+        if (!event.target.closest('.controls, .back-link')) {
+          pauseForManualControl();
+        }
+      }, { passive: true });
+
+      window.addEventListener('keydown', (event) => {
+        const activeTag = document.activeElement?.tagName;
+        if (activeTag === 'SELECT' || activeTag === 'BUTTON' || activeTag === 'A') return;
+
+        if (event.code === 'Space') {
+          event.preventDefault();
+          isPlaying ? pauseForManualControl() : playCredits();
+          return;
+        }
+
+        const manualKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'];
+        if (manualKeys.includes(event.key)) {
+          pauseForManualControl();
+        }
+      });
+
+      window.addEventListener('resize', updateProgress, { passive: true });
+      window.addEventListener('scroll', updateProgress, { passive: true });
+
+      document.addEventListener('visibilitychange', () => {
+        lastFrameTime = performance.now();
+      });
+
+      reducedMotion.addEventListener('change', (event) => {
+        if (event.matches) {
+          isPlaying = false;
+          reachedEnd = false;
+          updateControls();
+          setStatus('Automatic movement is off because reduced motion is enabled.', true);
+        }
+      });
+
+      updateControls();
+      updateProgress();
+
+      if (reducedMotion.matches) {
+        setStatus('Automatic movement is off because reduced motion is enabled.', true);
+      } else {
+        setStatus('Credits are moving automatically. Scroll, drag, or press an arrow key to take control.');
+      }
+
+      frameId = window.requestAnimationFrame(animate);
+
+      window.addEventListener('beforeunload', () => {
+        if (frameId) window.cancelAnimationFrame(frameId);
+      });
+    })();
+  </script>
+</body>
+</html>
