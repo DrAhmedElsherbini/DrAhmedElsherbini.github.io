@@ -25,7 +25,7 @@
   >
 
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="bone-chimes.css?v=1">
+  <link rel="stylesheet" href="bone-chimes.css?v=2">
 
   <style>
     .brand-name {
@@ -667,99 +667,119 @@
 
     </section>
 
-    <section
-      class="bone-chimes-section"
-      aria-labelledby="bone-chimes-title"
+   <section
+  class="bone-chimes-section"
+  aria-labelledby="bone-chimes-title"
+>
+
+  <div class="container">
+
+    <div
+      class="bone-chimes-shell"
+      id="bone-chimes-experience"
     >
 
-      <div class="container">
+      <div class="bone-chimes-topbar">
 
-        <div
-          class="bone-chimes-shell"
-          id="bone-chimes-experience"
+        <p
+          class="bone-chimes-kicker"
+          id="bone-chimes-title"
         >
+          Interactive tissue model
+        </p>
 
-          <div class="bone-chimes-topbar">
-
-            <p class="bone-chimes-kicker">
-              Interactive tissue model
-            </p>
-
-            <button
-              class="bone-chimes-reset"
-              type="button"
-              data-bone-reset
-            >
-              Reset cells
-            </button>
-
-          </div>
-
-          <canvas
-            id="bone-chimes-canvas"
-            aria-label="Interactive suspended spindle cells. Move or drag through them, or select Formation or Resorption to transform the structure."
-          ></canvas>
-
-          <button
-            class="bone-mode-control"
-            type="button"
-            data-bone-mode="formation"
-            aria-pressed="false"
-          >
-
-            <span class="bone-mode-symbol" aria-hidden="true">
-              OB
-            </span>
-
-            <span class="bone-mode-title">
-              Formation
-            </span>
-
-            <span class="bone-mode-subtitle">
-              Matrix assembly
-            </span>
-
-          </button>
-
-          <button
-            class="bone-mode-control"
-            type="button"
-            data-bone-mode="resorption"
-            aria-pressed="false"
-          >
-
-            <span class="bone-mode-symbol" aria-hidden="true">
-              OC
-            </span>
-
-            <span class="bone-mode-title">
-              Resorption
-            </span>
-
-            <span class="bone-mode-subtitle">
-              Matrix remodeling
-            </span>
-
-          </button>
-
-
-          <p class="bone-chimes-status" aria-live="polite">
-
-            <strong data-bone-status-title>
-              Interactive spindle cells
-            </strong>
-
-            <span data-bone-status-text>
-              Move through the suspended spindle cells, then select a remodeling mode.
-            </span>
-
-          </p>
-          
-        </div>
+        <button
+          class="bone-chimes-reset"
+          type="button"
+          data-bone-reset
+        >
+          Reset cells
+        </button>
 
       </div>
 
-    </section>
+      <canvas
+        id="bone-chimes-canvas"
+        aria-label="Interactive suspended spindle cells. Move or drag through them, or select Formation or Resorption to transform the structure."
+      ></canvas>
+
+      <div
+        class="bone-mode-controls"
+        aria-label="Bone remodeling controls"
+      >
+
+        <button
+          class="bone-mode-control"
+          type="button"
+          data-bone-mode="formation"
+          aria-label="Formation"
+          aria-pressed="false"
+        >
+
+          <span
+            class="bone-mode-symbol"
+            aria-hidden="true"
+          >
+            OB
+          </span>
+
+          <span class="bone-mode-title">
+            Formation
+          </span>
+
+          <span class="bone-mode-subtitle">
+            Matrix assembly
+          </span>
+
+        </button>
+
+        <button
+          class="bone-mode-control"
+          type="button"
+          data-bone-mode="resorption"
+          aria-label="Resorption"
+          aria-pressed="false"
+        >
+
+          <span
+            class="bone-mode-symbol"
+            aria-hidden="true"
+          >
+            OC
+          </span>
+
+          <span class="bone-mode-title">
+            Resorption
+          </span>
+
+          <span class="bone-mode-subtitle">
+            Matrix remodeling
+          </span>
+
+        </button>
+
+      </div>
+
+      <p
+        class="bone-chimes-status"
+        aria-live="polite"
+      >
+
+        <strong data-bone-status-title>
+          Interactive spindle cells
+        </strong>
+
+        <span data-bone-status-text>
+          Move through the suspended spindle cells, then select a remodeling mode.
+        </span>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
 
     <section class="section">
 
