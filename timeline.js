@@ -215,10 +215,6 @@
   const previousButton = document.querySelector("#journeyPrevious");
   const nextButton = document.querySelector("#journeyNext");
 
-  const filterButtons = [
-    ...root.querySelectorAll(".journey-filter")
-  ];
-
   if (
     !stage ||
     !viewport ||
@@ -230,11 +226,10 @@
     return;
   }
 
-  let visibleEvents = [...timelineEvents];
-  let activeIndex = 0;
-  let currentFilter = "all";
-  let lastFocusedNode = null;
-  let resizeTimer = null;
+let visibleEvents = [...timelineEvents];
+let activeIndex = 0;
+let lastFocusedNode = null;
+let resizeTimer = null;
 
   function calculateStageWidth(eventCount) {
     const viewportWidth = Math.max(viewport.clientWidth, 320);
@@ -270,14 +265,8 @@
     }
   }
 
-  function renderTimeline(category = "all") {
-    currentFilter = category;
-
-    visibleEvents =
-      category === "all"
-        ? [...timelineEvents]
-        : timelineEvents.filter(
-            (event) => event.category === category
+function renderTimeline() {
+  visibleEvents = [...timelineEvents];
           );
 
     stage
@@ -472,25 +461,6 @@
     updateProgress();
   }
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      button.classList.add("active");
-
-      renderTimeline(
-        button.dataset.filter || "all"
-      );
-
-      viewport.scrollTo({
-        left: 0,
-        behavior: "smooth"
-      });
-    });
-  });
-
   previousButton.addEventListener(
     "click",
     () => focusEvent(-1)
@@ -664,7 +634,7 @@
               )
             : 0;
 
-        renderTimeline(currentFilter);
+        renderTimeline();
 
         const newScrollableWidth =
           viewport.scrollWidth -
