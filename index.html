@@ -659,779 +659,1451 @@
 
   <!-- DNA ANIMATION -->
 
-  <script>
+<script>
+(() => {
+  "use strict";
 
-    (() => {
+  const hero = document.getElementById("hero");
+  const canvas = document.getElementById("dna-canvas");
 
-      "use strict";
+  if (!hero || !canvas) return;
+
+  const ctx = canvas.getContext("2d", {
+    alpha: true
+  });
+
+  if (!ctx) return;
+
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
+
+  const palette = {
+    burgundy: {
+      r: 138,
+      g: 31,
+      b: 45
+    },
+
+    gold: {
+      r: 201,
+      g: 145,
+      b: 39
+    },
+
+    dark: {
+      r: 45,
+      g: 55,
+      b: 65
+    }
+  };
 
 
-      const hero =
-        document.getElementById("hero");
+  let width = 0;
+  let height = 0;
+  let pixelRatio = 1;
+  let frameId = null;
+  let visible = true;
 
 
-      const canvas =
-        document.getElementById("dna-canvas");
+  /*
+    Pointer position.
+
+    target = actual pointer location
+    current = smoothed location used by animation
+  */
+
+  const pointer = {
+    active: false,
+
+    targetX: 0,
+    targetY: 0,
+
+    x: 0,
+    y: 0,
+
+    normalizedX: 0,
+    normalizedY: 0
+  };
 
 
-      if (!hero || !canvas) {
+  /*
+    Click pulses.
+  */
+
+  const pulses = [];
+
+
+  function rgba(color, alpha) {
+    return `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+  }
+
+
+  function resizeCanvas() {
+    const bounds = hero.getBoundingClientRect();
+
+    width = Math.max(1, bounds.width);
+    height = Math.max(1, bounds.height);
+
+    pixelRatio = Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
+
+    canvas.width = Math.round(
+      width * pixelRatio
+    );
+
+    canvas.height = Math.round(
+      height * pixelRatio
+    );
+
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    ctx.setTransform(
+      pixelRatio,
+      0,
+      0,
+      pixelRatio,
+      0,
+      0
+    );
+
+    if (!pointer.active) {
+      pointer.x = width / 2;
+      pointer.y = height / 2;
+
+      pointer.targetX = pointer.x;
+      pointer.targetY = pointer.y;
+    }
+  }
+
+
+  /*
+    Mouse / touch tracking
+  */
+
+  function updatePointer(event) {
+    const bounds = hero.getBoundingClientRect();
+
+    const x =
+      event.clientX -
+      bounds.left;
+
+    const y =
+      event.clientY -
+      bounds.top;
+
+    pointer.active = true;
+
+    pointer.targetX = x;
+    pointer.targetY = y;
+
+    pointer.normalizedX =
+      Math.max(
+        -1,
+        Math.min(
+          1,
+          (x / width - 0.5) * 2
+        )
+      );
+
+    pointer.normalizedY =
+      Math.max(
+        -1,
+        Math.min(
+          1,
+          (y / height - 0.5) * 2
+        )
+      );
+  }
+
+
+  function deactivatePointer() {
+    pointer.active = false;
+
+    pointer.targetX =
+      width / 2;
+
+    pointer.targetY =
+      height / 2;
+
+    pointer.normalizedX = 0;
+    pointer.normalizedY = 0;
+  }
+
+
+  hero.addEventListener(
+    "pointermove",
+    updatePointer,
+    {
+      passive: true
+    }
+  );
+
+
+  hero.addEventListener(
+    "pointerenter",
+    updatePointer,
+    {
+      passive: true
+    }
+  );
+
+
+  hero.addEventListener(
+    "pointerleave",
+    deactivatePointer,
+    {
+      passive: true
+    }
+  );
+
+
+  /*
+    Click pulse interaction
+  */
+
+  hero.addEventListener(
+    "pointerdown",
+    event => {
+
+      /*
+        Do not trigger animation pulse
+        when clicking actual controls.
+      */
+
+      if (
+        event.target.closest(
+          "a, button, input, select, textarea"
+        )
+      ) {
         return;
       }
 
 
-      const context =
-        canvas.getContext(
-          "2d",
-          {
-            alpha: true
-          }
-        );
+      const bounds =
+        hero.getBoundingClientRect();
 
 
-      if (!context) {
-        return;
-      }
+      pulses.push({
+        x:
+          event.clientX -
+          bounds.left,
+
+        y:
+          event.clientY -
+          bounds.top,
+
+        born:
+          performance.now()
+      });
+
+    }
+  );
 
 
+  function smoothPointer() {
+    const smoothing = 0.075;
 
-      const prefersReducedMotion =
-        window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
+    pointer.x +=
+      (
+        pointer.targetX -
+        pointer.x
+      ) *
+      smoothing;
+
+    pointer.y +=
+      (
+        pointer.targetY -
+        pointer.y
+      ) *
+      smoothing;
+  }
 
 
+  /*
+    Interaction displacement.
 
-      /* =========================
-         COLORS
-      ========================= */
+    DNA near the pointer bends toward
+    the cursor.
+  */
 
-      const palette = {
+  function getPointerInfluence(
+    x,
+    y,
+    strength = 1
+  ) {
 
-        burgundy: {
-          r: 138,
-          g: 31,
-          b: 45
-        },
-
-        gold: {
-          r: 201,
-          g: 145,
-          b: 39
-        },
-
-        dark: {
-          r: 45,
-          g: 55,
-          b: 65
-        }
-
+    if (!pointer.active) {
+      return {
+        x: 0,
+        y: 0,
+        amount: 0
       };
+    }
 
 
+    const dx =
+      pointer.x -
+      x;
 
-      let width = 0;
-
-      let height = 0;
-
-      let pixelRatio = 1;
-
-      let frame = null;
-
-      let visible = true;
+    const dy =
+      pointer.y -
+      y;
 
 
-
-      function rgba(
-        color,
-        opacity
-      ) {
-
-        return `rgba(
-          ${color.r},
-          ${color.g},
-          ${color.b},
-          ${opacity}
-        )`;
-
-      }
+    const distance =
+      Math.sqrt(
+        dx * dx +
+        dy * dy
+      );
 
 
-
-      /* =========================
-         RESIZE CANVAS
-      ========================= */
-
-      function resizeCanvas() {
-
-        const bounds =
-          hero.getBoundingClientRect();
+    const radius =
+      Math.min(
+        300,
+        width * 0.22
+      );
 
 
-        width =
-          Math.max(
-            1,
-            bounds.width
-          );
+    if (distance >= radius) {
+      return {
+        x: 0,
+        y: 0,
+        amount: 0
+      };
+    }
 
 
-        height =
-          Math.max(
-            1,
-            bounds.height
-          );
+    const normalized =
+      1 -
+      distance /
+      radius;
 
 
-        pixelRatio =
-          Math.min(
-            window.devicePixelRatio || 1,
-            2
-          );
+    const ease =
+      normalized *
+      normalized *
+      (
+        3 -
+        2 *
+        normalized
+      );
 
 
-        canvas.width =
-          Math.round(
-            width * pixelRatio
-          );
+    return {
+      x:
+        dx *
+        0.055 *
+        ease *
+        strength,
+
+      y:
+        dy *
+        0.12 *
+        ease *
+        strength,
+
+      amount:
+        ease
+    };
+  }
 
 
-        canvas.height =
-          Math.round(
-            height * pixelRatio
-          );
+  /*
+    Click ripple displacement.
+  */
+
+  function getPulseInfluence(
+    x,
+    y,
+    time
+  ) {
+
+    let displacement = 0;
+    let glow = 0;
 
 
-        canvas.style.width =
-          `${width}px`;
+    for (
+      let index =
+        pulses.length - 1;
+
+      index >= 0;
+
+      index -= 1
+    ) {
+
+      const pulse =
+        pulses[index];
 
 
-        canvas.style.height =
-          `${height}px`;
+      const age =
+        time -
+        pulse.born;
 
 
-        context.setTransform(
-          pixelRatio,
-          0,
-          0,
-          pixelRatio,
-          0,
-          0
+      const duration =
+        1500;
+
+
+      if (age > duration) {
+        pulses.splice(
+          index,
+          1
         );
 
+        continue;
       }
 
 
+      const progress =
+        age /
+        duration;
 
-      /* =========================
-         DNA HELIX
-      ========================= */
 
-      function drawHelix(
-        centerY,
-        amplitude,
-        spacing,
-        time,
-        opacity,
-        phaseOffset = 0
-      ) {
+      const dx =
+        x -
+        pulse.x;
 
-        const strandA = [];
+      const dy =
+        y -
+        pulse.y;
 
-        const strandB = [];
 
-
-        const left =
-          -80;
-
-
-        const right =
-          width + 80;
-
-
-
-        for (
-          let x = left;
-          x <= right;
-          x += spacing
-        ) {
-
-          const phase =
-            x * 0.022 +
-            time * 0.00065 +
-            phaseOffset;
-
-
-          const depth =
-            Math.cos(phase);
-
-
-          const yA =
-            centerY +
-            Math.sin(phase) *
-            amplitude;
-
-
-          const yB =
-            centerY -
-            Math.sin(phase) *
-            amplitude;
-
-
-
-          strandA.push({
-            x,
-            y: yA
-          });
-
-
-          strandB.push({
-            x,
-            y: yB
-          });
-
-
-
-          /* DNA CONNECTORS */
-
-          const rungOpacity =
-            opacity *
-            (
-              0.28 +
-              Math.abs(depth) * 0.48
-            );
-
-
-          context.beginPath();
-
-
-          context.moveTo(
-            x,
-            yA
-          );
-
-
-          context.lineTo(
-            x,
-            yB
-          );
-
-
-          context.strokeStyle =
-            rgba(
-              palette.dark,
-              rungOpacity
-            );
-
-
-          context.lineWidth =
-            0.8;
-
-
-          context.stroke();
-
-
-
-          /* DNA NODES */
-
-          const frontA =
-            depth > 0;
-
-
-          const radiusA =
-            frontA
-              ? 3.1
-              : 2.1;
-
-
-          const radiusB =
-            frontA
-              ? 2.1
-              : 3.1;
-
-
-
-          /* BURGUNDY SIDE */
-
-          context.beginPath();
-
-
-          context.arc(
-            x,
-            yA,
-            radiusA,
-            0,
-            Math.PI * 2
-          );
-
-
-          context.fillStyle =
-            rgba(
-              palette.burgundy,
-              opacity *
-              (
-                frontA
-                  ? 0.82
-                  : 0.42
-              )
-            );
-
-
-          context.fill();
-
-
-
-          /* GOLD SIDE */
-
-          context.beginPath();
-
-
-          context.arc(
-            x,
-            yB,
-            radiusB,
-            0,
-            Math.PI * 2
-          );
-
-
-          context.fillStyle =
-            rgba(
-              palette.gold,
-              opacity *
-              (
-                frontA
-                  ? 0.42
-                  : 0.82
-              )
-            );
-
-
-          context.fill();
-
-        }
-
-
-
-        /* DRAW STRANDS */
-
-        function drawStrand(
-          points,
-          color
-        ) {
-
-          if (
-            points.length < 2
-          ) {
-            return;
-          }
-
-
-          context.beginPath();
-
-
-          context.moveTo(
-            points[0].x,
-            points[0].y
-          );
-
-
-          for (
-            let index = 1;
-            index < points.length;
-            index += 1
-          ) {
-
-            const previous =
-              points[index - 1];
-
-
-            const current =
-              points[index];
-
-
-            const middleX =
-              (
-                previous.x +
-                current.x
-              ) / 2;
-
-
-            const middleY =
-              (
-                previous.y +
-                current.y
-              ) / 2;
-
-
-            context.quadraticCurveTo(
-              previous.x,
-              previous.y,
-              middleX,
-              middleY
-            );
-
-          }
-
-
-          const last =
-            points[
-              points.length - 1
-            ];
-
-
-          context.lineTo(
-            last.x,
-            last.y
-          );
-
-
-          context.strokeStyle =
-            rgba(
-              color,
-              opacity * 0.72
-            );
-
-
-          context.lineWidth =
-            1.25;
-
-
-          context.stroke();
-
-        }
-
-
-
-        drawStrand(
-          strandA,
-          palette.burgundy
+      const distance =
+        Math.sqrt(
+          dx * dx +
+          dy * dy
         );
 
 
-        drawStrand(
-          strandB,
-          palette.gold
-        );
-
-      }
-
-
-
-      /* =========================
-         FLOATING PARTICLES
-      ========================= */
-
-      function drawParticles(time) {
-
-        const count =
-          Math.max(
-            22,
-            Math.floor(
-              width / 45
-            )
-          );
-
-
-        for (
-          let index = 0;
-          index < count;
-          index += 1
-        ) {
-
-          const seed =
-            index * 93.17;
-
-
-          const x =
-            (
-              seed * 19.73 +
-              time *
-              0.012 *
-              (
-                index % 3 + 1
-              )
-            )
-            %
-            (
-              width + 80
-            )
-            -
-            40;
-
-
-          const y =
-            (
-              Math.sin(
-                seed * 0.31
-              )
-              *
-              0.5
-              +
-              0.5
-            )
-            *
-            height;
-
-
-          const pulse =
-            0.5 +
-            Math.sin(
-              time * 0.001 +
-              seed
-            )
-            *
-            0.5;
-
-
-          const radius =
-            0.7 +
-            pulse * 1.1;
-
-
-          context.beginPath();
-
-
-          context.arc(
-            x,
-            y,
-            radius,
-            0,
-            Math.PI * 2
-          );
-
-
-          context.fillStyle =
-            index % 2 === 0
-              ? rgba(
-                  palette.burgundy,
-                  0.07 +
-                  pulse * 0.08
-                )
-              : rgba(
-                  palette.gold,
-                  0.07 +
-                  pulse * 0.08
-                );
-
-
-          context.fill();
-
-        }
-
-      }
-
-
-
-      /* =========================
-         DRAW FRAME
-      ========================= */
-
-      function draw(
-        time = 0
-      ) {
-
-        context.clearRect(
-          0,
-          0,
+      const radius =
+        progress *
+        Math.max(
           width,
           height
+        ) *
+        0.72;
+
+
+      const ringDistance =
+        Math.abs(
+          distance -
+          radius
         );
 
 
-        drawParticles(
-          time
-        );
-
-
-        /* UPPER DNA */
-
-        drawHelix(
-          height * 0.30,
-          Math.min(
-            54,
-            height * 0.09
-          ),
-          20,
-          time,
-          0.34,
-          0
-        );
-
-
-        /* LOWER DNA */
-
-        drawHelix(
-          height * 0.72,
-          Math.min(
-            46,
-            height * 0.075
-          ),
-          22,
-          time,
-          0.23,
-          Math.PI * 0.65
-        );
-
-      }
-
-
-
-      /* =========================
-         ANIMATION
-      ========================= */
-
-      function animate(time) {
-
-        if (!visible) {
-
-          frame = null;
-
-          return;
-
-        }
-
-
-        draw(
-          time
-        );
-
-
-        frame =
-          requestAnimationFrame(
-            animate
-          );
-
-      }
-
-
-
-      function start() {
-
-        if (
-          prefersReducedMotion ||
-          frame !== null ||
-          !visible
-        ) {
-          return;
-        }
-
-
-        frame =
-          requestAnimationFrame(
-            animate
-          );
-
-      }
-
-
-
-      function stop() {
-
-        if (
-          frame !== null
-        ) {
-
-          cancelAnimationFrame(
-            frame
-          );
-
-
-          frame = null;
-
-        }
-
-      }
-
-
-
-      /* =========================
-         OBSERVERS
-      ========================= */
-
-      const resizeObserver =
-        new ResizeObserver(
-          () => {
-
-            resizeCanvas();
-
-
-            if (
-              prefersReducedMotion
-            ) {
-
-              draw(0);
-
-            }
-
-          }
-        );
-
-
-      resizeObserver.observe(
-        hero
-      );
-
-
-
-      const visibilityObserver =
-        new IntersectionObserver(
-
-          entries => {
-
-            visible =
-              entries[0]
-                ?.isIntersecting ??
-              true;
-
-
-            if (
-              visible
-            ) {
-
-              start();
-
-            } else {
-
-              stop();
-
-            }
-
-          },
-
-          {
-            threshold: 0.02
-          }
-
-        );
-
-
-      visibilityObserver.observe(
-        hero
-      );
-
-
-
-      /* =========================
-         INITIALIZE
-      ========================= */
-
-      resizeCanvas();
+      const ringWidth =
+        75;
 
 
       if (
-        prefersReducedMotion
+        ringDistance <
+        ringWidth
       ) {
 
-        draw(0);
+        const intensity =
+          1 -
+          ringDistance /
+          ringWidth;
 
-      } else {
 
-        start();
+        const fade =
+          1 -
+          progress;
+
+
+        displacement +=
+          Math.sin(
+            progress *
+            Math.PI *
+            5
+          ) *
+          intensity *
+          fade *
+          16;
+
+
+        glow +=
+          intensity *
+          fade;
 
       }
 
-    })();
+    }
 
-  </script>
+
+    return {
+      displacement,
+      glow
+    };
+  }
+
+
+  /*
+    DNA strand
+  */
+
+  function drawHelix(
+    centerY,
+    amplitude,
+    spacing,
+    time,
+    opacity,
+    phaseOffset = 0,
+    direction = 1
+  ) {
+
+    const strandA = [];
+    const strandB = [];
+
+
+    const startX =
+      -80;
+
+    const endX =
+      width + 80;
+
+
+    /*
+      Whole helix responds slightly
+      to pointer position.
+    */
+
+    const parallaxX =
+      pointer.normalizedX *
+      18;
+
+    const parallaxY =
+      pointer.normalizedY *
+      10;
+
+
+    for (
+      let baseX =
+        startX;
+
+      baseX <=
+        endX;
+
+      baseX +=
+        spacing
+    ) {
+
+      const phase =
+        baseX *
+        0.021 +
+        time *
+        0.00065 *
+        direction +
+        phaseOffset;
+
+
+      const depth =
+        Math.cos(
+          phase
+        );
+
+
+      let x =
+        baseX +
+        parallaxX;
+
+
+      let yA =
+        centerY +
+        parallaxY +
+        Math.sin(
+          phase
+        ) *
+        amplitude;
+
+
+      let yB =
+        centerY +
+        parallaxY -
+        Math.sin(
+          phase
+        ) *
+        amplitude;
+
+
+      /*
+        Cursor interaction
+      */
+
+      const influenceA =
+        getPointerInfluence(
+          x,
+          yA,
+          1
+        );
+
+
+      const influenceB =
+        getPointerInfluence(
+          x,
+          yB,
+          1
+        );
+
+
+      yA +=
+        influenceA.y;
+
+      yB +=
+        influenceB.y;
+
+
+      /*
+        Add a smaller horizontal bend
+      */
+
+      const xA =
+        x +
+        influenceA.x;
+
+      const xB =
+        x +
+        influenceB.x;
+
+
+      /*
+        Click wave
+      */
+
+      const pulseA =
+        getPulseInfluence(
+          xA,
+          yA,
+          time
+        );
+
+
+      const pulseB =
+        getPulseInfluence(
+          xB,
+          yB,
+          time
+        );
+
+
+      yA +=
+        pulseA.displacement;
+
+      yB -=
+        pulseB.displacement;
+
+
+      strandA.push({
+        x: xA,
+        y: yA
+      });
+
+
+      strandB.push({
+        x: xB,
+        y: yB
+      });
+
+
+      /*
+        DNA rung
+      */
+
+      const rungOpacity =
+        opacity *
+        (
+          0.22 +
+          Math.abs(
+            depth
+          ) *
+          0.4
+        );
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        xA,
+        yA
+      );
+
+      ctx.lineTo(
+        xB,
+        yB
+      );
+
+
+      ctx.strokeStyle =
+        rgba(
+          palette.dark,
+          rungOpacity
+        );
+
+
+      ctx.lineWidth =
+        0.7 +
+        influenceA.amount *
+        0.5;
+
+
+      ctx.stroke();
+
+
+
+      /*
+        Node size reacts to cursor.
+      */
+
+      const frontA =
+        depth > 0;
+
+
+      const interactionA =
+        influenceA.amount +
+        pulseA.glow;
+
+
+      const interactionB =
+        influenceB.amount +
+        pulseB.glow;
+
+
+      const radiusA =
+        (
+          frontA
+            ? 3
+            : 2
+        )
+        +
+        interactionA *
+        4;
+
+
+      const radiusB =
+        (
+          frontA
+            ? 2
+            : 3
+        )
+        +
+        interactionB *
+        4;
+
+
+
+      /*
+        Burgundy node
+      */
+
+      if (
+        interactionA >
+        0.05
+      ) {
+
+        ctx.beginPath();
+
+        ctx.arc(
+          xA,
+          yA,
+          radiusA *
+          2.2,
+          0,
+          Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+          rgba(
+            palette.burgundy,
+            interactionA *
+            0.08
+          );
+
+
+        ctx.fill();
+
+      }
+
+
+      ctx.beginPath();
+
+      ctx.arc(
+        xA,
+        yA,
+        radiusA,
+        0,
+        Math.PI * 2
+      );
+
+
+      ctx.fillStyle =
+        rgba(
+          palette.burgundy,
+          opacity *
+          (
+            frontA
+              ? 0.86
+              : 0.40
+          )
+          +
+          interactionA *
+          0.08
+        );
+
+
+      ctx.fill();
+
+
+
+      /*
+        Gold node
+      */
+
+      if (
+        interactionB >
+        0.05
+      ) {
+
+        ctx.beginPath();
+
+        ctx.arc(
+          xB,
+          yB,
+          radiusB *
+          2.2,
+          0,
+          Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+          rgba(
+            palette.gold,
+            interactionB *
+            0.09
+          );
+
+
+        ctx.fill();
+
+      }
+
+
+      ctx.beginPath();
+
+      ctx.arc(
+        xB,
+        yB,
+        radiusB,
+        0,
+        Math.PI * 2
+      );
+
+
+      ctx.fillStyle =
+        rgba(
+          palette.gold,
+          opacity *
+          (
+            frontA
+              ? 0.42
+              : 0.86
+          )
+          +
+          interactionB *
+          0.08
+        );
+
+
+      ctx.fill();
+
+    }
+
+
+    function drawStrand(
+      points,
+      color
+    ) {
+
+      if (
+        points.length <
+        2
+      ) {
+        return;
+      }
+
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        points[0].x,
+        points[0].y
+      );
+
+
+      for (
+        let index = 1;
+        index <
+          points.length;
+
+        index += 1
+      ) {
+
+        const previous =
+          points[
+            index - 1
+          ];
+
+
+        const current =
+          points[
+            index
+          ];
+
+
+        const midpointX =
+          (
+            previous.x +
+            current.x
+          ) /
+          2;
+
+
+        const midpointY =
+          (
+            previous.y +
+            current.y
+          ) /
+          2;
+
+
+        ctx.quadraticCurveTo(
+          previous.x,
+          previous.y,
+          midpointX,
+          midpointY
+        );
+
+      }
+
+
+      const last =
+        points[
+          points.length -
+          1
+        ];
+
+
+      ctx.lineTo(
+        last.x,
+        last.y
+      );
+
+
+      ctx.strokeStyle =
+        rgba(
+          color,
+          opacity *
+          0.76
+        );
+
+
+      ctx.lineWidth =
+        1.2;
+
+
+      ctx.stroke();
+    }
+
+
+    drawStrand(
+      strandA,
+      palette.burgundy
+    );
+
+
+    drawStrand(
+      strandB,
+      palette.gold
+    );
+
+  }
+
+
+  /*
+    Background particles
+  */
+
+  function drawParticles(time) {
+
+    const count =
+      Math.max(
+        18,
+        Math.floor(
+          width / 55
+        )
+      );
+
+
+    for (
+      let index = 0;
+      index < count;
+      index += 1
+    ) {
+
+      const seed =
+        index *
+        93.17;
+
+
+      let x =
+        (
+          seed *
+          19.73 +
+          time *
+          0.009 *
+          (
+            index % 3 +
+            1
+          )
+        )
+        %
+        (
+          width +
+          100
+        )
+        -
+        50;
+
+
+      let y =
+        (
+          Math.sin(
+            seed *
+            0.31
+          )
+          *
+          0.5 +
+          0.5
+        )
+        *
+        height;
+
+
+      const influence =
+        getPointerInfluence(
+          x,
+          y,
+          0.35
+        );
+
+
+      x +=
+        influence.x;
+
+      y +=
+        influence.y;
+
+
+      const pulse =
+        0.5 +
+        Math.sin(
+          time *
+          0.001 +
+          seed
+        )
+        *
+        0.5;
+
+
+      const radius =
+        0.7 +
+        pulse *
+        1.05 +
+        influence.amount *
+        2;
+
+
+      ctx.beginPath();
+
+
+      ctx.arc(
+        x,
+        y,
+        radius,
+        0,
+        Math.PI * 2
+      );
+
+
+      ctx.fillStyle =
+        index % 2 === 0
+
+          ? rgba(
+              palette.burgundy,
+              0.05 +
+              pulse *
+              0.07
+            )
+
+          : rgba(
+              palette.gold,
+              0.05 +
+              pulse *
+              0.07
+            );
+
+
+      ctx.fill();
+
+    }
+
+  }
+
+
+  /*
+    Click ripple visual
+  */
+
+  function drawPulseRings(time) {
+
+    pulses.forEach(
+      pulse => {
+
+        const age =
+          time -
+          pulse.born;
+
+
+        const progress =
+          Math.min(
+            1,
+            age /
+            1500
+          );
+
+
+        const radius =
+          progress *
+          Math.max(
+            width,
+            height
+          ) *
+          0.72;
+
+
+        const opacity =
+          (
+            1 -
+            progress
+          ) *
+          0.09;
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+          pulse.x,
+          pulse.y,
+          radius,
+          0,
+          Math.PI * 2
+        );
+
+
+        ctx.strokeStyle =
+          rgba(
+            palette.burgundy,
+            opacity
+          );
+
+
+        ctx.lineWidth =
+          1;
+
+
+        ctx.stroke();
+
+      }
+    );
+
+  }
+
+
+  function draw(time = 0) {
+
+    smoothPointer();
+
+
+    ctx.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
+
+
+    drawParticles(
+      time
+    );
+
+
+    /*
+      Upper strand
+    */
+
+    drawHelix(
+      height *
+      0.30,
+
+      Math.min(
+        54,
+        height *
+        0.09
+      ),
+
+      20,
+
+      time,
+
+      0.34,
+
+      0,
+
+      1
+    );
+
+
+    /*
+      Lower strand
+    */
+
+    drawHelix(
+      height *
+      0.72,
+
+      Math.min(
+        46,
+        height *
+        0.075
+      ),
+
+      22,
+
+      time,
+
+      0.23,
+
+      Math.PI *
+      0.65,
+
+      -1
+    );
+
+
+    drawPulseRings(
+      time
+    );
+
+  }
+
+
+  function animate(time) {
+
+    if (!visible) {
+      frameId = null;
+      return;
+    }
+
+
+    draw(time);
+
+
+    frameId =
+      requestAnimationFrame(
+        animate
+      );
+
+  }
+
+
+  function start() {
+
+    if (
+      frameId !== null ||
+      !visible
+    ) {
+      return;
+    }
+
+
+    /*
+      Reduced motion still allows
+      pointer interaction, but no
+      continuous automatic movement.
+    */
+
+    if (
+      reducedMotion.matches
+    ) {
+
+      draw(
+        performance.now()
+      );
+
+      return;
+    }
+
+
+    frameId =
+      requestAnimationFrame(
+        animate
+      );
+
+  }
+
+
+  function stop() {
+
+    if (
+      frameId === null
+    ) {
+      return;
+    }
+
+
+    cancelAnimationFrame(
+      frameId
+    );
+
+
+    frameId = null;
+
+  }
+
+
+  /*
+    Redraw when pointer moves
+    if reduced motion is enabled.
+  */
+
+  hero.addEventListener(
+    "pointermove",
+    () => {
+
+      if (
+        reducedMotion.matches
+      ) {
+
+        requestAnimationFrame(
+          time => {
+            draw(time);
+          }
+        );
+
+      }
+
+    },
+    {
+      passive: true
+    }
+  );
+
+
+  /*
+    Resize handling
+  */
+
+  const resizeObserver =
+    new ResizeObserver(
+      () => {
+
+        resizeCanvas();
+
+
+        if (
+          reducedMotion.matches
+        ) {
+
+          draw(
+            performance.now()
+          );
+
+        }
+
+      }
+    );
+
+
+  resizeObserver.observe(
+    hero
+  );
+
+
+  /*
+    Stop animation when hero
+    is outside viewport.
+  */
+
+  const visibilityObserver =
+    new IntersectionObserver(
+
+      entries => {
+
+        visible =
+          entries[0]
+            ?.isIntersecting ??
+          true;
+
+
+        if (
+          visible
+        ) {
+
+          start();
+
+        } else {
+
+          stop();
+
+        }
+
+      },
+
+      {
+        threshold: 0.02
+      }
+
+    );
+
+
+  visibilityObserver.observe(
+    hero
+  );
+
+
+  reducedMotion.addEventListener(
+    "change",
+    () => {
+
+      stop();
+
+      start();
+
+    }
+  );
+
+
+  resizeCanvas();
+  start();
+
+})();
+</script>
 
 
 </body>
