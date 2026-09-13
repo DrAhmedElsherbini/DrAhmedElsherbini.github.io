@@ -11,12 +11,12 @@
 
   <meta
     name="description"
-    content="Ahmed E. Elshal is a researcher, dentist, and tissue engineer at the University of Tokyo exploring bone remodeling, multicellular systems, regenerative biology, advanced imaging, and quantitative analysis."
+    content="Ahmed E. Elshal is a PhD candidate at the University of Tokyo specializing in bone tissue engineering, functional bone models, regenerative medicine, and quantitative imaging."
   >
 
   <meta name="theme-color" content="#8a1f2d">
 
-  <title>Ahmed E. Elshal | Researcher · Dentist · Tissue Engineer · Creator</title>
+  <title>Ahmed E. Elshal | Tissue Engineering Researcher</title>
 
   <link
     rel="icon"
@@ -25,13 +25,43 @@
   >
 
   <link rel="stylesheet" href="styles.css?v=8">
+
+  <style>
+    .hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+    }
+
+    .dna-canvas {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      z-index: 1;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+
 </head>
+
 
 <body>
 
   <a class="skip-link" href="#main">
     Skip to content
   </a>
+
 
   <header class="site-header">
 
@@ -40,7 +70,7 @@
       <a
         class="brand"
         href="index.html"
-        aria-label="Ahmed E. Elshal homepage"
+        aria-label="Ahmed Elsherbini Elshal homepage"
       >
 
         <img
@@ -55,6 +85,7 @@
 
       </a>
 
+
       <button
         class="menu-button"
         type="button"
@@ -64,6 +95,7 @@
       >
         ☰
       </button>
+
 
       <nav
         class="site-nav"
@@ -105,7 +137,10 @@
 
   </header>
 
+
+
   <main id="main">
+
 
     <section
       class="campus-image-section"
@@ -125,7 +160,12 @@
 
     </section>
 
-    <section class="hero" id="hero">
+
+
+    <section
+      class="hero"
+      id="hero"
+    >
 
       <canvas
         id="dna-canvas"
@@ -133,34 +173,29 @@
         aria-hidden="true"
       ></canvas>
 
+
       <div class="container hero-grid">
 
         <div class="hero-copy">
 
           <div class="eyebrow">
-            Researcher · Dentist · Tissue Engineer · Creator
+            The University of Tokyo
           </div>
+
 
           <h1 class="hero-title">
             Engineering better models of
             <span>bone regeneration.</span>
           </h1>
 
+
           <p class="lead">
-            I am a PhD candidate at the University of Tokyo working at the
-            intersection of tissue engineering, bone biology, advanced imaging,
-            and quantitative analysis. I develop three dimensional functional
-            bone models and use longitudinal four dimensional imaging to study
-            how cells communicate, remodel their environment, and determine
-            regenerative outcomes over time.
+            I am a PhD candidate in tissue engineering and bone biology
+            developing four dimensional functional bone models to investigate
+            remodeling, cellular coupling, and regenerative responses through
+            advanced imaging and quantitative analysis.
           </p>
 
-          <p>
-            Beyond individual techniques or tissues, I am fascinated by how
-            living systems organize, interact, adapt, break down, and rebuild.
-            This website is also an expression of that curiosity through
-            science, movement, structure, coding, and design.
-          </p>
 
           <div class="hero-actions">
 
@@ -188,6 +223,8 @@
           </div>
 
         </div>
+
+
 
         <div class="hero-visual">
 
@@ -219,6 +256,8 @@
 
     </section>
 
+
+
     <section class="section">
 
       <div class="container">
@@ -230,17 +269,18 @@
           </div>
 
           <h2>
-            Understanding how multicellular systems remodel and regenerate
+            Multicellular models of bone remodeling
           </h2>
 
           <p>
-            My current research uses functional bone models as a dynamic
-            experimental system to investigate how cellular communication,
-            spatial organization, signaling, and time shape tissue level
-            remodeling and regenerative responses.
+            My research combines tissue engineering, advanced microscopy,
+            biological experimentation, and quantitative analysis to examine
+            how bone tissues form, resorb, and regenerate.
           </p>
 
         </div>
+
+
 
         <div class="card-grid">
 
@@ -256,12 +296,12 @@
 
             <p>
               Three dimensional multicellular systems that reproduce
-              sequential bone formation, resorption, and reformation in vitro,
-              allowing remodeling to be studied as a continuous biological
-              process.
+              sequential bone formation, resorption, and reformation in vitro.
             </p>
 
           </article>
+
+
 
           <article class="card">
 
@@ -275,11 +315,12 @@
 
             <p>
               Investigation of how intermittent and continuous PTH exposure
-              patterns alter osteoblast, osteoclast, osteocyte, and matrix
-              behavior throughout remodeling.
+              patterns influence osteoblast, osteoclast, and matrix behavior.
             </p>
 
           </article>
+
+
 
           <article class="card">
 
@@ -292,9 +333,8 @@
             </h3>
 
             <p>
-              Longitudinal two photon microscopy, SHG imaging, three
-              dimensional reconstruction, and computational analysis to follow
-              cellular and matrix changes through space and time.
+              Longitudinal two photon microscopy, SHG imaging, Imaris
+              reconstruction, and MATLAB based analysis of tissue remodeling.
             </p>
 
           </article>
@@ -304,6 +344,8 @@
       </div>
 
     </section>
+
+
 
     <section class="section section-alt">
 
@@ -316,28 +358,31 @@
           </div>
 
           <h2>
-            Following remodeling through space and time
+            Following bone remodeling through time
           </h2>
 
           <p class="lead">
-            Rather than relying only on endpoint measurements, I follow the
-            same living tissue environment longitudinally to understand how
-            cellular behavior and extracellular matrix organization evolve
-            throughout remodeling.
+            Rather than relying only on endpoint measurements, I use
+            longitudinal imaging to track cellular and extracellular matrix
+            changes throughout multiple remodeling phases.
           </p>
 
           <p>
-            This approach allows formation, resorption, and reformation to be
-            examined as connected phases of a dynamic multicellular process,
-            revealing relationships that may be missed when tissues are
-            analyzed only at isolated endpoints.
+            This approach enables direct comparison of bone formation,
+            resorption, and reformation within the same three dimensional
+            tissue environment.
           </p>
 
-          <a class="text-link" href="research.html">
+          <a
+            class="text-link"
+            href="research.html"
+          >
             Learn more about the research
           </a>
 
         </div>
+
+
 
         <div class="panel">
 
@@ -356,14 +401,15 @@
                 </h3>
 
                 <p>
-                  Osteoblast lineage cells organize, communicate, and generate
-                  mineralized bone like tissue within a collagen rich
-                  extracellular matrix.
+                  Osteogenic cells generate mineralized bone like tissue and
+                  collagen rich extracellular matrix.
                 </p>
 
               </div>
 
             </div>
+
+
 
             <div class="process-item">
 
@@ -378,13 +424,15 @@
                 </h3>
 
                 <p>
-                  Osteoclast lineage cells interact with the formed tissue,
-                  reshape the matrix, and generate localized resorption regions.
+                  Osteoclast lineage cells remodel the tissue and generate
+                  localized resorption regions.
                 </p>
 
               </div>
 
             </div>
+
+
 
             <div class="process-item">
 
@@ -400,8 +448,7 @@
 
                 <p>
                   Osteoblast lineage cells respond to the remodeled
-                  microenvironment and regenerate new matrix, completing the
-                  transition from resorption back to formation.
+                  microenvironment and regenerate new matrix.
                 </p>
 
               </div>
@@ -416,6 +463,8 @@
 
     </section>
 
+
+
     <section class="section">
 
       <div class="container">
@@ -427,29 +476,16 @@
           </div>
 
           <h2>
-            Integrating biological, imaging, and computational approaches
+            Integrated experimental and computational methods
           </h2>
 
-          <p>
-            My work combines experimental biology with quantitative and visual
-            approaches to understand complex multicellular behavior across
-            different spatial and temporal scales.
-          </p>
-
         </div>
+
 
         <div class="tag-list">
 
           <span class="tag">
-            Functional bone organoids
-          </span>
-
-          <span class="tag">
-            Spheroid culture
-          </span>
-
-          <span class="tag">
-            Osteoblast and osteoclast co culture
+            Three dimensional bone models
           </span>
 
           <span class="tag">
@@ -461,19 +497,11 @@
           </span>
 
           <span class="tag">
-            Three dimensional reconstruction
-          </span>
-
-          <span class="tag">
             Imaris
           </span>
 
           <span class="tag">
             MATLAB
-          </span>
-
-          <span class="tag">
-            Quantitative image analysis
           </span>
 
           <span class="tag">
@@ -489,19 +517,7 @@
           </span>
 
           <span class="tag">
-            Real time PCR
-          </span>
-
-          <span class="tag">
-            DNA recombination
-          </span>
-
-          <span class="tag">
-            Lentiviral transduction
-          </span>
-
-          <span class="tag">
-            Retroviral transduction
+            qPCR
           </span>
 
           <span class="tag">
@@ -509,7 +525,11 @@
           </span>
 
           <span class="tag">
-            Bone cell biology
+            Osteoblast biology
+          </span>
+
+          <span class="tag">
+            Osteoclast biology
           </span>
 
         </div>
@@ -518,15 +538,20 @@
 
     </section>
 
+
   </main>
+
+
 
   <footer class="site-footer">
 
     <div class="container footer-grid">
 
       <span>
-        © <span data-year></span> Designed and coded entirely by Ahmed E. Elshal
+        © <span data-year></span>
+        Designed and coded by Ahmed E. Elshal
       </span>
+
 
       <div class="footer-links">
 
@@ -556,7 +581,674 @@
 
   </footer>
 
+
+
   <script src="script.js?v=8"></script>
+
+
+
+  <!-- DNA HERO ANIMATION -->
+
+  <script>
+    (() => {
+      "use strict";
+
+      const hero =
+        document.getElementById("hero");
+
+      const canvas =
+        document.getElementById("dna-canvas");
+
+      if (!hero || !canvas) {
+        return;
+      }
+
+
+      const context =
+        canvas.getContext("2d", {
+          alpha: true
+        });
+
+      if (!context) {
+        return;
+      }
+
+
+      const prefersReducedMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+      const palette = {
+        burgundy: {
+          r: 138,
+          g: 31,
+          b: 45
+        },
+
+        gold: {
+          r: 201,
+          g: 145,
+          b: 39
+        },
+
+        dark: {
+          r: 45,
+          g: 55,
+          b: 65
+        }
+      };
+
+
+      let width = 0;
+      let height = 0;
+      let pixelRatio = 1;
+      let frame = null;
+      let visible = true;
+
+
+      const rgba = (
+        color,
+        opacity
+      ) => (
+        `rgba(
+          ${color.r},
+          ${color.g},
+          ${color.b},
+          ${opacity}
+        )`
+      );
+
+
+      function resizeCanvas() {
+
+        const bounds =
+          hero.getBoundingClientRect();
+
+        width =
+          Math.max(
+            1,
+            bounds.width
+          );
+
+        height =
+          Math.max(
+            1,
+            bounds.height
+          );
+
+
+        pixelRatio =
+          Math.min(
+            window.devicePixelRatio || 1,
+            2
+          );
+
+
+        canvas.width =
+          Math.round(
+            width * pixelRatio
+          );
+
+        canvas.height =
+          Math.round(
+            height * pixelRatio
+          );
+
+
+        canvas.style.width =
+          `${width}px`;
+
+        canvas.style.height =
+          `${height}px`;
+
+
+        context.setTransform(
+          pixelRatio,
+          0,
+          0,
+          pixelRatio,
+          0,
+          0
+        );
+      }
+
+
+
+      function drawHelix(
+        centerY,
+        amplitude,
+        spacing,
+        time,
+        opacity,
+        phaseOffset = 0
+      ) {
+
+        const strandA = [];
+        const strandB = [];
+
+        const left =
+          -80;
+
+        const right =
+          width + 80;
+
+
+        for (
+          let x = left;
+          x <= right;
+          x += spacing
+        ) {
+
+          const phase =
+            x * 0.022 +
+            time * 0.00065 +
+            phaseOffset;
+
+
+          const depth =
+            Math.cos(phase);
+
+
+          const yA =
+            centerY +
+            Math.sin(phase) *
+            amplitude;
+
+
+          const yB =
+            centerY -
+            Math.sin(phase) *
+            amplitude;
+
+
+          strandA.push({
+            x,
+            y: yA
+          });
+
+
+          strandB.push({
+            x,
+            y: yB
+          });
+
+
+          const rungOpacity =
+            opacity *
+            (
+              0.28 +
+              Math.abs(depth) * 0.48
+            );
+
+
+          context.beginPath();
+
+          context.moveTo(
+            x,
+            yA
+          );
+
+          context.lineTo(
+            x,
+            yB
+          );
+
+
+          context.strokeStyle =
+            rgba(
+              palette.dark,
+              rungOpacity
+            );
+
+
+          context.lineWidth =
+            0.8;
+
+
+          context.stroke();
+
+
+
+          const frontA =
+            depth > 0;
+
+
+          const radiusA =
+            frontA
+              ? 3.1
+              : 2.1;
+
+
+          const radiusB =
+            frontA
+              ? 2.1
+              : 3.1;
+
+
+
+          context.beginPath();
+
+          context.arc(
+            x,
+            yA,
+            radiusA,
+            0,
+            Math.PI * 2
+          );
+
+
+          context.fillStyle =
+            rgba(
+              palette.burgundy,
+              opacity *
+              (
+                frontA
+                  ? 0.82
+                  : 0.42
+              )
+            );
+
+
+          context.fill();
+
+
+
+          context.beginPath();
+
+          context.arc(
+            x,
+            yB,
+            radiusB,
+            0,
+            Math.PI * 2
+          );
+
+
+          context.fillStyle =
+            rgba(
+              palette.gold,
+              opacity *
+              (
+                frontA
+                  ? 0.42
+                  : 0.82
+              )
+            );
+
+
+          context.fill();
+
+        }
+
+
+
+        function drawStrand(
+          points,
+          color
+        ) {
+
+          if (
+            points.length < 2
+          ) {
+            return;
+          }
+
+
+          context.beginPath();
+
+          context.moveTo(
+            points[0].x,
+            points[0].y
+          );
+
+
+          for (
+            let index = 1;
+            index < points.length;
+            index += 1
+          ) {
+
+            const previous =
+              points[index - 1];
+
+            const current =
+              points[index];
+
+
+            const middleX =
+              (
+                previous.x +
+                current.x
+              ) / 2;
+
+
+            const middleY =
+              (
+                previous.y +
+                current.y
+              ) / 2;
+
+
+            context.quadraticCurveTo(
+              previous.x,
+              previous.y,
+              middleX,
+              middleY
+            );
+
+          }
+
+
+          const last =
+            points[
+              points.length - 1
+            ];
+
+
+          context.lineTo(
+            last.x,
+            last.y
+          );
+
+
+          context.strokeStyle =
+            rgba(
+              color,
+              opacity * 0.72
+            );
+
+
+          context.lineWidth =
+            1.25;
+
+
+          context.stroke();
+        }
+
+
+        drawStrand(
+          strandA,
+          palette.burgundy
+        );
+
+
+        drawStrand(
+          strandB,
+          palette.gold
+        );
+
+      }
+
+
+
+      function drawParticles(time) {
+
+        const count =
+          Math.max(
+            22,
+            Math.floor(
+              width / 45
+            )
+          );
+
+
+        for (
+          let index = 0;
+          index < count;
+          index += 1
+        ) {
+
+          const seed =
+            index * 93.17;
+
+
+          const x =
+            (
+              seed * 19.73 +
+              time * 0.012 *
+              (
+                index % 3 + 1
+              )
+            ) %
+            (
+              width + 80
+            ) -
+            40;
+
+
+          const y =
+            (
+              Math.sin(
+                seed * 0.31
+              ) *
+              0.5 +
+              0.5
+            ) *
+            height;
+
+
+          const pulse =
+            0.5 +
+            Math.sin(
+              time * 0.001 +
+              seed
+            ) *
+            0.5;
+
+
+          const radius =
+            0.7 +
+            pulse * 1.1;
+
+
+          context.beginPath();
+
+          context.arc(
+            x,
+            y,
+            radius,
+            0,
+            Math.PI * 2
+          );
+
+
+          context.fillStyle =
+            index % 2 === 0
+              ? rgba(
+                  palette.burgundy,
+                  0.07 +
+                  pulse * 0.08
+                )
+              : rgba(
+                  palette.gold,
+                  0.07 +
+                  pulse * 0.08
+                );
+
+
+          context.fill();
+
+        }
+
+      }
+
+
+
+      function draw(time = 0) {
+
+        context.clearRect(
+          0,
+          0,
+          width,
+          height
+        );
+
+
+        drawParticles(time);
+
+
+        drawHelix(
+          height * 0.30,
+          Math.min(
+            54,
+            height * 0.09
+          ),
+          20,
+          time,
+          0.34,
+          0
+        );
+
+
+        drawHelix(
+          height * 0.72,
+          Math.min(
+            46,
+            height * 0.075
+          ),
+          22,
+          time,
+          0.23,
+          Math.PI * 0.65
+        );
+
+      }
+
+
+
+      function animate(time) {
+
+        if (!visible) {
+
+          frame = null;
+
+          return;
+
+        }
+
+
+        draw(time);
+
+
+        frame =
+          requestAnimationFrame(
+            animate
+          );
+
+      }
+
+
+
+      function start() {
+
+        if (
+          prefersReducedMotion ||
+          frame !== null ||
+          !visible
+        ) {
+          return;
+        }
+
+
+        frame =
+          requestAnimationFrame(
+            animate
+          );
+
+      }
+
+
+
+      function stop() {
+
+        if (frame !== null) {
+
+          cancelAnimationFrame(
+            frame
+          );
+
+          frame = null;
+
+        }
+
+      }
+
+
+
+      const resizeObserver =
+        new ResizeObserver(
+          () => {
+
+            resizeCanvas();
+
+            if (
+              prefersReducedMotion
+            ) {
+              draw(0);
+            }
+
+          }
+        );
+
+
+      resizeObserver.observe(
+        hero
+      );
+
+
+
+      const visibilityObserver =
+        new IntersectionObserver(
+          entries => {
+
+            visible =
+              entries[0]
+                ?.isIntersecting ??
+              true;
+
+
+            if (visible) {
+
+              start();
+
+            } else {
+
+              stop();
+
+            }
+
+          },
+          {
+            threshold: 0.02
+          }
+        );
+
+
+      visibilityObserver.observe(
+        hero
+      );
+
+
+      resizeCanvas();
+
+
+      if (
+        prefersReducedMotion
+      ) {
+
+        draw(0);
+
+      } else {
+
+        start();
+
+      }
+
+    })();
+  </script>
+
 
 </body>
 
