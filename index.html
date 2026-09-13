@@ -27,11 +27,30 @@
   <link rel="stylesheet" href="styles.css?v=8">
 
   <style>
+
+    /* =========================
+       HERO
+    ========================= */
+
     .hero {
       position: relative;
       isolation: isolate;
       overflow: hidden;
+      padding: 7rem 0;
+      background: #ffffff !important;
     }
+
+    .hero::before,
+    .hero::after {
+      content: none !important;
+      display: none !important;
+      background: none !important;
+    }
+
+
+    /* =========================
+       DNA BACKGROUND
+    ========================= */
 
     .dna-canvas {
       position: absolute;
@@ -43,14 +62,16 @@
       pointer-events: none;
     }
 
-    .hero::after {
-      z-index: 1;
-    }
+
+    /* =========================
+       HERO CONTENT
+    ========================= */
 
     .hero-grid {
       position: relative;
       z-index: 2;
     }
+
   </style>
 
 </head>
@@ -58,10 +79,16 @@
 
 <body>
 
-  <a class="skip-link" href="#main">
+  <a
+    class="skip-link"
+    href="#main"
+  >
     Skip to content
   </a>
 
+
+
+  <!-- HEADER -->
 
   <header class="site-header">
 
@@ -142,6 +169,8 @@
   <main id="main">
 
 
+    <!-- CAMPUS IMAGE -->
+
     <section
       class="campus-image-section"
       aria-label="The University of Tokyo Hongo Campus"
@@ -162,6 +191,8 @@
 
 
 
+    <!-- HERO -->
+
     <section
       class="hero"
       id="hero"
@@ -175,6 +206,9 @@
 
 
       <div class="container hero-grid">
+
+
+        <!-- HERO TEXT -->
 
         <div class="hero-copy">
 
@@ -206,12 +240,14 @@
               Explore my research
             </a>
 
+
             <a
               class="button button-secondary"
               href="publications.html"
             >
               View publications
             </a>
+
 
             <a
               class="button button-secondary"
@@ -226,6 +262,8 @@
 
 
 
+        <!-- UTOKYO LOGO -->
+
         <div class="hero-visual">
 
           <div class="todai-logo-panel">
@@ -235,6 +273,7 @@
               src="Todai_logo.png"
               alt="The University of Tokyo logo"
             >
+
 
             <div class="todai-logo-caption">
 
@@ -252,11 +291,14 @@
 
         </div>
 
+
       </div>
 
     </section>
 
 
+
+    <!-- RESEARCH FOCUS -->
 
     <section class="section">
 
@@ -284,6 +326,9 @@
 
         <div class="card-grid">
 
+
+          <!-- CARD 1 -->
+
           <article class="card">
 
             <div class="card-icon">
@@ -302,6 +347,8 @@
           </article>
 
 
+
+          <!-- CARD 2 -->
 
           <article class="card">
 
@@ -322,6 +369,8 @@
 
 
 
+          <!-- CARD 3 -->
+
           <article class="card">
 
             <div class="card-icon">
@@ -339,6 +388,7 @@
 
           </article>
 
+
         </div>
 
       </div>
@@ -347,9 +397,12 @@
 
 
 
+    <!-- RESEARCH APPROACH -->
+
     <section class="section section-alt">
 
       <div class="container split">
+
 
         <div>
 
@@ -384,9 +437,14 @@
 
 
 
+        <!-- PROCESS -->
+
         <div class="panel">
 
           <div class="process-list">
+
+
+            <!-- FORMATION -->
 
             <div class="process-item">
 
@@ -411,6 +469,8 @@
 
 
 
+            <!-- RESORPTION -->
+
             <div class="process-item">
 
               <span class="process-number">
@@ -434,6 +494,8 @@
 
 
 
+            <!-- REFORMATION -->
+
             <div class="process-item">
 
               <span class="process-number">
@@ -455,15 +517,19 @@
 
             </div>
 
+
           </div>
 
         </div>
+
 
       </div>
 
     </section>
 
 
+
+    <!-- TECHNICAL EXPERTISE -->
 
     <section class="section">
 
@@ -543,6 +609,8 @@
 
 
 
+  <!-- FOOTER -->
+
   <footer class="site-footer">
 
     <div class="container footer-grid">
@@ -583,21 +651,28 @@
 
 
 
+  <!-- MAIN WEBSITE SCRIPT -->
+
   <script src="script.js?v=8"></script>
 
 
 
-  <!-- DNA HERO ANIMATION -->
+  <!-- DNA ANIMATION -->
 
   <script>
+
     (() => {
+
       "use strict";
+
 
       const hero =
         document.getElementById("hero");
 
+
       const canvas =
         document.getElementById("dna-canvas");
+
 
       if (!hero || !canvas) {
         return;
@@ -605,13 +680,18 @@
 
 
       const context =
-        canvas.getContext("2d", {
-          alpha: true
-        });
+        canvas.getContext(
+          "2d",
+          {
+            alpha: true
+          }
+        );
+
 
       if (!context) {
         return;
       }
+
 
 
       const prefersReducedMotion =
@@ -620,7 +700,13 @@
         ).matches;
 
 
+
+      /* =========================
+         COLORS
+      ========================= */
+
       const palette = {
+
         burgundy: {
           r: 138,
           g: 31,
@@ -638,39 +724,55 @@
           g: 55,
           b: 65
         }
+
       };
 
 
+
       let width = 0;
+
       let height = 0;
+
       let pixelRatio = 1;
+
       let frame = null;
+
       let visible = true;
 
 
-      const rgba = (
+
+      function rgba(
         color,
         opacity
-      ) => (
-        `rgba(
+      ) {
+
+        return `rgba(
           ${color.r},
           ${color.g},
           ${color.b},
           ${opacity}
-        )`
-      );
+        )`;
 
+      }
+
+
+
+      /* =========================
+         RESIZE CANVAS
+      ========================= */
 
       function resizeCanvas() {
 
         const bounds =
           hero.getBoundingClientRect();
 
+
         width =
           Math.max(
             1,
             bounds.width
           );
+
 
         height =
           Math.max(
@@ -691,6 +793,7 @@
             width * pixelRatio
           );
 
+
         canvas.height =
           Math.round(
             height * pixelRatio
@@ -699,6 +802,7 @@
 
         canvas.style.width =
           `${width}px`;
+
 
         canvas.style.height =
           `${height}px`;
@@ -712,9 +816,14 @@
           0,
           0
         );
+
       }
 
 
+
+      /* =========================
+         DNA HELIX
+      ========================= */
 
       function drawHelix(
         centerY,
@@ -726,13 +835,17 @@
       ) {
 
         const strandA = [];
+
         const strandB = [];
+
 
         const left =
           -80;
 
+
         const right =
           width + 80;
+
 
 
         for (
@@ -763,6 +876,7 @@
             amplitude;
 
 
+
           strandA.push({
             x,
             y: yA
@@ -775,6 +889,9 @@
           });
 
 
+
+          /* DNA CONNECTORS */
+
           const rungOpacity =
             opacity *
             (
@@ -785,10 +902,12 @@
 
           context.beginPath();
 
+
           context.moveTo(
             x,
             yA
           );
+
 
           context.lineTo(
             x,
@@ -811,6 +930,8 @@
 
 
 
+          /* DNA NODES */
+
           const frontA =
             depth > 0;
 
@@ -828,7 +949,10 @@
 
 
 
+          /* BURGUNDY SIDE */
+
           context.beginPath();
+
 
           context.arc(
             x,
@@ -855,7 +979,10 @@
 
 
 
+          /* GOLD SIDE */
+
           context.beginPath();
+
 
           context.arc(
             x,
@@ -884,6 +1011,8 @@
 
 
 
+        /* DRAW STRANDS */
+
         function drawStrand(
           points,
           color
@@ -897,6 +1026,7 @@
 
 
           context.beginPath();
+
 
           context.moveTo(
             points[0].x,
@@ -912,6 +1042,7 @@
 
             const previous =
               points[index - 1];
+
 
             const current =
               points[index];
@@ -965,7 +1096,9 @@
 
 
           context.stroke();
+
         }
+
 
 
         drawStrand(
@@ -982,6 +1115,10 @@
       }
 
 
+
+      /* =========================
+         FLOATING PARTICLES
+      ========================= */
 
       function drawParticles(time) {
 
@@ -1007,14 +1144,17 @@
           const x =
             (
               seed * 19.73 +
-              time * 0.012 *
+              time *
+              0.012 *
               (
                 index % 3 + 1
               )
-            ) %
+            )
+            %
             (
               width + 80
-            ) -
+            )
+            -
             40;
 
 
@@ -1022,10 +1162,13 @@
             (
               Math.sin(
                 seed * 0.31
-              ) *
-              0.5 +
+              )
+              *
               0.5
-            ) *
+              +
+              0.5
+            )
+            *
             height;
 
 
@@ -1034,7 +1177,8 @@
             Math.sin(
               time * 0.001 +
               seed
-            ) *
+            )
+            *
             0.5;
 
 
@@ -1044,6 +1188,7 @@
 
 
           context.beginPath();
+
 
           context.arc(
             x,
@@ -1076,7 +1221,13 @@
 
 
 
-      function draw(time = 0) {
+      /* =========================
+         DRAW FRAME
+      ========================= */
+
+      function draw(
+        time = 0
+      ) {
 
         context.clearRect(
           0,
@@ -1086,8 +1237,12 @@
         );
 
 
-        drawParticles(time);
+        drawParticles(
+          time
+        );
 
+
+        /* UPPER DNA */
 
         drawHelix(
           height * 0.30,
@@ -1101,6 +1256,8 @@
           0
         );
 
+
+        /* LOWER DNA */
 
         drawHelix(
           height * 0.72,
@@ -1118,6 +1275,10 @@
 
 
 
+      /* =========================
+         ANIMATION
+      ========================= */
+
       function animate(time) {
 
         if (!visible) {
@@ -1129,7 +1290,9 @@
         }
 
 
-        draw(time);
+        draw(
+          time
+        );
 
 
         frame =
@@ -1163,11 +1326,14 @@
 
       function stop() {
 
-        if (frame !== null) {
+        if (
+          frame !== null
+        ) {
 
           cancelAnimationFrame(
             frame
           );
+
 
           frame = null;
 
@@ -1177,16 +1343,23 @@
 
 
 
+      /* =========================
+         OBSERVERS
+      ========================= */
+
       const resizeObserver =
         new ResizeObserver(
           () => {
 
             resizeCanvas();
 
+
             if (
               prefersReducedMotion
             ) {
+
               draw(0);
+
             }
 
           }
@@ -1201,6 +1374,7 @@
 
       const visibilityObserver =
         new IntersectionObserver(
+
           entries => {
 
             visible =
@@ -1209,7 +1383,9 @@
               true;
 
 
-            if (visible) {
+            if (
+              visible
+            ) {
 
               start();
 
@@ -1220,9 +1396,11 @@
             }
 
           },
+
           {
             threshold: 0.02
           }
+
         );
 
 
@@ -1230,6 +1408,11 @@
         hero
       );
 
+
+
+      /* =========================
+         INITIALIZE
+      ========================= */
 
       resizeCanvas();
 
@@ -1247,6 +1430,7 @@
       }
 
     })();
+
   </script>
 
 
