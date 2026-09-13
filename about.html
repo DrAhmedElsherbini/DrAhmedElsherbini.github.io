@@ -1,248 +1,33 @@
 <!doctype html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
-  <meta
-    name="description"
-    content="About Ahmed E. Elshal, dentist, tissue-engineering researcher, and PhD candidate at The University of Tokyo working across regenerative biology, advanced imaging, and quantitative analysis."
-  >
-
-  <meta
-    name="theme-color"
-    content="#8a1f2d"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Academic background, research journey, skills, and contact information for Ahmed Elsherbini Elshal.">
+  <meta name="theme-color" content="#8a1f2d">
   <title>About | Ahmed E. Elshal</title>
-
-  <link
-    rel="icon"
-    type="image/png"
-    href="Ahmed_Black_Logo.png"
-  >
-
-  <link
-    rel="stylesheet"
-    href="styles.css?v=8"
-  >
-
-  <style>
-
-    .about-profile-panel {
-      align-self: start;
-    }
-
-    .about-profile-image {
-      display: block;
-      width: 100%;
-      max-height: 520px;
-      margin-bottom: 1.4rem;
-      border-radius: 18px;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .about-role {
-      margin-bottom: 1.2rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .about-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      margin-top: 1.6rem;
-    }
-
-    .about-education-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1.2rem;
-    }
-
-    .about-education-card {
-      padding: 1.6rem;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--surface);
-      box-shadow: 0 12px 35px rgba(23, 32, 42, 0.045);
-    }
-
-    .about-education-card span {
-      display: block;
-      margin-bottom: 0.65rem;
-      color: var(--primary);
-      font-size: 0.75rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .about-education-card h3 {
-      margin-bottom: 0.7rem;
-    }
-
-    .about-education-card p {
-      margin-bottom: 0;
-    }
-
-    .about-statement {
-      max-width: 820px;
-    }
-
-    .about-statement .lead {
-      margin-bottom: 1.4rem;
-    }
-
-    .about-philosophy {
-      margin-top: 1.7rem;
-      padding: 1.4rem 1.5rem;
-      border-left: 4px solid var(--primary);
-      border-radius: 0 14px 14px 0;
-      background: var(--surface-alt);
-    }
-
-    .about-philosophy p {
-      margin-bottom: 0;
-      color: var(--text);
-      font-size: 1.04rem;
-      line-height: 1.8;
-    }
-
-    .about-beyond {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .about-beyond-note {
-      padding: 1.6rem;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: var(--surface);
-      box-shadow: 0 12px 35px rgba(23, 32, 42, 0.045);
-    }
-
-    .about-beyond-note p:last-child {
-      margin-bottom: 0;
-    }
-
-    .profile-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.65rem;
-    }
-
-    @media (max-width: 900px) {
-
-      .about-education-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .about-beyond {
-        grid-template-columns: 1fr;
-      }
-
-    }
-
-    @media (max-width: 640px) {
-
-      .about-actions,
-      .profile-links {
-        flex-direction: column;
-      }
-
-      .about-actions .button,
-      .profile-links .button {
-        width: 100%;
-        justify-content: center;
-      }
-
-    }
-
-  </style>
-
+  <link rel="icon" type="image/png" href="Ahmed_Black_Logo.png">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="timeline.css?v=2">
 </head>
 
-
 <body>
-
-
-  <a
-    class="skip-link"
-    href="#main"
-  >
-    Skip to content
-  </a>
-
-
-
-  <!-- HEADER -->
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
-
     <div class="container nav-wrap">
-
-      <a
-        class="brand"
-        href="index.html"
-        aria-label="Ahmed E. Elshal homepage"
-      >
-
-        <img
-          class="site-logo"
-          src="Ahmed_Black_Logo.png"
-          alt="Ahmed Elshal logo"
-        >
-
-        <span class="brand-name">
-          Ahmed E. Elshal
-        </span>
-
+      <a class="brand" href="index.html" aria-label="Ahmed E. Elshal homepage">
+        <img class="site-logo" src="Ahmed_Black_Logo.png" alt="Ahmed Elshal logo">
+        <span class="brand-name">Ahmed E. Elshal</span>
       </a>
 
+      <button class="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
 
-      <button
-        class="menu-button"
-        type="button"
-        aria-label="Open navigation"
-        aria-expanded="false"
-      >
-        ☰
-      </button>
-
-
-      <nav
-        class="site-nav"
-        aria-label="Main navigation"
-      >
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="research.html">
-          Research
-        </a>
-
-        <a href="publications.html">
-          Publications
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="gallery.html">Gallery</a>
         <a
           class="active"
           href="about.html"
@@ -250,664 +35,252 @@
         >
           About
         </a>
-
-        <a href="journey.html">
-          My Journey
-        </a>
-
+        <a href="journey.html">My Journey</a
       </nav>
-
     </div>
-
   </header>
 
-
-
   <main id="main">
-
-
-    <!-- HERO -->
-
     <section class="page-hero">
-
       <div class="container">
-
-        <div class="eyebrow">
-          About
-        </div>
-
-        <h1>
-          Dentist. Tissue Engineer. Researcher.
-        </h1>
-
+        <div class="eyebrow">About</div>
+        <h1>Dentist & Scientist</h1>
         <p>
-          I study living biological systems at the intersection of
-          clinical questions, tissue engineering, advanced imaging,
-          and quantitative analysis.
+          My name is Ahmed Elsherbini Elshal, an egyptian guy who combines his passion in oro-maxillofacial surgery with experimental bone tissue engineering, advanced microscopy, and computational analysis.
         </p>
-
       </div>
-
     </section>
 
-
-
-    <!-- IDENTITY -->
-
     <section class="section">
-
       <div class="container split">
-
-
-        <!-- PROFILE -->
-
         <div class="panel about-profile-panel">
-
           <img
             class="about-profile-image"
             src="Ahmed_Presenting.jpg"
-            alt="Ahmed E. Elshal presenting at a scientific event"
+            alt="Ahmed Elshal presenting at a scientific event"
           >
-
-          <h3>
-            Ahmed Elsherbini Elshal
-          </h3>
-
+          <h3>Ahmed Elsherbini Elshal</h3>
           <p class="about-role">
-            PhD Candidate<br>
-            Oral and Maxillofacial Surgery · Tissue Engineering<br>
+            PhD Candidate in Surgical Science<br>
             The University of Tokyo, Japan
           </p>
-
-
-          <div
-            class="tag-list"
-            aria-label="Languages"
-          >
-
-            <span class="tag">
-              Arabic
-            </span>
-
-            <span class="tag">
-              English
-            </span>
-
-            <span class="tag">
-              Japanese
-            </span>
-
+          <div class="tag-list" aria-label="Languages">
+            <span class="tag">Arabic</span>
+            <span class="tag">English</span>
+            <span class="tag">Japanese</span>
           </div>
-
         </div>
 
-
-
-        <!-- WHO I AM -->
-
-        <div class="about-statement">
-
-          <div class="eyebrow">
-            Who I am
-          </div>
-
-          <h2>
-            From clinical questions to living systems
-          </h2>
-
+        <div>
+          <div class="eyebrow">Professional profile</div>
+          <h2>Building an independent path in regenerative bone research</h2>
           <p class="lead">
-            I am an Egyptian dentist and tissue-engineering researcher
-            interested in how cells communicate, reorganize, and collectively
-            shape tissue behavior over time.
+            My long-term goal is to become an independent researcher developing controllable
+            tissue-engineering platforms for regenerative bone medicine.
           </p>
-
           <p>
-            My clinical background introduced me to the challenges of
-            craniofacial tissue damage and regeneration. Research gave me
-            another way to approach those problems: instead of looking only
-            at the final tissue outcome, I became interested in the cellular
-            interactions that produce it.
+            My current work focuses on three-dimensional functional bone models, PTH-regulated
+            remodeling, osteoblast and osteoclast coupling, second harmonic generation imaging,
+            tissue clearing, and quantitative three-dimensional analysis.
           </p>
-
           <p>
-            At The University of Tokyo, my doctoral research has focused on
-            functional three-dimensional bone models and the spatiotemporal
-            coupling between bone-forming and bone-resorbing cells. I combine
-            experimental biology with longitudinal imaging, molecular analysis,
-            and quantitative computation to study remodeling as a dynamic process.
+            I aim to connect mechanistic bone biology with biomaterials, advanced imaging,
+            reproducible computation, and therapeutic tissue regeneration.
           </p>
-
-          <div class="about-philosophy">
-
-            <p>
-              I am particularly interested in understanding not only
-              <strong>what</strong> changes in a biological system,
-              but <strong>when</strong>, <strong>where</strong>,
-              and <strong>how interactions between cells create that change</strong>.
-            </p>
-
-          </div>
-
-
-          <div class="about-actions">
-
-            <a
-              class="button button-primary"
-              href="research.html"
-            >
-              Explore My Research
-            </a>
-
-            <a
-              class="button button-secondary"
-              href="journey.html"
-            >
-              Read My Journey
-            </a>
-
-          </div>
-
         </div>
-
       </div>
-
     </section>
 
-
-
-    <!-- ACADEMIC PATH -->
-
-    <section class="section section-alt">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <div class="eyebrow">
-            Academic path
-          </div>
-
-          <h2>
-            Education and training
-          </h2>
-
+    <section class="journey-section" aria-labelledby="journeyTitle">
+      <div class="container journey-introduction">
+        <div>
+          <div class="eyebrow">Origins · Discovery · Impact</div>
+          <h2 id="journeyTitle">My journey through time</h2>
           <p>
-            Clinical training provided the questions.
-            Research provided new ways to investigate them.
+            A longitudinal record of the experiences, questions, and scientific milestones
+            shaping my path from clinical dentistry to regenerative bone medicine.
           </p>
-
         </div>
 
+        <aside class="journey-guide">
+          <p>Drag horizontally or select any dot to open its full story.</p>
+        </aside>
+      </div>
+
+      <div class="journey-timeline" data-journey-timeline>
+
+<div class="journey-toolbar">
+  <div class="journey-actions" aria-label="Timeline navigation">
+    <button
+      id="journeyPrevious"
+      class="journey-nav"
+      type="button"
+      aria-label="Previous timeline event"
+    >
+      ←
+    </button>
+
+    <button
+      id="journeyNext"
+      class="journey-nav"
+      type="button"
+      aria-label="Next timeline event"
+    >
+      →
+    </button>
+  </div>
+</div>
+
+        <div id="journeyViewport" class="journey-viewport" aria-label="Scrollable personal timeline">
+          <div id="journeyStage" class="journey-stage">
+            <div class="journey-axis" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="journey-hint">
+          <span>Drag horizontally or use your trackpad</span>
+          <span>Keyboard: left and right arrows · Escape closes a story</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow">Academic path</div>
+          <h2>Education and training</h2>
+        </div>
 
         <div class="about-education-grid">
-
-
           <article class="about-education-card">
-
-            <span>
-              2022 to 2027 · Expected
-            </span>
-
-            <h3>
-              PhD Candidate
-            </h3>
-
+            <span>2022 to 2027, expected</span>
+            <h3>PhD Candidate in Surgical Science</h3>
             <p>
-              Department of Oral and Maxillofacial Surgery,
-              Graduate School of Medicine,
+              Department of Oral and Maxillofacial Surgery, Graduate School of Medicine,
               The University of Tokyo, Japan.
             </p>
-
           </article>
-
-
 
           <article class="about-education-card">
-
-            <span>
-              2020 to 2022
-            </span>
-
-            <h3>
-              Japanese Language Study
-            </h3>
-
-            <p>
-              Toua International Japanese Language School,
-              Saitama, Japan.
-            </p>
-
+            <span>2020 to 2022</span>
+            <h3>Japanese Language Study</h3>
+            <p>Toua International Japanese Language School, Saitama, Japan.</p>
           </article>
-
-
 
           <article class="about-education-card">
-
-            <span>
-              2014 to 2020
-            </span>
-
-            <h3>
-              Doctor of Dental Surgery
-            </h3>
-
-            <p>
-              School of Dentistry,
-              Mansoura University,
-              Egypt.
-            </p>
-
+            <span>2014 to 2020</span>
+            <h3>Doctor of Dental Surgery</h3>
+            <p>School of Dentistry, Mansoura University, Egypt. </p>
           </article>
-
-
         </div>
-
       </div>
-
     </section>
 
-
-
-    <!-- CAPABILITIES -->
-
     <section class="section">
-
       <div class="container">
-
         <div class="section-heading">
-
-          <div class="eyebrow">
-            How I work
-          </div>
-
-          <h2>
-            Experimental, visual, and quantitative
-          </h2>
-
-          <p>
-            My work developed across several disciplines rather than
-            around a single technique.
-          </p>
-
+          <div class="eyebrow">Technical profile</div>
+          <h2>Methods and capabilities</h2>
         </div>
-
 
         <div class="card-grid">
-
-
           <article class="card">
-
-            <h3>
-              Tissue engineering
-            </h3>
-
-            <p>
-              Three-dimensional bone models, organoid and spheroid culture,
-              primary-cell workflows, osteogenic differentiation, and
-              osteoblast-osteoclast co-culture.
-            </p>
-
+            <h3>Bone biology and tissue engineering</h3>
+            <p>Three-dimensional functional bone models, remodeling assays, PTH experiments, and osteoblast, osteoclast, and osteocyte-related workflows.</p>
           </article>
 
-
-
           <article class="card">
-
-            <h3>
-              Advanced imaging
-            </h3>
-
-            <p>
-              Two-photon microscopy, fluorescence imaging, second harmonic
-              generation imaging, tissue clearing, and three-dimensional
-              reconstruction.
-            </p>
-
+            <h3>Imaging and visualization</h3>
+            <p>Two-photon microscopy, SHG imaging, light microscopy, electron microscopy, micro-CT, Imaris, NIS-Elements, ImageJ, and Fiji.</p>
           </article>
 
-
-
           <article class="card">
-
-            <h3>
-              Molecular biology
-            </h3>
-
-            <p>
-              Real-time PCR, immunofluorescence, DNA recombination,
-              molecular labeling, and lentiviral and retroviral transduction.
-            </p>
-
+            <h3>Molecular and wet laboratory</h3>
+            <p>qPCR, single-cell PCR, multicellular labeling, staining, DNA recombination, transfection, transduction, and drug-administration studies.</p>
           </article>
 
-
-
           <article class="card">
-
-            <h3>
-              Quantitative analysis
-            </h3>
-
-            <p>
-              MATLAB-based image and data analysis, longitudinal
-              measurements, statistical workflows, data visualization,
-              and computational interpretation of biological datasets.
-            </p>
-
+            <h3>Quantitative analysis</h3>
+            <p>MATLAB workflows for image-derived measurements, repeated-measures analysis, multiple comparisons, data visualization, and working knowledge of Python and R.</p>
           </article>
 
-
-
           <article class="card">
-
-            <h3>
-              Scientific communication
-            </h3>
-
-            <p>
-              Experimental design, manuscript development, peer-review
-              response, scientific presentations, figures, and visual
-              communication of complex biological processes.
-            </p>
-
+            <h3>Tissue clearing</h3>
+            <p>CUBIC and LUCID protocols for internal cellular organization, matrix visualization, and three-dimensional reconstruction.</p>
           </article>
 
-
-
           <article class="card">
-
-            <h3>
-              Building beyond the laboratory
-            </h3>
-
-            <p>
-              Coding, web development, and visual design allow me to
-              approach scientific problems and communication from
-              perspectives beyond conventional laboratory training.
-            </p>
-
+            <h3>Research communication</h3>
+            <p>Scientific writing, manuscript preparation, peer-review response, visual communication, and reproducible code documentation.</p>
           </article>
-
-
         </div>
-
       </div>
-
     </section>
 
-
-
-    <!-- BEYOND THE LAB -->
-
-    <section class="section section-alt">
-
-      <div class="container about-beyond">
-
-
-        <div>
-
-          <div class="eyebrow">
-            Beyond the laboratory
-          </div>
-
-          <h2>
-            Curiosity rarely stays inside one field
-          </h2>
-
-          <p class="lead">
-            Science is the center of my work, but not the limit of my curiosity.
-          </p>
-
-          <p>
-            I am interested in architecture, natural structures, coding,
-            visual design, languages, and the ways complex systems organize
-            themselves.
-          </p>
-
-          <p>
-            These interests influence how I think about biology.
-            Architecture makes me consider structure and function.
-            Coding makes me think in systems and relationships.
-            Design makes me think about clarity.
-            Nature continually reminds me that complex structures can emerge
-            from simple interactions repeated over time.
-          </p>
-
-        </div>
-
-
-
-        <aside class="about-beyond-note">
-
-          <div class="eyebrow">
-            This website
-          </div>
-
-          <h3>
-            Built, not templated
-          </h3>
-
-          <p>
-            This website was designed and coded entirely by me as another
-            way to combine science, interaction, visual communication,
-            and experimentation.
-          </p>
-
-        </aside>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- DIRECTION -->
-
-    <section class="section">
-
-      <div class="container split">
-
-
-        <div>
-
-          <div class="eyebrow">
-            Direction
-          </div>
-
-          <h2>
-            Understanding biology well enough to influence it
-          </h2>
-
-          <p class="lead">
-            My long-term direction is to develop and use controllable
-            biological models that reveal how cells coordinate tissue-level
-            behavior.
-          </p>
-
-          <p>
-            I am particularly interested in questions spanning regeneration,
-            remodeling, aging, cellular communication, disease modeling,
-            therapeutic screening, and three-dimensional tissue organization.
-          </p>
-
-          <p>
-            The specific biological system may change.
-            The underlying question remains similar:
-            how do individual cellular behaviors become coordinated
-            tissue-level outcomes, and how can that process be measured
-            and eventually controlled?
-          </p>
-
-        </div>
-
-
-
-        <div class="panel">
-
-          <div class="eyebrow">
-            Current interests
-          </div>
-
-          <div class="tag-list">
-
-            <span class="tag">
-              Tissue Engineering
-            </span>
-
-            <span class="tag">
-              Bone Remodeling
-            </span>
-
-            <span class="tag">
-              Organoid Models
-            </span>
-
-            <span class="tag">
-              Cell Communication
-            </span>
-
-            <span class="tag">
-              Regenerative Biology
-            </span>
-
-            <span class="tag">
-              Advanced Imaging
-            </span>
-
-            <span class="tag">
-              Quantitative Biology
-            </span>
-
-            <span class="tag">
-              Spatial Biology
-            </span>
-
-            <span class="tag">
-              Computational Analysis
-            </span>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-    </section>
-
-
-
-    <!-- CONTACT -->
-
-    <section
-      class="section"
-      style="padding-top:0;"
-    >
-
+    <section class="section" style="padding-top:0;">
       <div class="container contact-box">
-
         <div>
-
-          <div class="eyebrow">
-            Connect
-          </div>
-
-          <h2>
-            Research, ideas, and collaboration
-          </h2>
-
+          <div class="eyebrow">Contact</div>
           <p>
-            I am always interested in meaningful scientific discussion,
-            interdisciplinary collaboration, and research opportunities
-            that expand the questions I can investigate.
+            For research collaboration or scientific discussion,
+            contact me through email.
           </p>
-
         </div>
-
-
         <div class="contact-actions">
-
-          <a
-            class="button button-primary"
-            href="mailto:aelshal-omfs@g.ecc.u-tokyo.ac.jp"
-          >
-            Contact Me
-          </a>
-
-          <a
-            class="button button-secondary"
-            href="https://orcid.org/0009-0002-8920-5901"
-            target="_blank"
-            rel="noopener"
-          >
-            ORCID
-          </a>
-
-          <a
-            class="button button-secondary"
-            href="https://linkedin.com/in/ahmed-el-sherbini-dds-phd-02b417153"
-            target="_blank"
-            rel="noopener"
-          >
-            LinkedIn
-          </a>
-
+          <a class="button button-primary" href="mailto:aelshal-omfs@g.ecc.u-tokyo.ac.jp">Contact Me</a>
         </div>
-
       </div>
-
     </section>
-
-
   </main>
 
-
-
-  <!-- FOOTER -->
-
-  <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-      <span>
-        © <span data-year></span>
-        Designed and coded by Ahmed E. Elshal
-      </span>
-
-
-      <div class="footer-links">
-
-        <a href="index.html">
-          Home
-        </a>
-
-        <a href="research.html">
-          Research
-        </a>
-
-        <a href="publications.html">
-          Publications
-        </a>
-
-        <a href="gallery.html">
-          Gallery
-        </a>
-
-        <a href="journey.html">
-          My Journey
-        </a>
-
+  <div
+    id="journeyDetailOverlay"
+    class="journey-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-hidden="true"
+    aria-labelledby="journeyDetailTitle"
+  >
+    <article class="journey-detail-panel">
+      <div class="journey-detail-visual">
+        <button id="journeyCloseDetail" class="journey-close" type="button" aria-label="Close timeline story">×</button>
+        <div class="journey-visual-label">
+          <span id="journeyDetailYear"></span>
+          <strong id="journeyDetailChapter"></strong>
+        </div>
       </div>
 
-    </div>
+      <div class="journey-detail-body">
+        <div>
+          <span class="journey-detail-kicker">Selected milestone</span>
+          <h2 id="journeyDetailTitle"></h2>
+          <p id="journeyDetailDescription" class="journey-detail-description"></p>
+          <blockquote id="journeyDetailQuote" class="journey-detail-quote"></blockquote>
+        </div>
 
+        <ul class="journey-detail-meta" aria-label="Milestone information">
+          <li><span>Location</span><strong id="journeyDetailLocation"></strong></li>
+          <li><span>Institution</span><strong id="journeyDetailInstitution"></strong></li>
+          <li><span>Status</span><strong id="journeyDetailStatus"></strong></li>
+        </ul>
+      </div>
+    </article>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <span>© <span data-year></span> Designed and coded by Ahmed E. Elshal</span>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="journey.html">My Journey</a
+      </div>
+    </div>
   </footer>
 
-
   <script src="script.js?v=7"></script>
-
-
+  <script src="timeline.js?v=4"></script>
 </body>
-
 </html>
