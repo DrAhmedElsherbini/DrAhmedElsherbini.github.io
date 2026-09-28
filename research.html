@@ -1,4440 +1,5356 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8">
-
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1"
->
-
-<meta
-name="description"
-content="Research by Ahmed E. Elshal in functional bone models, multicellular remodeling, PTH regulated regeneration, longitudinal imaging, tissue engineering, and quantitative analysis."
->
-
-<meta name="theme-color" content="#8a1f2d">
-
-<title>Research | Ahmed E. Elshal</title>
-
-<link
-rel="icon"
-type="image/png"
-href="Ahmed_Black_Logo.png"
->
-
-<link rel="stylesheet" href="styles.css?v=8">
-<link rel="stylesheet" href="bone-chimes.css?v=2">
-
-<style>
-
-.brand-name {
-color: var(--text);
-font-size: 1.25rem;
-font-weight: 800;
-letter-spacing: -0.02em;
-white-space: nowrap;
-}
-
-.research-hero {
-position: relative;
-isolation: isolate;
-overflow: hidden;
-padding: 6rem 0 5rem;
-border-bottom: 1px solid var(--line);
-cursor: crosshair;
-background:
-radial-gradient(
-circle at 88% 18%,
-rgba(201, 145, 39, 0.13),
-transparent 30%
-),
-radial-gradient(
-circle at 8% 85%,
-rgba(138, 31, 45, 0.08),
-transparent 30%
-),
-var(--surface);
-}
-
-.research-hero::before {
-content: "";
-position: absolute;
-inset: 0;
-z-index: 1;
-pointer-events: none;
-opacity: 0.25;
-background-image:
-radial-gradient(
-circle,
-rgba(23, 32, 42, 0.12) 1px,
-transparent 1px
-);
-background-size: 28px 28px;
-}
-
-#research-cell-background {
-position: absolute;
-inset: 0;
-z-index: 0;
-display: block;
-width: 100%;
-height: 100%;
-pointer-events: none;
-}
-
-.research-hero > .container {
-position: relative;
-z-index: 2;
-}
-
-.research-hero-content {
-position: relative;
-z-index: 2;
-max-width: 900px;
-}
-
-.research-hero h1 {
-max-width: 860px;
-margin-bottom: 1.4rem;
-font-size: clamp(3rem, 6vw, 5.2rem);
-}
-
-.research-hero p {
-max-width: 760px;
-margin-bottom: 0;
-font-size: 1.12rem;
-line-height: 1.8;
-}
-
-.research-summary {
-display: grid;
-grid-template-columns: repeat(3, minmax(0, 1fr));
-gap: 1.25rem;
-margin-top: 3rem;
-}
-
-.research-summary-item {
-padding: 1.3rem;
-border: 1px solid rgba(220, 227, 234, 0.9);
-border-radius: 16px;
-background: rgba(255, 255, 255, 0.8);
-backdrop-filter: blur(8px);
-}
-
-.research-summary-item strong {
-display: block;
-margin-bottom: 0.3rem;
-color: var(--primary);
-font-size: 1.1rem;
-}
-
-.research-summary-item span {
-color: var(--muted);
-font-size: 0.9rem;
-}
-
-.research-interaction-hint {
-width: 100%;
-max-width: none;
-margin: 1rem 0 0;
-color: var(--muted);
-font-family: inherit;
-font-size: 0.8rem;
-font-weight: 400;
-line-height: 1.5;
-letter-spacing: 0;
-text-align: right;
-opacity: 1;
-pointer-events: none;
-}
-
-.research-introduction {
-max-width: 800px;
-margin-bottom: 3rem;
-}
-
-.research-projects {
-display: grid;
-gap: 1.5rem;
-}
-
-.research-project {
-display: grid;
-grid-template-columns: 150px minmax(0, 1fr);
-gap: 2rem;
-align-items: start;
-padding: 2rem;
-border: 1px solid var(--line);
-border-radius: 24px;
-background: var(--surface);
-box-shadow: 0 15px 45px rgba(23, 32, 42, 0.055);
-transition:
-transform 0.25s ease,
-box-shadow 0.25s ease;
-}
-
-.research-project.with-image {
-grid-template-columns:
-150px
-minmax(0, 1fr)
-minmax(300px, 420px);
-align-items: stretch;
-}
-
-.research-project:hover {
-transform: translateY(-4px);
-box-shadow: 0 23px 55px rgba(23, 32, 42, 0.1);
-}
-
-.project-number {
-width: 120px;
-height: 120px;
-display: grid;
-place-items: center;
-align-self: start;
-border-radius: 24px;
-background:
-radial-gradient(
-circle at 28% 24%,
-rgba(201, 145, 39, 0.25),
-transparent 42%
-),
-rgba(138, 31, 45, 0.08);
-color: var(--primary);
-font-size: 2.1rem;
-font-weight: 900;
-}
-
-.project-content {
-min-width: 0;
-display: flex;
-flex-direction: column;
-justify-content: center;
-}
-
-.project-label {
-display: inline-block;
-margin-bottom: 0.65rem;
-color: var(--primary);
-font-size: 0.72rem;
-font-weight: 900;
-letter-spacing: 0.13em;
-text-transform: uppercase;
-}
-
-.research-project h2 {
-margin-bottom: 0.9rem;
-font-size: clamp(1.8rem, 3vw, 2.5rem);
-}
-
-.research-project p {
-max-width: 780px;
-margin-bottom: 1.2rem;
-}
-
-.project-image-wrap {
-display: flex;
-align-items: stretch;
-justify-content: center;
-align-self: stretch;
-margin: 0;
-}
-
-.project-image {
-display: block;
-width: auto;
-height: 100%;
-max-width: 100%;
-object-fit: contain;
-align-self: stretch;
-}
-
-.project-bottom-image-wrap {
-width: 100%;
-margin: 1.75rem 0 0;
-}
-
-.project-bottom-image {
-display: block;
-width: 100%;
-height: auto;
-max-height: 540px;
-object-fit: contain;
-object-position: center;
-}
-
-.workflow-section {
-border-top: 1px solid var(--line);
-border-bottom: 1px solid var(--line);
-background: var(--surface);
-}
-
-.workflow-grid {
-display: grid;
-grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-gap: 4rem;
-align-items: start;
-}
-
-.workflow-list {
-display: grid;
-gap: 1rem;
-}
-
-.workflow-item {
-display: grid;
-grid-template-columns: auto minmax(0, 1fr);
-gap: 1rem;
-padding: 1.2rem;
-border: 1px solid var(--line);
-border-radius: 16px;
-background: var(--background);
-}
-
-.workflow-number {
-width: 44px;
-height: 44px;
-display: grid;
-place-items: center;
-border-radius: 50%;
-background: var(--primary);
-color: #ffffff;
-font-size: 0.8rem;
-font-weight: 900;
-}
-
-.workflow-item h3 {
-margin-bottom: 0.3rem;
-}
-
-.workflow-item p {
-margin-bottom: 0;
-font-size: 0.94rem;
-}
-
-.methods-grid {
-display: grid;
-grid-template-columns: repeat(3, minmax(0, 1fr));
-gap: 1.25rem;
-}
-
-.method-card {
-padding: 1.6rem;
-border: 1px solid var(--line);
-border-radius: 18px;
-background: var(--surface);
-}
-
-.method-card h3 {
-margin-bottom: 0.7rem;
-}
-
-.method-card p {
-margin-bottom: 0;
-}
-
-.future-section {
-position: relative;
-overflow: hidden;
-padding: 6rem 0;
-background:
-radial-gradient(
-circle at 90% 20%,
-rgba(201, 145, 39, 0.22),
-transparent 30%
-),
-linear-gradient(
-135deg,
-var(--primary-dark),
-var(--primary)
-);
-}
-
-.future-section::before {
-content: "";
-position: absolute;
-inset: 0;
-pointer-events: none;
-opacity: 0.14;
-background-image:
-radial-gradient(
-circle,
-rgba(255, 255, 255, 0.8) 1px,
-transparent 1px
-);
-background-size: 28px 28px;
-}
-
-.future-grid {
-position: relative;
-z-index: 1;
-display: grid;
-grid-template-columns: minmax(0, 1fr) minmax(320px, 0.65fr);
-gap: 4rem;
-align-items: center;
-}
-
-.future-section .eyebrow {
-color: #f4d99f;
-}
-
-.future-section .eyebrow::before {
-background: #f4d99f;
-}
-
-.future-section h2 {
-color: #ffffff;
-}
-
-.future-section p {
-color: rgba(255, 255, 255, 0.78);
-}
-
-.future-card {
-padding: 2rem;
-border: 1px solid rgba(255, 255, 255, 0.18);
-border-radius: 22px;
-background: rgba(255, 255, 255, 0.1);
-backdrop-filter: blur(12px);
-}
-
-.future-card h3 {
-color: #ffffff;
-}
-
-.future-list {
-margin: 0;
-padding-left: 1.25rem;
-color: rgba(255, 255, 255, 0.82);
-}
-
-.future-list li {
-margin-bottom: 0.75rem;
-}
-
-.future-list li:last-child {
-margin-bottom: 0;
-}
-
-
-/* =========================================================
-   FUTURE DIRECTION: INTERACTIVE MICROSCOPY
-========================================================= */
-
-.future-microscopy {
-grid-column: 1 / -1;
-margin-top: 0.5rem;
-}
-
-.future-microscopy-header {
-display: flex;
-align-items: end;
-justify-content: space-between;
-gap: 2rem;
-margin-bottom: 1.25rem;
-}
-
-.future-microscopy-copy {
-max-width: 720px;
-}
-
-.future-microscopy-kicker {
-margin: 0 0 0.45rem;
-color: #f4d99f;
-font-size: 0.72rem;
-font-weight: 900;
-letter-spacing: 0.13em;
-text-transform: uppercase;
-}
-
-.future-microscopy h3 {
-margin: 0 0 0.65rem;
-color: #ffffff;
-font-size: clamp(1.5rem, 2.8vw, 2.2rem);
-}
-
-.future-microscopy-intro {
-max-width: 680px;
-margin: 0;
-color: rgba(255, 255, 255, 0.72);
-line-height: 1.7;
-}
-
-.future-micro-controls {
-display: flex;
-flex-wrap: wrap;
-justify-content: flex-end;
-gap: 0.5rem;
-}
-
-.future-micro-control {
-min-width: 58px;
-min-height: 42px;
-padding: 0.58rem 0.9rem;
-border: 1px solid rgba(255, 255, 255, 0.22);
-border-radius: 999px;
-background: rgba(255, 255, 255, 0.08);
-color: rgba(255, 255, 255, 0.82);
-font: inherit;
-font-size: 0.8rem;
-font-weight: 700;
-cursor: pointer;
-transition:
-background-color 0.2s ease,
-border-color 0.2s ease,
-color 0.2s ease,
-transform 0.2s ease;
-}
-
-.future-micro-control:hover {
-transform: translateY(-1px);
-border-color: rgba(244, 217, 159, 0.7);
-}
-
-.future-micro-control.is-active {
-border-color: #f4d99f;
-background: #f4d99f;
-color: #3b141b;
-}
-
-.future-micro-control:focus-visible {
-outline: 2px solid #ffffff;
-outline-offset: 3px;
-}
-
-.future-micro-stage {
-position: relative;
-overflow: hidden;
-width: 100%;
-border: 1px solid rgba(255, 255, 255, 0.16);
-border-radius: 24px;
-background: #050505;
-box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
-cursor: crosshair;
-isolation: isolate;
-touch-action: pan-y;
-user-select: none;
-}
-
-.future-micro-stage::after {
-content: "";
-position: absolute;
-inset: 0;
-z-index: 2;
-pointer-events: none;
-background:
-radial-gradient(
-circle at center,
-transparent 48%,
-rgba(0, 0, 0, 0.12) 75%,
-rgba(0, 0, 0, 0.38) 100%
-);
-}
-
-.future-micro-svg {
-display: block;
-width: 100%;
-height: auto;
-aspect-ratio: 1200 / 620;
-}
-
-.future-micro-population {
-transition: opacity 0.22s ease;
-}
-
-.future-micro-population.is-hidden {
-opacity: 0;
-}
-
-.future-micro-scan-label {
-fill: rgba(255, 255, 255, 0.48);
-font-family:
--apple-system,
-BlinkMacSystemFont,
-"Segoe UI",
-sans-serif;
-font-size: 15px;
-font-weight: 700;
-letter-spacing: 0.12em;
-}
-
-.future-micro-hint {
-position: absolute;
-right: 1rem;
-bottom: 0.9rem;
-z-index: 3;
-padding: 0.45rem 0.72rem;
-border: 1px solid rgba(255, 255, 255, 0.14);
-border-radius: 999px;
-background: rgba(0, 0, 0, 0.38);
-color: rgba(255, 255, 255, 0.68);
-font-size: 0.72rem;
-letter-spacing: 0.03em;
-backdrop-filter: blur(8px);
-pointer-events: none;
-transition: opacity 0.2s ease;
-}
-
-.future-micro-stage.is-scanning .future-micro-hint {
-opacity: 0.38;
-}
-
-.future-micro-legend {
-display: flex;
-flex-wrap: wrap;
-gap: 0.8rem 1.4rem;
-margin-top: 1rem;
-color: rgba(255, 255, 255, 0.72);
-font-size: 0.8rem;
-}
-
-.future-micro-legend-item {
-display: inline-flex;
-align-items: center;
-gap: 0.45rem;
-}
-
-.future-micro-legend-dot {
-width: 9px;
-height: 9px;
-flex: 0 0 auto;
-border-radius: 50%;
-}
-
-.future-micro-legend-dot.ob {
-background: #65c8db;
-}
-
-.future-micro-legend-dot.oc {
-background: #d17873;
-}
-
-.future-micro-legend-dot.matrix {
-background: #b49a7d;
-}
-
-.future-micro-note {
-max-width: 760px;
-margin: 0.7rem 0 0;
-color: rgba(255, 255, 255, 0.48) !important;
-font-size: 0.74rem;
-line-height: 1.6;
-}
-
-
-@media (max-width: 920px) {
-
-.research-summary,
-.methods-grid {
-grid-template-columns: 1fr;
-}
-
-.research-project {
-grid-template-columns: 110px minmax(0, 1fr);
-}
-
-.research-project.with-image {
-grid-template-columns: 110px minmax(0, 1fr);
-align-items: start;
-}
-
-.research-project.with-image .project-image-wrap {
-grid-column: 2;
-margin-top: 0.5rem;
-}
-
-.project-number {
-width: 92px;
-height: 92px;
-}
-
-.project-image {
-width: 100%;
-height: auto;
-max-height: 420px;
-}
-
-.project-bottom-image {
-max-height: 460px;
-}
-
-.workflow-grid,
-.future-grid {
-grid-template-columns: 1fr;
-}
-
-.future-microscopy-header {
-align-items: flex-start;
-flex-direction: column;
-gap: 1rem;
-}
-
-.future-micro-controls {
-justify-content: flex-start;
-}
-
-}
-
-
-@media (max-width: 720px) {
-
-.brand-name {
-font-size: 1rem;
-}
-
-.research-hero {
-padding: 4.5rem 0 3.5rem;
-cursor: default;
-}
-
-.research-project,
-.research-project.with-image {
-grid-template-columns: 1fr;
-padding: 1.4rem;
-}
-
-.research-project.with-image .project-image-wrap {
-grid-column: 1;
-margin-top: 0.25rem;
-}
-
-.project-number {
-width: 72px;
-height: 72px;
-border-radius: 18px;
-font-size: 1.4rem;
-}
-
-.project-image {
-width: 100%;
-height: auto;
-max-height: none;
-}
-
-.project-bottom-image-wrap {
-margin-top: 1.25rem;
-}
-
-.project-bottom-image {
-max-height: none;
-}
-
-.research-interaction-hint {
-margin-top: 0.8rem;
-font-size: 0.75rem;
-text-align: right;
-}
-
-.future-section {
-padding: 4.5rem 0;
-}
-
-.future-card {
-padding: 1.4rem;
-}
-
-.future-micro-stage {
-border-radius: 17px;
-}
-
-.future-micro-svg {
-min-height: 310px;
-}
-
-.future-micro-control {
-min-height: 44px;
-}
-
-.future-micro-hint {
-right: 0.7rem;
-bottom: 0.7rem;
-font-size: 0.67rem;
-}
-
-.future-micro-legend {
-gap: 0.65rem 1rem;
-font-size: 0.75rem;
-}
-
-}
-
-</style>
+  <meta charset="utf-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <meta
+    name="description"
+    content="Research by Ahmed E. Elshal in functional bone models, multicellular remodeling, PTH regulated regeneration, longitudinal imaging, tissue engineering, and quantitative analysis."
+  >
+
+  <meta name="theme-color" content="#8a1f2d">
+
+  <title>Research | Ahmed E. Elshal</title>
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="Ahmed_Black_Logo.png"
+  >
+
+  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="bone-chimes.css?v=2">
+
+  <style>
+
+    .brand-name {
+      color: var(--text);
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       RESEARCH HERO
+    ========================================================= */
+
+    .research-hero {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+
+      padding: 6rem 0 5rem;
+
+      border-bottom: 1px solid var(--line);
+
+      cursor: crosshair;
+
+      background:
+        radial-gradient(
+          circle at 88% 18%,
+          rgba(201, 145, 39, 0.13),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 8% 85%,
+          rgba(138, 31, 45, 0.08),
+          transparent 30%
+        ),
+        var(--surface);
+    }
+
+    .research-hero::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      z-index: 1;
+
+      pointer-events: none;
+
+      opacity: 0.25;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(23, 32, 42, 0.12) 1px,
+          transparent 1px
+        );
+
+      background-size: 28px 28px;
+    }
+
+    #research-cell-background {
+      position: absolute;
+      inset: 0;
+
+      z-index: 0;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      pointer-events: none;
+    }
+
+    .research-hero > .container,
+    .research-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .research-hero-content {
+      max-width: 900px;
+    }
+
+    .research-hero h1 {
+      max-width: 860px;
+
+      margin-bottom: 1.4rem;
+
+      font-size: clamp(3rem, 6vw, 5.2rem);
+    }
+
+    .research-hero p {
+      max-width: 760px;
+
+      margin-bottom: 0;
+
+      font-size: 1.12rem;
+      line-height: 1.8;
+    }
+
+
+    /* =========================================================
+       RESEARCH SUMMARY
+    ========================================================= */
+
+    .research-summary {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 1.25rem;
+
+      margin-top: 3rem;
+    }
+
+    .research-summary-item {
+      padding: 1.3rem;
+
+      border:
+        1px solid
+        rgba(220, 227, 234, 0.9);
+
+      border-radius: 16px;
+
+      background:
+        rgba(255, 255, 255, 0.8);
+
+      backdrop-filter: blur(8px);
+    }
+
+    .research-summary-item strong {
+      display: block;
+
+      margin-bottom: 0.3rem;
+
+      color: var(--primary);
+
+      font-size: 1.1rem;
+    }
+
+    .research-summary-item span {
+      color: var(--muted);
+
+      font-size: 0.9rem;
+    }
+
+    .research-interaction-hint {
+      width: 100%;
+
+      margin: 1rem 0 0;
+
+      color: var(--muted);
+
+      font-size: 0.8rem;
+      line-height: 1.5;
+
+      text-align: right;
+
+      pointer-events: none;
+    }
+
+
+    /* =========================================================
+       RESEARCH PROJECTS
+    ========================================================= */
+
+    .research-introduction {
+      max-width: 800px;
+
+      margin-bottom: 3rem;
+    }
+
+    .research-projects {
+      display: grid;
+
+      gap: 1.5rem;
+    }
+
+    .research-project {
+      display: grid;
+
+      grid-template-columns:
+        150px minmax(0, 1fr);
+
+      gap: 2rem;
+
+      align-items: start;
+
+      padding: 2rem;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      background: var(--surface);
+
+      box-shadow:
+        0 15px 45px
+        rgba(23, 32, 42, 0.055);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .research-project.with-image {
+      grid-template-columns:
+        150px
+        minmax(0, 1fr)
+        minmax(300px, 420px);
+
+      align-items: stretch;
+    }
+
+    .research-project:hover {
+      transform:
+        translateY(-4px);
+
+      box-shadow:
+        0 23px 55px
+        rgba(23, 32, 42, 0.1);
+    }
+
+    .project-number {
+      width: 120px;
+      height: 120px;
+
+      display: grid;
+
+      place-items: center;
+
+      align-self: start;
+
+      border-radius: 24px;
+
+      background:
+        radial-gradient(
+          circle at 28% 24%,
+          rgba(201, 145, 39, 0.25),
+          transparent 42%
+        ),
+        rgba(138, 31, 45, 0.08);
+
+      color: var(--primary);
+
+      font-size: 2.1rem;
+      font-weight: 900;
+    }
+
+    .project-content {
+      min-width: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+    }
+
+    .project-label {
+      display: inline-block;
+
+      margin-bottom: 0.65rem;
+
+      color: var(--primary);
+
+      font-size: 0.72rem;
+      font-weight: 900;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .research-project h2 {
+      margin-bottom: 0.9rem;
+
+      font-size:
+        clamp(1.8rem, 3vw, 2.5rem);
+    }
+
+    .research-project p {
+      max-width: 780px;
+
+      margin-bottom: 1.2rem;
+    }
+
+    .project-image-wrap {
+      display: flex;
+
+      align-items: stretch;
+      justify-content: center;
+
+      align-self: stretch;
+
+      margin: 0;
+    }
+
+    .project-image {
+      display: block;
+
+      width: auto;
+      height: 100%;
+
+      max-width: 100%;
+
+      object-fit: contain;
+
+      align-self: stretch;
+    }
+
+    .project-bottom-image-wrap {
+      width: 100%;
+
+      margin: 1.75rem 0 0;
+    }
+
+    .project-bottom-image {
+      display: block;
+
+      width: 100%;
+      height: auto;
+
+      max-height: 540px;
+
+      object-fit: contain;
+      object-position: center;
+    }
+
+
+    /* =========================================================
+       WORKFLOW
+    ========================================================= */
+
+    .workflow-section {
+      border-top:
+        1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        var(--surface);
+    }
+
+    .workflow-grid {
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 0.8fr)
+        minmax(0, 1.2fr);
+
+      gap: 4rem;
+
+      align-items: start;
+    }
+
+    .workflow-list {
+      display: grid;
+
+      gap: 1rem;
+    }
+
+    .workflow-item {
+      display: grid;
+
+      grid-template-columns:
+        auto minmax(0, 1fr);
+
+      gap: 1rem;
+
+      padding: 1.2rem;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 16px;
+
+      background:
+        var(--background);
+    }
+
+    .workflow-number {
+      width: 44px;
+      height: 44px;
+
+      display: grid;
+
+      place-items: center;
+
+      border-radius: 50%;
+
+      background:
+        var(--primary);
+
+      color: #ffffff;
+
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+
+    .workflow-item h3 {
+      margin-bottom: 0.3rem;
+    }
+
+    .workflow-item p {
+      margin-bottom: 0;
+
+      font-size: 0.94rem;
+    }
+
+
+    /* =========================================================
+       METHODS
+    ========================================================= */
+
+    .methods-grid {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      gap: 1.25rem;
+    }
+
+    .method-card {
+      padding: 1.6rem;
+
+      border:
+        1px solid var(--line);
+
+      border-radius: 18px;
+
+      background:
+        var(--surface);
+    }
+
+    .method-card h3 {
+      margin-bottom: 0.7rem;
+    }
+
+    .method-card p {
+      margin-bottom: 0;
+    }
+
+
+    /* =========================================================
+       FUTURE DIRECTION
+    ========================================================= */
+
+    .future-section {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 6rem 0;
+
+      background:
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(201, 145, 39, 0.22),
+          transparent 30%
+        ),
+        linear-gradient(
+          135deg,
+          var(--primary-dark),
+          var(--primary)
+        );
+    }
+
+    .future-section::before {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      pointer-events: none;
+
+      opacity: 0.14;
+
+      background-image:
+        radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.8) 1px,
+          transparent 1px
+        );
+
+      background-size:
+        28px 28px;
+    }
+
+    .future-grid {
+      position: relative;
+
+      z-index: 1;
+
+      display: grid;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(320px, 0.65fr);
+
+      gap: 4rem;
+
+      align-items: center;
+    }
+
+    .future-section .eyebrow {
+      color: #f4d99f;
+    }
+
+    .future-section .eyebrow::before {
+      background: #f4d99f;
+    }
+
+    .future-section h2,
+    .future-card h3 {
+      color: #ffffff;
+    }
+
+    .future-section p {
+      color:
+        rgba(255, 255, 255, 0.78);
+    }
+
+    .future-card {
+      padding: 2rem;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+      border-radius: 22px;
+
+      background:
+        rgba(255, 255, 255, 0.1);
+
+      backdrop-filter:
+        blur(12px);
+    }
+
+    .future-list {
+      margin: 0;
+
+      padding-left: 1.25rem;
+
+      color:
+        rgba(255, 255, 255, 0.82);
+    }
+
+    .future-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .future-list li:last-child {
+      margin-bottom: 0;
+    }
+
+
+    /* =========================================================
+       INTERACTIVE MICROSCOPY
+    ========================================================= */
+
+    .future-microscopy {
+      grid-column: 1 / -1;
+
+      margin-top: 0.5rem;
+    }
+
+    .future-microscopy-header {
+      display: flex;
+
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 2rem;
+
+      margin-bottom: 1.25rem;
+    }
+
+    .future-microscopy-copy {
+      max-width: 720px;
+    }
+
+    .future-microscopy-kicker {
+      margin:
+        0 0 0.45rem;
+
+      color:
+        #f4d99f !important;
+
+      font-size: 0.72rem;
+      font-weight: 900;
+
+      letter-spacing: 0.13em;
+
+      text-transform: uppercase;
+    }
+
+    .future-microscopy h3 {
+      margin:
+        0 0 0.65rem;
+
+      color: #ffffff;
+
+      font-size:
+        clamp(1.5rem, 2.8vw, 2.2rem);
+    }
+
+    .future-microscopy-intro {
+      max-width: 700px;
+
+      margin: 0;
+
+      color:
+        rgba(255, 255, 255, 0.72) !important;
+
+      line-height: 1.7;
+    }
+
+
+    /* CONTROLS */
+
+    .future-micro-controls {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      justify-content: flex-end;
+
+      gap: 0.5rem;
+    }
+
+    .future-micro-control {
+      min-width: 58px;
+      min-height: 42px;
+
+      padding:
+        0.58rem 0.9rem;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.22);
+
+      border-radius: 999px;
+
+      background:
+        rgba(255, 255, 255, 0.08);
+
+      color:
+        rgba(255, 255, 255, 0.82);
+
+      font: inherit;
+
+      font-size: 0.8rem;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .future-micro-control:hover {
+      transform:
+        translateY(-1px);
+
+      border-color:
+        rgba(244, 217, 159, 0.7);
+    }
+
+    .future-micro-control.is-active {
+      border-color: #f4d99f;
+
+      background: #f4d99f;
+
+      color: #3b141b;
+    }
+
+    .future-micro-control:focus-visible {
+      outline:
+        2px solid #ffffff;
+
+      outline-offset: 3px;
+    }
+
+
+    /* MICROSCOPY STAGE */
+
+    .future-micro-stage {
+      position: relative;
+
+      overflow: hidden;
+
+      width: 100%;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.16);
+
+      border-radius: 24px;
+
+      background: #030608;
+
+      box-shadow:
+        0 24px 60px
+        rgba(0, 0, 0, 0.22);
+
+      cursor: crosshair;
+
+      isolation: isolate;
+
+      touch-action: pan-y;
+
+      user-select: none;
+    }
+
+    .future-micro-stage::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      z-index: 2;
+
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at center,
+          transparent 50%,
+          rgba(0, 0, 0, 0.12) 76%,
+          rgba(0, 0, 0, 0.42) 100%
+        );
+    }
+
+    .future-micro-svg {
+      display: block;
+
+      width: 100%;
+      height: auto;
+
+      aspect-ratio:
+        1200 / 620;
+    }
+
+    .future-micro-population {
+      transition:
+        opacity 0.22s ease;
+    }
+
+    .future-micro-population.is-hidden {
+      opacity: 0;
+    }
+
+    .future-micro-scan-label {
+      fill:
+        rgba(255, 255, 255, 0.5);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      font-size: 15px;
+      font-weight: 700;
+
+      letter-spacing: 0.12em;
+    }
+
+    .future-micro-hint {
+      position: absolute;
+
+      right: 1rem;
+      bottom: 0.9rem;
+
+      z-index: 3;
+
+      padding:
+        0.45rem 0.72rem;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.14);
+
+      border-radius: 999px;
+
+      background:
+        rgba(0, 0, 0, 0.38);
+
+      color:
+        rgba(255, 255, 255, 0.68);
+
+      font-size: 0.72rem;
+
+      letter-spacing: 0.03em;
+
+      backdrop-filter:
+        blur(8px);
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.2s ease;
+    }
+
+    .future-micro-stage.is-scanning
+    .future-micro-hint {
+      opacity: 0.35;
+    }
+
+
+    /* LEGEND */
+
+    .future-micro-legend {
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap:
+        0.8rem 1.4rem;
+
+      margin-top: 1rem;
+
+      color:
+        rgba(255, 255, 255, 0.72);
+
+      font-size: 0.8rem;
+    }
+
+    .future-micro-legend-item {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 0.45rem;
+    }
+
+    .future-micro-legend-dot {
+      width: 9px;
+      height: 9px;
+
+      flex: 0 0 auto;
+
+      border-radius: 50%;
+    }
+
+    .future-micro-legend-dot.ob {
+      background: #72e29a;
+    }
+
+    .future-micro-legend-dot.oc {
+      background: #ff5b8a;
+    }
+
+    .future-micro-legend-dot.matrix {
+      background: #59c9dd;
+    }
+
+    .future-micro-legend-dot.nuclei {
+      background: #7f9eff;
+    }
+
+    .future-micro-note {
+      max-width: 800px;
+
+      margin:
+        0.7rem 0 0;
+
+      color:
+        rgba(255, 255, 255, 0.48) !important;
+
+      font-size: 0.74rem;
+
+      line-height: 1.6;
+    }
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 920px) {
+
+      .research-summary,
+      .methods-grid,
+      .workflow-grid,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .research-project {
+        grid-template-columns:
+          110px minmax(0, 1fr);
+      }
+
+      .research-project.with-image {
+        grid-template-columns:
+          110px minmax(0, 1fr);
+
+        align-items: start;
+      }
+
+      .research-project.with-image
+      .project-image-wrap {
+        grid-column: 2;
+
+        margin-top: 0.5rem;
+      }
+
+      .project-number {
+        width: 92px;
+        height: 92px;
+      }
+
+      .project-image {
+        width: 100%;
+        height: auto;
+
+        max-height: 420px;
+      }
+
+      .project-bottom-image {
+        max-height: 460px;
+      }
+
+      .future-microscopy-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 1rem;
+      }
+
+      .future-micro-controls {
+        justify-content: flex-start;
+      }
+
+    }
+
+
+    /* =========================================================
+       MOBILE
+    ========================================================= */
+
+    @media (max-width: 720px) {
+
+      .brand-name {
+        font-size: 1rem;
+      }
+
+      .research-hero {
+        padding:
+          4.5rem 0 3.5rem;
+
+        cursor: default;
+      }
+
+      .research-project,
+      .research-project.with-image {
+        grid-template-columns: 1fr;
+
+        padding: 1.4rem;
+      }
+
+      .research-project.with-image
+      .project-image-wrap {
+        grid-column: 1;
+
+        margin-top: 0.25rem;
+      }
+
+      .project-number {
+        width: 72px;
+        height: 72px;
+
+        border-radius: 18px;
+
+        font-size: 1.4rem;
+      }
+
+      .project-image,
+      .project-bottom-image {
+        width: 100%;
+        height: auto;
+
+        max-height: none;
+      }
+
+      .project-bottom-image-wrap {
+        margin-top: 1.25rem;
+      }
+
+      .research-interaction-hint {
+        margin-top: 0.8rem;
+
+        font-size: 0.75rem;
+      }
+
+      .future-section {
+        padding: 4.5rem 0;
+      }
+
+      .future-card {
+        padding: 1.4rem;
+      }
+
+      .future-micro-stage {
+        border-radius: 17px;
+      }
+
+      .future-micro-svg {
+        min-height: 310px;
+      }
+
+      .future-micro-control {
+        min-height: 44px;
+      }
+
+      .future-micro-hint {
+        right: 0.7rem;
+        bottom: 0.7rem;
+
+        font-size: 0.67rem;
+      }
+
+      .future-micro-legend {
+        gap:
+          0.65rem 1rem;
+
+        font-size: 0.75rem;
+      }
+
+    }
+
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .future-micro-control,
+      .future-micro-population,
+      .future-micro-hint {
+        transition: none;
+      }
+
+    }
+
+  </style>
 </head>
 
 
 <body>
 
 
-<a class="skip-link" href="#main">
-Skip to content
-</a>
+  <a
+    class="skip-link"
+    href="#main"
+  >
+    Skip to content
+  </a>
 
 
-<header class="site-header">
+  <!-- =========================================================
+       HEADER
+  ========================================================= -->
 
-<div class="container nav-wrap">
+  <header class="site-header">
 
-<a
-class="brand"
-href="index.html"
-aria-label="Ahmed E. Elshal homepage"
->
+    <div class="container nav-wrap">
 
-<img
-class="site-logo"
-src="Ahmed_Black_Logo.png"
-alt="Ahmed Elshal logo"
->
+      <a
+        class="brand"
+        href="index.html"
+        aria-label="Ahmed E. Elshal homepage"
+      >
 
-<span class="brand-name">
-Ahmed E. Elshal
-</span>
+        <img
+          class="site-logo"
+          src="Ahmed_Black_Logo.png"
+          alt="Ahmed Elshal logo"
+        >
 
-</a>
+        <span class="brand-name">
+          Ahmed E. Elshal
+        </span>
 
+      </a>
 
-<button
-class="menu-button"
-type="button"
-aria-label="Open navigation"
-aria-expanded="false"
->
-☰
-</button>
 
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+      >
+        ☰
+      </button>
 
-<nav class="site-nav" aria-label="Main navigation">
 
-<a href="index.html">
-Home
-</a>
+      <nav
+        class="site-nav"
+        aria-label="Main navigation"
+      >
 
-<a
-class="active"
-href="research.html"
-aria-current="page"
->
-Research
-</a>
+        <a href="index.html">
+          Home
+        </a>
 
-<a href="publications.html">
-Publications
-</a>
+        <a
+          class="active"
+          href="research.html"
+          aria-current="page"
+        >
+          Research
+        </a>
 
-<a href="gallery.html">
-Gallery
-</a>
+        <a href="publications.html">
+          Publications
+        </a>
 
-<a href="about.html">
-About
-</a>
+        <a href="gallery.html">
+          Gallery
+        </a>
 
-<a href="journey.html">
-My Journey
-</a>
+        <a href="about.html">
+          About
+        </a>
 
-</nav>
+        <a href="journey.html">
+          My Journey
+        </a>
 
-</div>
+      </nav>
 
-</header>
+    </div>
 
+  </header>
 
-<main id="main">
 
+  <main id="main">
 
-<section
-class="research-hero"
-id="interactive-research-hero"
->
 
-<canvas
-id="research-cell-background"
-aria-hidden="true"
-></canvas>
+    <!-- =========================================================
+         HERO
+    ========================================================= -->
 
+    <section
+      class="research-hero"
+      id="interactive-research-hero"
+    >
 
-<div class="container">
+      <canvas
+        id="research-cell-background"
+        aria-hidden="true"
+      ></canvas>
 
-<div class="research-hero-content">
 
-<div class="eyebrow">
-Research
-</div>
+      <div class="container">
 
-<h1>
-Dynamic models for understanding tissue remodeling and regeneration
-</h1>
+        <div class="research-hero-content">
 
-<p>
-I develop three-dimensional functional bone models and quantitative
-imaging workflows to investigate how cells communicate, remodel
-their environment, and shape regenerative outcomes through space
-and time.
-</p>
+          <div class="eyebrow">
+            Research
+          </div>
 
 
-<div class="research-summary">
+          <h1>
+            Dynamic models for understanding tissue remodeling and regeneration
+          </h1>
 
-<div class="research-summary-item">
 
-<strong>
-Biological system
-</strong>
+          <p>
+            I develop three-dimensional functional bone models and quantitative
+            imaging workflows to investigate how cells communicate, remodel
+            their environment, and shape regenerative outcomes through space
+            and time.
+          </p>
 
-<span>
-Multicellular functional bone models
-</span>
 
-</div>
+          <div class="research-summary">
 
 
-<div class="research-summary-item">
+            <div class="research-summary-item">
 
-<strong>
-Imaging platform
-</strong>
+              <strong>
+                Biological system
+              </strong>
 
-<span>
-Longitudinal two-photon and SHG microscopy
-</span>
+              <span>
+                Multicellular functional bone models
+              </span>
 
-</div>
+            </div>
 
 
-<div class="research-summary-item">
+            <div class="research-summary-item">
 
-<strong>
-Quantitative analysis
-</strong>
+              <strong>
+                Imaging platform
+              </strong>
 
-<span>
-Imaris, MATLAB, ImageJ, and statistical workflows
-</span>
+              <span>
+                Longitudinal two-photon and SHG microscopy
+              </span>
 
-</div>
+            </div>
 
-</div>
 
-</div>
+            <div class="research-summary-item">
 
+              <strong>
+                Quantitative analysis
+              </strong>
 
-<p class="research-interaction-hint">
-Click and move the cursor to interact with cells
-</p>
+              <span>
+                Imaris, MATLAB, ImageJ, and statistical workflows
+              </span>
 
-</div>
+            </div>
 
-</section>
 
+          </div>
 
-<section
-class="bone-chimes-section"
-aria-labelledby="bone-chimes-title"
->
+        </div>
 
-<div class="container">
 
-<div
-class="bone-chimes-shell"
-id="bone-chimes-experience"
->
+        <p class="research-interaction-hint">
+          Click and move the cursor to interact with cells
+        </p>
 
-<div class="bone-chimes-topbar">
+      </div>
 
-<p
-class="bone-chimes-kicker"
-id="bone-chimes-title"
->
-Interactive tissue model
-</p>
+    </section>
 
-<button
-class="bone-chimes-reset"
-type="button"
-data-bone-reset
->
-Reset cells
-</button>
 
-</div>
+    <!-- =========================================================
+         BONE CHIMES
+    ========================================================= -->
 
+    <section
+      class="bone-chimes-section"
+      aria-labelledby="bone-chimes-title"
+    >
 
-<canvas
-id="bone-chimes-canvas"
-aria-label="Interactive suspended spindle cells. Move or drag through them, or select Formation or Resorption to transform the structure."
-></canvas>
+      <div class="container">
 
+        <div
+          class="bone-chimes-shell"
+          id="bone-chimes-experience"
+        >
 
-<div
-class="bone-mode-controls"
-aria-label="Bone remodeling controls"
->
+          <div class="bone-chimes-topbar">
 
+            <p
+              class="bone-chimes-kicker"
+              id="bone-chimes-title"
+            >
+              Interactive tissue model
+            </p>
 
-<button
-class="bone-mode-control"
-type="button"
-data-bone-mode="formation"
-aria-label="Formation"
-aria-pressed="false"
->
 
-<span
-class="bone-mode-symbol"
-aria-hidden="true"
->
-OB
-</span>
+            <button
+              class="bone-chimes-reset"
+              type="button"
+              data-bone-reset
+            >
+              Reset cells
+            </button>
 
-<span class="bone-mode-title">
-Formation
-</span>
+          </div>
 
-<span class="bone-mode-subtitle">
-Matrix assembly
-</span>
 
-</button>
+          <canvas
+            id="bone-chimes-canvas"
+            aria-label="Interactive suspended spindle cells. Move or drag through them, or select Formation or Resorption to transform the structure."
+          ></canvas>
 
 
-<button
-class="bone-mode-control"
-type="button"
-data-bone-mode="resorption"
-aria-label="Resorption"
-aria-pressed="false"
->
+          <div
+            class="bone-mode-controls"
+            aria-label="Bone remodeling controls"
+          >
 
-<span
-class="bone-mode-symbol"
-aria-hidden="true"
->
-OC
-</span>
 
-<span class="bone-mode-title">
-Resorption
-</span>
+            <button
+              class="bone-mode-control"
+              type="button"
+              data-bone-mode="formation"
+              aria-label="Formation"
+              aria-pressed="false"
+            >
 
-<span class="bone-mode-subtitle">
-Matrix remodeling
-</span>
+              <span
+                class="bone-mode-symbol"
+                aria-hidden="true"
+              >
+                OB
+              </span>
 
-</button>
+              <span class="bone-mode-title">
+                Formation
+              </span>
 
-</div>
+              <span class="bone-mode-subtitle">
+                Matrix assembly
+              </span>
 
+            </button>
 
-<p
-class="bone-chimes-status"
-aria-live="polite"
->
 
-<strong data-bone-status-title>
-Interactive spindle cells
-</strong>
+            <button
+              class="bone-mode-control"
+              type="button"
+              data-bone-mode="resorption"
+              aria-label="Resorption"
+              aria-pressed="false"
+            >
 
-<span data-bone-status-text>
-Move through the suspended spindle cells, then select a remodeling mode.
-</span>
+              <span
+                class="bone-mode-symbol"
+                aria-hidden="true"
+              >
+                OC
+              </span>
 
-</p>
+              <span class="bone-mode-title">
+                Resorption
+              </span>
 
-</div>
+              <span class="bone-mode-subtitle">
+                Matrix remodeling
+              </span>
 
-</div>
+            </button>
 
-</section>
 
+          </div>
 
-<section class="section">
 
-<div class="container">
+          <p
+            class="bone-chimes-status"
+            aria-live="polite"
+          >
 
+            <strong data-bone-status-title>
+              Interactive spindle cells
+            </strong>
 
-<div class="research-introduction">
+            <span data-bone-status-text>
+              Move through the suspended spindle cells, then select a remodeling mode.
+            </span>
 
-<div class="eyebrow">
-Research overview
-</div>
+          </p>
 
-<h2>
-Using bone remodeling to study dynamic multicellular behavior
-</h2>
 
-<p class="lead">
-My doctoral research uses functional bone models as controllable
-experimental systems for understanding how cellular interactions,
-signaling, spatial organization, and time determine tissue-level
-remodeling and regenerative outcomes.
-</p>
+        </div>
 
-</div>
+      </div>
 
+    </section>
 
-<div class="research-projects">
 
+    <!-- =========================================================
+         RESEARCH OVERVIEW
+    ========================================================= -->
 
-<article class="research-project with-image">
+    <section class="section">
 
-<div class="project-number">
-01
-</div>
+      <div class="container">
 
-<div class="project-content">
 
-<span class="project-label">
-Doctoral research
-</span>
+        <div class="research-introduction">
 
-<h2>
-Functional bone remodeling models
-</h2>
+          <div class="eyebrow">
+            Research overview
+          </div>
 
-<p>
-I develop and maintain multicellular three-dimensional bone
-models that reproduce sequential tissue formation, resorption,
-and reformation. These systems allow osteoblast and osteoclast
-behavior to be studied within a self-generated bone-like
-extracellular matrix while preserving the temporal sequence of
-remodeling.
-</p>
 
+          <h2>
+            Using bone remodeling to study dynamic multicellular behavior
+          </h2>
 
-<div class="tag-list">
 
-<span class="tag">
-Long-term 3D culture
-</span>
+          <p class="lead">
+            My doctoral research uses functional bone models as controllable
+            experimental systems for understanding how cellular interactions,
+            signaling, spatial organization, and time determine tissue-level
+            remodeling and regenerative outcomes.
+          </p>
 
-<span class="tag">
-Bone remodeling
-</span>
+        </div>
 
-<span class="tag">
-Multicellular systems
-</span>
 
-<span class="tag">
-Matrix regeneration
-</span>
+        <div class="research-projects">
 
-</div>
 
-</div>
+          <!-- PROJECT 01 -->
 
+          <article class="research-project with-image">
 
-<figure class="project-image-wrap">
+            <div class="project-number">
+              01
+            </div>
 
-<img
-class="project-image"
-src="FBO.png"
-alt="Functional bone remodeling model"
-loading="lazy"
-decoding="async"
->
 
-</figure>
+            <div class="project-content">
 
-</article>
+              <span class="project-label">
+                Doctoral research
+              </span>
 
 
-<article class="research-project">
+              <h2>
+                Functional bone remodeling models
+              </h2>
 
-<div class="project-number">
-02
-</div>
 
-<div>
+              <p>
+                I develop and maintain multicellular three-dimensional bone
+                models that reproduce sequential tissue formation, resorption,
+                and reformation. These systems allow osteoblast and osteoclast
+                behavior to be studied within a self-generated bone-like
+                extracellular matrix while preserving the temporal sequence of
+                remodeling.
+              </p>
 
-<span class="project-label">
-Pharmacologic regulation
-</span>
 
-<h2>
-PTH exposure and remodeling dynamics
-</h2>
+              <div class="tag-list">
 
-<p>
-I investigated how the frequency and duration of PTH(1-34)
-exposure regulate bone remodeling across formation, resorption,
-and reformation. The work examines matrix loss and recovery,
-cellular distribution, spatial coupling, and molecular
-responses associated with remodeling over time.
-</p>
+                <span class="tag">
+                  Long-term 3D culture
+                </span>
 
+                <span class="tag">
+                  Bone remodeling
+                </span>
 
-<div class="tag-list">
+                <span class="tag">
+                  Multicellular systems
+                </span>
 
-<span class="tag">
-PTH signaling
-</span>
+                <span class="tag">
+                  Matrix regeneration
+                </span>
 
-<span class="tag">
-Formation
-</span>
+              </div>
 
-<span class="tag">
-Resorption
-</span>
+            </div>
 
-<span class="tag">
-Reformation
-</span>
 
-</div>
+            <figure class="project-image-wrap">
 
+              <img
+                class="project-image"
+                src="FBO.png"
+                alt="Functional bone remodeling model"
+                loading="lazy"
+                decoding="async"
+              >
 
-<figure class="project-bottom-image-wrap">
+            </figure>
 
-<img
-class="project-bottom-image"
-src="PTH_Effects.png"
-alt="Effects of PTH exposure patterns on bone remodeling"
-loading="lazy"
-decoding="async"
->
 
-</figure>
+          </article>
 
-</div>
 
-</article>
+          <!-- PROJECT 02 -->
 
+          <article class="research-project">
 
-<article class="research-project">
+            <div class="project-number">
+              02
+            </div>
 
-<div class="project-number">
-03
-</div>
 
-<div>
+            <div>
 
-<span class="project-label">
-Imaging and analytics
-</span>
+              <span class="project-label">
+                Pharmacologic regulation
+              </span>
 
-<h2>
-Longitudinal imaging and quantitative analysis
-</h2>
 
-<p>
-I combine two-photon microscopy, second harmonic generation
-imaging, fluorescent cell tracking, tissue clearing, Imaris
-reconstruction, and MATLAB-based analysis to follow cellular
-and extracellular matrix changes longitudinally. This converts
-three-dimensional tissue models into four-dimensional datasets
-that reveal how remodeling evolves through time.
-</p>
+              <h2>
+                PTH exposure and remodeling dynamics
+              </h2>
 
 
-<div class="tag-list">
+              <p>
+                I investigated how the frequency and duration of PTH(1-34)
+                exposure regulate bone remodeling across formation, resorption,
+                and reformation. The work examines matrix loss and recovery,
+                cellular distribution, spatial coupling, and molecular
+                responses associated with remodeling over time.
+              </p>
 
-<span class="tag">
-Two-photon imaging
-</span>
 
-<span class="tag">
-SHG
-</span>
+              <div class="tag-list">
 
-<span class="tag">
-Imaris
-</span>
+                <span class="tag">
+                  PTH signaling
+                </span>
 
-<span class="tag">
-MATLAB
-</span>
+                <span class="tag">
+                  Formation
+                </span>
 
-<span class="tag">
-ImageJ and Fiji
-</span>
+                <span class="tag">
+                  Resorption
+                </span>
 
-</div>
+                <span class="tag">
+                  Reformation
+                </span>
 
+              </div>
 
-<figure class="project-bottom-image-wrap">
 
-<img
-class="project-bottom-image"
-src="Longitudinal_imaging.png"
-alt="Longitudinal imaging and quantitative analysis workflow"
-loading="lazy"
-decoding="async"
->
+              <figure class="project-bottom-image-wrap">
 
-</figure>
+                <img
+                  class="project-bottom-image"
+                  src="PTH_Effects.png"
+                  alt="Effects of PTH exposure patterns on bone remodeling"
+                  loading="lazy"
+                  decoding="async"
+                >
 
-</div>
+              </figure>
 
-</article>
 
+            </div>
 
-</div>
+          </article>
 
-</div>
 
-</section>
+          <!-- PROJECT 03 -->
 
+          <article class="research-project">
 
-<section class="section workflow-section">
+            <div class="project-number">
+              03
+            </div>
 
-<div class="container workflow-grid">
 
-<div>
+            <div>
 
-<div class="eyebrow">
-Experimental workflow
-</div>
+              <span class="project-label">
+                Imaging and analytics
+              </span>
 
-<h2>
-Following remodeling through multiple phases
-</h2>
 
-<p class="lead">
-Longitudinal imaging allows the same three-dimensional tissue
-environment to be followed across formation, resorption, and
-regenerative recovery rather than being evaluated only at isolated
-endpoints.
-</p>
+              <h2>
+                Longitudinal imaging and quantitative analysis
+              </h2>
 
-</div>
 
+              <p>
+                I combine two-photon microscopy, second harmonic generation
+                imaging, fluorescent cell tracking, tissue clearing, Imaris
+                reconstruction, and MATLAB-based analysis to follow cellular
+                and extracellular matrix changes longitudinally. This converts
+                three-dimensional tissue models into four-dimensional datasets
+                that reveal how remodeling evolves through time.
+              </p>
 
-<div class="workflow-list">
 
+              <div class="tag-list">
 
-<div class="workflow-item">
+                <span class="tag">
+                  Two-photon imaging
+                </span>
 
-<span class="workflow-number">
-01
-</span>
+                <span class="tag">
+                  SHG
+                </span>
 
-<div>
+                <span class="tag">
+                  Imaris
+                </span>
 
-<h3>
-Formation
-</h3>
+                <span class="tag">
+                  MATLAB
+                </span>
 
-<p>
-Osteoblast-lineage cells organize and generate mineralized
-bone-like tissue within a collagen-rich extracellular matrix.
-</p>
+                <span class="tag">
+                  ImageJ and Fiji
+                </span>
 
-</div>
+              </div>
 
-</div>
 
+              <figure class="project-bottom-image-wrap">
 
-<div class="workflow-item">
+                <img
+                  class="project-bottom-image"
+                  src="Longitudinal_imaging.png"
+                  alt="Longitudinal imaging and quantitative analysis workflow"
+                  loading="lazy"
+                  decoding="async"
+                >
 
-<span class="workflow-number">
-02
-</span>
+              </figure>
 
-<div>
 
-<h3>
-Resorption
-</h3>
+            </div>
 
-<p>
-Osteoclast-lineage cells interact with the formed tissue,
-remodel the matrix, and generate localized resorption regions.
-</p>
+          </article>
 
-</div>
 
-</div>
+        </div>
 
+      </div>
 
-<div class="workflow-item">
+    </section>
 
-<span class="workflow-number">
-03
-</span>
 
-<div>
+    <!-- =========================================================
+         WORKFLOW
+    ========================================================= -->
 
-<h3>
-Reformation
-</h3>
+    <section class="section workflow-section">
 
-<p>
-Osteoblast-lineage cells respond to the remodeled
-microenvironment and generate new matrix, linking resorption
-back to tissue formation.
-</p>
+      <div class="container workflow-grid">
 
-</div>
 
-</div>
+        <div>
 
+          <div class="eyebrow">
+            Experimental workflow
+          </div>
 
-</div>
 
-</div>
+          <h2>
+            Following remodeling through multiple phases
+          </h2>
 
-</section>
 
+          <p class="lead">
+            Longitudinal imaging allows the same three-dimensional tissue
+            environment to be followed across formation, resorption, and
+            regenerative recovery rather than being evaluated only at isolated
+            endpoints.
+          </p>
 
-<section class="section">
+        </div>
 
-<div class="container">
 
-<div class="section-heading">
+        <div class="workflow-list">
 
-<div class="eyebrow">
-Methods
-</div>
 
-<h2>
-Integrating experimental biology, imaging, and computation
-</h2>
+          <div class="workflow-item">
 
-<p>
-My research combines biological experimentation with advanced
-visualization and quantitative analysis to examine multicellular
-behavior across different spatial and temporal scales.
-</p>
+            <span class="workflow-number">
+              01
+            </span>
 
-</div>
 
+            <div>
 
-<div class="methods-grid">
+              <h3>
+                Formation
+              </h3>
 
+              <p>
+                Osteoblast-lineage cells organize and generate mineralized
+                bone-like tissue within a collagen-rich extracellular matrix.
+              </p>
 
-<article class="method-card">
+            </div>
 
-<h3>
-Tissue engineering
-</h3>
+          </div>
 
-<p>
-Functional bone models, spheroid and organoid culture,
-osteoblast and osteoclast co-culture, long-term culture,
-multicellular labeling, and remodeling assays.
-</p>
 
-</article>
+          <div class="workflow-item">
 
+            <span class="workflow-number">
+              02
+            </span>
 
-<article class="method-card">
 
-<h3>
-Advanced imaging
-</h3>
+            <div>
 
-<p>
-Two-photon microscopy, SHG imaging, fluorescence tracking,
-tissue clearing, micro-CT, and three-dimensional reconstruction.
-</p>
+              <h3>
+                Resorption
+              </h3>
 
-</article>
+              <p>
+                Osteoclast-lineage cells interact with the formed tissue,
+                remodel the matrix, and generate localized resorption regions.
+              </p>
 
+            </div>
 
-<article class="method-card">
+          </div>
 
-<h3>
-Quantitative analysis
-</h3>
 
-<p>
-Imaris segmentation, MATLAB-based workflows, ImageJ and Fiji,
-longitudinal measurements, statistical analysis, and scientific
-visualization.
-</p>
+          <div class="workflow-item">
 
-</article>
+            <span class="workflow-number">
+              03
+            </span>
 
 
-</div>
+            <div>
 
-</div>
+              <h3>
+                Reformation
+              </h3>
 
-</section>
+              <p>
+                Osteoblast-lineage cells respond to the remodeled
+                microenvironment and generate new matrix, linking resorption
+                back to tissue formation.
+              </p>
 
+            </div>
 
-<section class="future-section">
+          </div>
 
-<div class="container future-grid">
 
+        </div>
 
-<div>
+      </div>
 
-<div class="eyebrow">
-Future direction
-</div>
+    </section>
 
-<h2>
-From observing living systems to learning how to direct them
-</h2>
 
-<p class="lead">
-My broader goal is to develop experimental systems that allow us
-not only to observe how cells and tissues behave, but eventually
-to understand, manipulate, and guide their collective behavior.
-</p>
+    <!-- =========================================================
+         METHODS
+    ========================================================= -->
 
-</div>
+    <section class="section">
 
+      <div class="container">
 
-<div class="future-card">
 
-<h3>
-Questions I want to pursue
-</h3>
+        <div class="section-heading">
 
-<ul class="future-list">
+          <div class="eyebrow">
+            Methods
+          </div>
 
-<li>
-How can communication between cells be visualized and quantified
-as tissues change through time?
-</li>
 
-<li>
-Can genetic, signaling, or pharmacologic interventions steer
-multicellular behavior toward desired regenerative outcomes?
-</li>
+          <h2>
+            Integrating experimental biology, imaging, and computation
+          </h2>
 
-<li>
-How do spatial organization and time determine whether tissues
-regenerate, deteriorate, or develop age-associated dysfunction?
-</li>
 
-<li>
-Can engineered multicellular systems become controllable
-platforms for drug screening and regenerative intervention?
-</li>
+          <p>
+            My research combines biological experimentation with advanced
+            visualization and quantitative analysis to examine multicellular
+            behavior across different spatial and temporal scales.
+          </p>
 
-<li>
-How can advanced imaging, computation, and biological engineering
-reveal processes that remain hidden in conventional endpoint
-experiments?
-</li>
+        </div>
 
-</ul>
 
-</div>
+        <div class="methods-grid">
 
 
-<!-- =========================================================
-     INTERACTIVE MICROSCOPY
-========================================================= -->
+          <article class="method-card">
 
-<div
-class="future-microscopy"
-id="future-microscopy"
->
+            <h3>
+              Tissue engineering
+            </h3>
 
+            <p>
+              Functional bone models, spheroid and organoid culture,
+              osteoblast and osteoclast co-culture, long-term culture,
+              multicellular labeling, and remodeling assays.
+            </p>
 
-<div class="future-microscopy-header">
+          </article>
 
 
-<div class="future-microscopy-copy">
+          <article class="method-card">
 
-<p class="future-microscopy-kicker">
-Interactive microscopy concept
-</p>
+            <h3>
+              Advanced imaging
+            </h3>
 
-<h3>
-Explore the skeletal microenvironment
-</h3>
+            <p>
+              Two-photon microscopy, SHG imaging, fluorescence tracking,
+              tissue clearing, micro-CT, and three-dimensional reconstruction.
+            </p>
 
-<p class="future-microscopy-intro">
-Move the illumination across the tissue to reveal osteoblasts,
-osteoclasts, and the surrounding bone matrix. Use the controls
-to isolate individual components of the remodeling environment.
-</p>
+          </article>
 
-</div>
 
+          <article class="method-card">
 
-<div
-class="future-micro-controls"
-aria-label="Microscopy reveal controls"
->
+            <h3>
+              Quantitative analysis
+            </h3>
 
+            <p>
+              Imaris segmentation, MATLAB-based workflows, ImageJ and Fiji,
+              longitudinal measurements, statistical analysis, and scientific
+              visualization.
+            </p>
 
-<button
-class="future-micro-control is-active"
-type="button"
-data-future-micro-mode="all"
-aria-pressed="true"
->
-All
-</button>
+          </article>
 
 
-<button
-class="future-micro-control"
-type="button"
-data-future-micro-mode="ob"
-aria-pressed="false"
->
-OB
-</button>
+        </div>
 
+      </div>
 
-<button
-class="future-micro-control"
-type="button"
-data-future-micro-mode="oc"
-aria-pressed="false"
->
-OC
-</button>
+    </section>
 
 
-<button
-class="future-micro-control"
-type="button"
-data-future-micro-mode="matrix"
-aria-pressed="false"
->
-Matrix
-</button>
+    <!-- =========================================================
+         FUTURE DIRECTION
+    ========================================================= -->
 
+    <section class="future-section">
 
-</div>
+      <div class="container future-grid">
 
-</div>
 
+        <div>
 
-<div
-class="future-micro-stage"
-id="future-micro-stage"
->
+          <div class="eyebrow">
+            Future direction
+          </div>
 
 
-<svg
-class="future-micro-svg"
-id="future-micro-svg"
-viewBox="0 0 1200 620"
-role="img"
-aria-label="Interactive schematic bone microenvironment showing osteoblasts, osteoclasts, and bone matrix"
->
+          <h2>
+            From observing living systems to learning how to direct them
+          </h2>
 
 
-<defs>
+          <p class="lead">
+            My broader goal is to develop experimental systems that allow us
+            not only to observe how cells and tissues behave, but eventually
+            to understand, manipulate, and guide their collective behavior.
+          </p>
 
+        </div>
 
-<radialGradient id="futureMicroMaskFade">
 
-<stop
-offset="0%"
-stop-color="#ffffff"
-></stop>
+        <div class="future-card">
 
-<stop
-offset="72%"
-stop-color="#ffffff"
-></stop>
+          <h3>
+            Questions I want to pursue
+          </h3>
 
-<stop
-offset="100%"
-stop-color="#000000"
-></stop>
 
-</radialGradient>
+          <ul class="future-list">
 
+            <li>
+              How can communication between cells be visualized and quantified
+              as tissues change through time?
+            </li>
 
-<radialGradient id="futureMicroBeamGradient">
+            <li>
+              Can genetic, signaling, or pharmacologic interventions steer
+              multicellular behavior toward desired regenerative outcomes?
+            </li>
 
-<stop
-offset="0%"
-stop-color="#ffffff"
-stop-opacity="0.22"
-></stop>
+            <li>
+              How do spatial organization and time determine whether tissues
+              regenerate, deteriorate, or develop age-associated dysfunction?
+            </li>
 
-<stop
-offset="65%"
-stop-color="#ffffff"
-stop-opacity="0.06"
-></stop>
+            <li>
+              Can engineered multicellular systems become controllable
+              platforms for drug screening and regenerative intervention?
+            </li>
 
-<stop
-offset="100%"
-stop-color="#ffffff"
-stop-opacity="0"
-></stop>
+            <li>
+              How can advanced imaging, computation, and biological engineering
+              reveal processes that remain hidden in conventional endpoint
+              experiments?
+            </li>
 
-</radialGradient>
+          </ul>
 
+        </div>
 
-<filter id="futureMicroCellGlow">
 
-<feGaussianBlur
-stdDeviation="2.4"
-result="blur"
-></feGaussianBlur>
+        <!-- =====================================================
+             INTERACTIVE MICROSCOPY
+        ====================================================== -->
 
-<feMerge>
+        <div
+          class="future-microscopy"
+          id="future-microscopy"
+        >
 
-<feMergeNode in="blur"></feMergeNode>
 
-<feMergeNode in="SourceGraphic"></feMergeNode>
+          <div class="future-microscopy-header">
 
-</feMerge>
 
-</filter>
+            <div class="future-microscopy-copy">
 
+              <p class="future-microscopy-kicker">
+                Interactive microscopy concept
+              </p>
 
-<mask
-id="futureMicroRevealMask"
-maskUnits="userSpaceOnUse"
-x="0"
-y="0"
-width="1200"
-height="620"
->
 
-<rect
-width="1200"
-height="620"
-fill="#000000"
-></rect>
+              <h3>
+                Explore the skeletal microenvironment
+              </h3>
 
 
-<circle
-id="future-micro-mask"
-cx="600"
-cy="310"
-r="155"
-fill="url(#futureMicroMaskFade)"
-></circle>
+              <p class="future-microscopy-intro">
+                Move the illumination across a fluorescence-style bone field to reveal
+                surface-lining osteoblasts, multinucleated osteoclasts, embedded
+                osteocytes, and the surrounding trabecular matrix.
+              </p>
 
-</mask>
+            </div>
 
 
-</defs>
+            <div
+              class="future-micro-controls"
+              aria-label="Microscopy reveal controls"
+            >
 
 
-<!-- DARK FIELD -->
+              <button
+                class="future-micro-control is-active"
+                type="button"
+                data-future-micro-mode="all"
+                aria-pressed="true"
+              >
+                All
+              </button>
 
-<rect
-width="1200"
-height="620"
-fill="#050505"
-></rect>
 
+              <button
+                class="future-micro-control"
+                type="button"
+                data-future-micro-mode="ob"
+                aria-pressed="false"
+              >
+                OB
+              </button>
 
-<!-- FAINT MATRIX -->
 
-<g
-fill="#d6d2cb"
-opacity="0.11"
->
+              <button
+                class="future-micro-control"
+                type="button"
+                data-future-micro-mode="oc"
+                aria-pressed="false"
+              >
+                OC
+              </button>
 
-<path
-d="M-30 145 C125 55 240 72 347 165 C438 245 530 233 625 132 C727 24 870 48 1230 136 L1230 245 C915 184 785 181 692 261 C578 360 424 374 312 280 C197 183 95 204 -30 281 Z"
-></path>
 
-<path
-d="M-30 438 C148 344 262 369 349 456 C446 553 555 537 651 430 C760 312 918 348 1230 446 L1230 598 C931 495 808 490 702 561 C570 649 388 650 267 565 C176 501 82 509 -30 588 Z"
-></path>
+              <button
+                class="future-micro-control"
+                type="button"
+                data-future-micro-mode="matrix"
+                aria-pressed="false"
+              >
+                Matrix
+              </button>
 
-<path
-d="M465 -25 C419 91 444 178 515 226 C580 270 636 243 686 170 C742 88 751 28 730 -25 Z"
-></path>
 
-</g>
+            </div>
 
 
-<!-- REVEALED FIELD -->
+          </div>
 
-<g mask="url(#futureMicroRevealMask)">
 
+          <div
+            class="future-micro-stage"
+            id="future-micro-stage"
+          >
 
-<rect
-width="1200"
-height="620"
-fill="#111111"
-></rect>
 
+            <svg
+              class="future-micro-svg"
+              id="future-micro-svg"
+              viewBox="0 0 1200 620"
+              role="img"
+              aria-label="Interactive fluorescence-style bone microenvironment showing trabecular matrix, surface osteoblasts, embedded osteocytes, and multinucleated osteoclasts"
+            >
 
-<!-- MATRIX -->
 
-<g class="future-micro-population future-micro-matrix">
+              <defs>
 
 
-<path
-d="M-30 145 C125 55 240 72 347 165 C438 245 530 233 625 132 C727 24 870 48 1230 136 L1230 245 C915 184 785 181 692 261 C578 360 424 374 312 280 C197 183 95 204 -30 281 Z"
-fill="#b49a7d"
-></path>
+                <!-- SOFT MICROSCOPE MASK -->
 
+                <radialGradient
+                  id="futureMicroMaskFade"
+                >
 
-<path
-d="M-30 438 C148 344 262 369 349 456 C446 553 555 537 651 430 C760 312 918 348 1230 446 L1230 598 C931 495 808 490 702 561 C570 649 388 650 267 565 C176 501 82 509 -30 588 Z"
-fill="#a58c72"
-></path>
+                  <stop
+                    offset="0%"
+                    stop-color="#ffffff"
+                  ></stop>
 
+                  <stop
+                    offset="70%"
+                    stop-color="#ffffff"
+                  ></stop>
 
-<path
-d="M465 -25 C419 91 444 178 515 226 C580 270 636 243 686 170 C742 88 751 28 730 -25 Z"
-fill="#bea589"
-></path>
+                  <stop
+                    offset="100%"
+                    stop-color="#000000"
+                  ></stop>
 
+                </radialGradient>
 
-<g
-fill="none"
-stroke="#ead7bd"
-stroke-width="3"
-opacity="0.42"
->
 
-<path d="M78 154 C182 112 259 139 346 205"></path>
+                <!-- SOFT ILLUMINATION -->
 
-<path d="M122 194 C219 158 292 181 367 236"></path>
+                <radialGradient
+                  id="futureMicroBeamGradient"
+                >
 
-<path d="M701 143 C808 102 932 118 1084 170"></path>
+                  <stop
+                    offset="0%"
+                    stop-color="#dffcff"
+                    stop-opacity="0.10"
+                  ></stop>
 
-<path d="M74 463 C176 414 262 440 350 511"></path>
+                  <stop
+                    offset="62%"
+                    stop-color="#c9f7ff"
+                    stop-opacity="0.035"
+                  ></stop>
 
-<path d="M714 445 C833 404 951 430 1094 501"></path>
+                  <stop
+                    offset="100%"
+                    stop-color="#ffffff"
+                    stop-opacity="0"
+                  ></stop>
 
-<path d="M501 43 C476 116 510 176 561 207"></path>
+                </radialGradient>
 
-</g>
 
+                <!-- MATRIX FLUORESCENCE -->
 
-<g
-fill="#d8c6aa"
-opacity="0.52"
->
+                <linearGradient
+                  id="futureMatrixGradient"
+                  x1="0"
+                  y1="0"
+                  x2="1"
+                  y2="1"
+                >
 
-<ellipse
-cx="132"
-cy="175"
-rx="18"
-ry="5"
-transform="rotate(-18 132 175)"
-></ellipse>
+                  <stop
+                    offset="0%"
+                    stop-color="#8ae8ee"
+                  ></stop>
 
-<ellipse
-cx="384"
-cy="232"
-rx="19"
-ry="5"
-transform="rotate(14 384 232)"
-></ellipse>
+                  <stop
+                    offset="46%"
+                    stop-color="#49bdcf"
+                  ></stop>
 
-<ellipse
-cx="780"
-cy="172"
-rx="20"
-ry="5"
-transform="rotate(-12 780 172)"
-></ellipse>
+                  <stop
+                    offset="100%"
+                    stop-color="#237f98"
+                  ></stop>
 
-<ellipse
-cx="290"
-cy="474"
-rx="20"
-ry="5"
-transform="rotate(19 290 474)"
-></ellipse>
+                </linearGradient>
 
-<ellipse
-cx="888"
-cy="451"
-rx="21"
-ry="5"
-transform="rotate(-16 888 451)"
-></ellipse>
 
-</g>
+                <!-- OSTEOCLAST FLUORESCENCE -->
 
+                <linearGradient
+                  id="futureOcGradient"
+                  x1="0"
+                  y1="0"
+                  x2="1"
+                  y2="1"
+                >
 
-</g>
+                  <stop
+                    offset="0%"
+                    stop-color="#ff8eae"
+                  ></stop>
 
+                  <stop
+                    offset="55%"
+                    stop-color="#ee4f82"
+                  ></stop>
 
-<!-- OSTEOBLASTS -->
+                  <stop
+                    offset="100%"
+                    stop-color="#9e2755"
+                  ></stop>
 
-<g
-class="future-micro-population future-micro-ob"
-filter="url(#futureMicroCellGlow)"
->
+                </linearGradient>
 
 
-<g fill="#65c8db">
+                <!-- MATRIX TEXTURE -->
 
-<ellipse cx="214" cy="154" rx="16" ry="10"></ellipse>
-<ellipse cx="251" cy="168" rx="16" ry="10"></ellipse>
-<ellipse cx="289" cy="190" rx="16" ry="10"></ellipse>
-<ellipse cx="327" cy="215" rx="16" ry="10"></ellipse>
+                <filter
+                  id="futureMatrixTexture"
+                  x="-20%"
+                  y="-20%"
+                  width="140%"
+                  height="140%"
+                >
 
-<ellipse cx="733" cy="188" rx="16" ry="10"></ellipse>
-<ellipse cx="773" cy="163" rx="16" ry="10"></ellipse>
-<ellipse cx="815" cy="148" rx="16" ry="10"></ellipse>
-<ellipse cx="858" cy="143" rx="16" ry="10"></ellipse>
+                  <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.018 0.08"
+                    numOctaves="3"
+                    seed="11"
+                    result="noise"
+                  ></feTurbulence>
 
-<ellipse cx="277" cy="443" rx="16" ry="10"></ellipse>
-<ellipse cx="314" cy="467" rx="16" ry="10"></ellipse>
-<ellipse cx="352" cy="490" rx="16" ry="10"></ellipse>
 
-<ellipse cx="735" cy="458" rx="16" ry="10"></ellipse>
-<ellipse cx="779" cy="437" rx="16" ry="10"></ellipse>
-<ellipse cx="823" cy="429" rx="16" ry="10"></ellipse>
+                  <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="noise"
+                    scale="8"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
+                  ></feDisplacementMap>
 
-</g>
+                </filter>
 
 
-<g
-fill="#24566a"
-opacity="0.9"
->
+                <!-- CELL GLOW -->
 
-<circle cx="214" cy="154" r="4"></circle>
-<circle cx="251" cy="168" r="4"></circle>
-<circle cx="289" cy="190" r="4"></circle>
-<circle cx="327" cy="215" r="4"></circle>
+                <filter
+                  id="futureMicroSoftGlow"
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
 
-<circle cx="733" cy="188" r="4"></circle>
-<circle cx="773" cy="163" r="4"></circle>
-<circle cx="815" cy="148" r="4"></circle>
-<circle cx="858" cy="143" r="4"></circle>
+                  <feGaussianBlur
+                    stdDeviation="3"
+                    result="blur"
+                  ></feGaussianBlur>
 
-<circle cx="277" cy="443" r="4"></circle>
-<circle cx="314" cy="467" r="4"></circle>
-<circle cx="352" cy="490" r="4"></circle>
+                  <feMerge>
 
-<circle cx="735" cy="458" r="4"></circle>
-<circle cx="779" cy="437" r="4"></circle>
-<circle cx="823" cy="429" r="4"></circle>
+                    <feMergeNode
+                      in="blur"
+                    ></feMergeNode>
 
-</g>
+                    <feMergeNode
+                      in="SourceGraphic"
+                    ></feMergeNode>
 
+                  </feMerge>
 
-</g>
+                </filter>
 
 
-<!-- OSTEOCLASTS -->
+                <filter
+                  id="futureMicroFineGlow"
+                  x="-80%"
+                  y="-80%"
+                  width="260%"
+                  height="260%"
+                >
 
-<g
-class="future-micro-population future-micro-oc"
-filter="url(#futureMicroCellGlow)"
->
+                  <feGaussianBlur
+                    stdDeviation="1.4"
+                    result="blur"
+                  ></feGaussianBlur>
 
+                  <feMerge>
 
-<path
-d="M430 270 C409 250 413 216 439 203 C471 187 511 204 519 234 C527 266 499 293 464 291 C450 290 440 284 430 270 Z"
-fill="#d17873"
-></path>
+                    <feMergeNode
+                      in="blur"
+                    ></feMergeNode>
 
+                    <feMergeNode
+                      in="SourceGraphic"
+                    ></feMergeNode>
 
-<g fill="#5d2933">
+                  </feMerge>
 
-<circle cx="450" cy="237" r="7"></circle>
-<circle cx="472" cy="226" r="7"></circle>
-<circle cx="495" cy="243" r="7"></circle>
+                </filter>
 
-</g>
 
+                <!-- REVEAL MASK -->
 
-<path
-d="M874 435 C852 410 859 375 891 361 C925 347 962 370 968 400 C974 433 944 458 910 455 C894 454 882 447 874 435 Z"
-fill="#d17873"
-></path>
+                <mask
+                  id="futureMicroRevealMask"
+                  maskUnits="userSpaceOnUse"
+                  x="0"
+                  y="0"
+                  width="1200"
+                  height="620"
+                >
 
+                  <rect
+                    width="1200"
+                    height="620"
+                    fill="#000000"
+                  ></rect>
 
-<g fill="#5d2933">
 
-<circle cx="898" cy="398" r="7"></circle>
-<circle cx="920" cy="387" r="7"></circle>
-<circle cx="944" cy="404" r="7"></circle>
+                  <circle
+                    id="future-micro-mask"
+                    cx="600"
+                    cy="310"
+                    r="170"
+                    fill="url(#futureMicroMaskFade)"
+                  ></circle>
 
-</g>
+                </mask>
 
 
-</g>
+              </defs>
 
 
-<!-- BACKGROUND CELLS -->
+              <!-- =================================================
+                   DARK MICROSCOPY FIELD
+              ================================================== -->
 
-<g
-fill="#9d9d9d"
-opacity="0.4"
->
+              <rect
+                width="1200"
+                height="620"
+                fill="#030608"
+              ></rect>
 
-<circle cx="149" cy="320" r="8"></circle>
-<circle cx="194" cy="353" r="5"></circle>
-<circle cx="244" cy="330" r="6"></circle>
-<circle cx="365" cy="370" r="7"></circle>
 
-<circle cx="601" cy="321" r="6"></circle>
-<circle cx="651" cy="365" r="8"></circle>
-<circle cx="721" cy="330" r="5"></circle>
+              <!--
+                Very faint tissue silhouette outside
+                the microscope illumination
+              -->
 
-<circle cx="1010" cy="300" r="7"></circle>
-<circle cx="1061" cy="340" r="5"></circle>
-<circle cx="1110" cy="290" r="8"></circle>
+              <g
+                opacity="0.095"
+                fill="#63848b"
+              >
 
-</g>
 
+                <path
+                  d="
+                    M-50 90
+                    C48 42 126 48 188 94
+                    C236 130 258 188 318 214
+                    C374 238 429 214 472 170
+                    C511 130 545 92 607 78
+                    C656 67 704 78 744 105
+                    L718 164
+                    C672 143 634 143 596 164
+                    C552 188 527 232 482 260
+                    C405 309 311 301 242 249
+                    C190 210 162 158 112 143
+                    C65 129 20 142 -50 180
+                    Z
+                  "
+                ></path>
 
-</g>
 
+                <path
+                  d="
+                    M710 38
+                    C792 24 866 47 921 91
+                    C966 127 1000 174 1064 185
+                    C1121 195 1162 173 1250 130
+                    L1250 226
+                    C1172 258 1094 270 1029 249
+                    C966 228 927 184 876 162
+                    C831 143 790 148 751 171
+                    Z
+                  "
+                ></path>
 
-<!-- MOVING MICROSCOPE ILLUMINATION -->
 
-<circle
-id="future-micro-beam"
-cx="600"
-cy="310"
-r="194"
-fill="url(#futureMicroBeamGradient)"
-pointer-events="none"
-></circle>
+                <path
+                  d="
+                    M-40 421
+                    C53 376 126 374 186 410
+                    C245 445 276 500 340 518
+                    C404 536 463 512 511 468
+                    C560 423 606 392 671 392
+                    C738 392 789 424 839 462
+                    C892 502 953 517 1018 499
+                    C1082 482 1136 441 1250 428
+                    L1250 560
+                    C1155 568 1088 600 1015 608
+                    C917 620 840 589 776 545
+                    C727 511 686 496 640 500
+                    C587 504 552 535 505 568
+                    C442 612 360 625 278 596
+                    C210 572 166 527 116 511
+                    C71 497 27 506 -40 542
+                    Z
+                  "
+                ></path>
 
 
-<circle
-id="future-micro-reticle"
-cx="600"
-cy="310"
-r="155"
-fill="none"
-stroke="#ffffff"
-stroke-width="2"
-stroke-opacity="0.34"
-stroke-dasharray="8 10"
-pointer-events="none"
-></circle>
+                <path
+                  d="
+                    M536 206
+                    C578 186 620 187 657 209
+                    C699 234 714 274 707 315
+                    C699 363 671 397 638 424
+                    L591 390
+                    C620 362 634 335 632 304
+                    C630 277 616 257 590 246
+                    C565 236 545 239 522 247
+                    Z
+                  "
+                ></path>
 
 
-<circle
-id="future-micro-center"
-cx="600"
-cy="310"
-r="3"
-fill="#ffffff"
-fill-opacity="0.68"
-pointer-events="none"
-></circle>
+              </g>
 
 
-<text
-x="31"
-y="44"
-class="future-micro-scan-label"
->
-SCHEMATIC BONE MICROENVIRONMENT
-</text>
+              <!-- =================================================
+                   REVEALED MICROENVIRONMENT
+              ================================================== -->
 
+              <g
+                mask="url(#futureMicroRevealMask)"
+              >
 
-</svg>
 
+                <rect
+                  width="1200"
+                  height="620"
+                  fill="#071014"
+                ></rect>
 
-<div class="future-micro-hint">
-Move to scan
-</div>
 
+                <!-- =================================================
+                     MATRIX AND OSTEOCYTES
+                ================================================== -->
 
-</div>
+                <g
+                  class="
+                    future-micro-population
+                    future-micro-matrix
+                  "
+                >
 
 
-<div
-class="future-micro-legend"
-aria-label="Microscopy legend"
->
+                  <!-- IRREGULAR TRABECULAR MATRIX -->
 
+                  <g
+                    fill="url(#futureMatrixGradient)"
+                    stroke="#a8f4f3"
+                    stroke-opacity="0.30"
+                    stroke-width="2"
+                    filter="url(#futureMatrixTexture)"
+                  >
 
-<span class="future-micro-legend-item">
 
-<span class="future-micro-legend-dot ob"></span>
+                    <path
+                      d="
+                        M-50 90
+                        C48 42 126 48 188 94
+                        C236 130 258 188 318 214
+                        C374 238 429 214 472 170
+                        C511 130 545 92 607 78
+                        C656 67 704 78 744 105
+                        L718 164
+                        C672 143 634 143 596 164
+                        C552 188 527 232 482 260
+                        C405 309 311 301 242 249
+                        C190 210 162 158 112 143
+                        C65 129 20 142 -50 180
+                        Z
+                      "
+                    ></path>
 
-<strong>
-OB
-</strong>
 
-Osteoblast
+                    <path
+                      d="
+                        M710 38
+                        C792 24 866 47 921 91
+                        C966 127 1000 174 1064 185
+                        C1121 195 1162 173 1250 130
+                        L1250 226
+                        C1172 258 1094 270 1029 249
+                        C966 228 927 184 876 162
+                        C831 143 790 148 751 171
+                        Z
+                      "
+                    ></path>
 
-</span>
 
+                    <path
+                      d="
+                        M-40 421
+                        C53 376 126 374 186 410
+                        C245 445 276 500 340 518
+                        C404 536 463 512 511 468
+                        C560 423 606 392 671 392
+                        C738 392 789 424 839 462
+                        C892 502 953 517 1018 499
+                        C1082 482 1136 441 1250 428
+                        L1250 560
+                        C1155 568 1088 600 1015 608
+                        C917 620 840 589 776 545
+                        C727 511 686 496 640 500
+                        C587 504 552 535 505 568
+                        C442 612 360 625 278 596
+                        C210 572 166 527 116 511
+                        C71 497 27 506 -40 542
+                        Z
+                      "
+                    ></path>
 
-<span class="future-micro-legend-item">
 
-<span class="future-micro-legend-dot oc"></span>
+                    <path
+                      d="
+                        M536 206
+                        C578 186 620 187 657 209
+                        C699 234 714 274 707 315
+                        C699 363 671 397 638 424
+                        L591 390
+                        C620 362 634 335 632 304
+                        C630 277 616 257 590 246
+                        C565 236 545 239 522 247
+                        Z
+                      "
+                    ></path>
 
-<strong>
-OC
-</strong>
 
-Osteoclast
+                  </g>
 
-</span>
 
+                  <!-- SHG-LIKE COLLAGEN ORGANIZATION -->
 
-<span class="future-micro-legend-item">
+                  <g
+                    fill="none"
+                    stroke="#b6fbff"
+                    stroke-linecap="round"
+                    opacity="0.28"
+                  >
 
-<span class="future-micro-legend-dot matrix"></span>
 
-Bone matrix
+                    <path
+                      d="
+                        M20 104
+                        C94 75 159 93 220 151
+                        C268 197 307 226 365 230
+                        C420 233 463 202 506 151
+                      "
+                      stroke-width="3"
+                    ></path>
 
-</span>
 
+                    <path
+                      d="
+                        M4 127
+                        C83 103 145 116 199 166
+                        C251 214 294 245 351 250
+                        C409 255 458 227 500 188
+                      "
+                      stroke-width="2"
+                    ></path>
 
-</div>
 
+                    <path
+                      d="
+                        M763 75
+                        C831 62 882 88 927 130
+                        C971 170 1012 202 1076 207
+                        C1121 210 1160 201 1214 178
+                      "
+                      stroke-width="3"
+                    ></path>
 
-<p class="future-micro-note">
-Conceptual visualization for interactive exploration of the skeletal
-microenvironment, rather than a literal dark-field microscopy image.
-</p>
 
+                    <path
+                      d="
+                        M31 452
+                        C105 417 166 429 220 469
+                        C279 514 334 548 397 546
+                        C454 544 504 506 549 463
+                      "
+                      stroke-width="3"
+                    ></path>
 
-</div>
 
+                    <path
+                      d="
+                        M578 433
+                        C637 409 695 422 753 465
+                        C810 508 868 548 934 552
+                        C1001 556 1059 529 1129 486
+                      "
+                      stroke-width="2"
+                    ></path>
 
-</div>
 
-</section>
+                  </g>
 
 
-</main>
+                  <!-- RESORPTION LACUNAE -->
 
+                  <path
+                    d="
+                      M374 238
+                      C389 221 407 213 425 215
+                      C442 217 455 227 468 244
+                      C457 257 444 267 428 274
+                      C408 282 390 278 374 267
+                      C365 260 363 249 374 238
+                      Z
+                    "
+                    fill="#071014"
+                  ></path>
 
-<footer class="site-footer">
 
-<div class="container footer-grid">
+                  <path
+                    d="
+                      M914 494
+                      C930 477 949 469 968 471
+                      C986 473 1002 484 1014 499
+                      C1002 514 987 523 969 530
+                      C949 536 930 532 915 520
+                      C905 512 904 503 914 494
+                      Z
+                    "
+                    fill="#071014"
+                  ></path>
 
-<span>
-© <span data-year></span> Designed and coded entirely by Ahmed E. Elshal
-</span>
 
+                  <!-- OSTEOCYTE CANALICULI -->
 
-<div class="footer-links">
+                  <g
+                    stroke="#d7ffff"
+                    stroke-opacity="0.34"
+                    stroke-width="1.2"
+                    fill="none"
+                  >
 
-<a href="index.html">
-Home
-</a>
 
-<a href="publications.html">
-Publications
-</a>
+                    <path
+                      d="
+                        M142 110 l-28 -17
+                        M142 110 l-31 8
+                        M142 110 l-14 27
+                        M142 110 l25 -21
+                        M142 110 l30 14
+                      "
+                    ></path>
 
-<a href="gallery.html">
-Gallery
-</a>
 
-<a href="about.html">
-About
-</a>
+                    <path
+                      d="
+                        M312 236 l-30 -17
+                        M312 236 l-33 8
+                        M312 236 l-14 27
+                        M312 236 l28 -23
+                        M312 236 l34 15
+                      "
+                    ></path>
 
-<a href="journey.html">
-My Journey
-</a>
 
-</div>
+                    <path
+                      d="
+                        M646 128 l-27 -17
+                        M646 128 l-31 8
+                        M646 128 l-13 28
+                        M646 128 l26 -22
+                        M646 128 l31 14
+                      "
+                    ></path>
 
-</div>
 
-</footer>
+                    <path
+                      d="
+                        M833 104 l-28 -17
+                        M833 104 l-32 8
+                        M833 104 l-14 27
+                        M833 104 l27 -22
+                        M833 104 l32 15
+                      "
+                    ></path>
 
 
-<script src="script.js?v=5"></script>
-<script src="bone-chimes.js?v=7"></script>
+                    <path
+                      d="
+                        M233 481 l-28 -17
+                        M233 481 l-32 8
+                        M233 481 l-14 27
+                        M233 481 l27 -22
+                        M233 481 l32 15
+                      "
+                    ></path>
 
 
-<!-- =========================================================
-     RESEARCH HERO INTERACTION
-========================================================= -->
+                    <path
+                      d="
+                        M675 459 l-29 -18
+                        M675 459 l-31 9
+                        M675 459 l-15 28
+                        M675 459 l27 -23
+                        M675 459 l32 14
+                      "
+                    ></path>
 
-<script>
 
-(() => {
+                    <path
+                      d="
+                        M1080 502 l-29 -18
+                        M1080 502 l-31 9
+                        M1080 502 l-14 27
+                        M1080 502 l27 -22
+                        M1080 502 l33 14
+                      "
+                    ></path>
 
-const hero =
-document.getElementById("interactive-research-hero");
 
-const canvas =
-document.getElementById("research-cell-background");
+                  </g>
 
 
-if (!hero || !canvas) {
-return;
-}
+                  <!-- OSTEOCYTES IN LACUNAE -->
 
+                  <g
+                    filter="url(#futureMicroFineGlow)"
+                  >
 
-const context =
-canvas.getContext("2d", {
-alpha: true
-});
 
+                    <g
+                      fill="#082c3a"
+                      stroke="#8be9f0"
+                      stroke-width="2"
+                    >
 
-if (!context) {
-return;
-}
+                      <ellipse
+                        cx="142"
+                        cy="110"
+                        rx="14"
+                        ry="6"
+                        transform="rotate(18 142 110)"
+                      ></ellipse>
 
+                      <ellipse
+                        cx="312"
+                        cy="236"
+                        rx="15"
+                        ry="6"
+                        transform="rotate(-14 312 236)"
+                      ></ellipse>
 
-const reduceMotion =
-window.matchMedia(
-"(prefers-reduced-motion: reduce)"
-).matches;
+                      <ellipse
+                        cx="646"
+                        cy="128"
+                        rx="14"
+                        ry="6"
+                        transform="rotate(12 646 128)"
+                      ></ellipse>
 
+                      <ellipse
+                        cx="833"
+                        cy="104"
+                        rx="15"
+                        ry="6"
+                        transform="rotate(-20 833 104)"
+                      ></ellipse>
 
-const rootStyles =
-getComputedStyle(
-document.documentElement
-);
+                      <ellipse
+                        cx="233"
+                        cy="481"
+                        rx="15"
+                        ry="6"
+                        transform="rotate(14 233 481)"
+                      ></ellipse>
 
+                      <ellipse
+                        cx="675"
+                        cy="459"
+                        rx="15"
+                        ry="6"
+                        transform="rotate(-17 675 459)"
+                      ></ellipse>
 
-const primaryColor =
-rootStyles
-.getPropertyValue("--primary")
-.trim() ||
-"#8a1f2d";
+                      <ellipse
+                        cx="1080"
+                        cy="502"
+                        rx="15"
+                        ry="6"
+                        transform="rotate(20 1080 502)"
+                      ></ellipse>
 
+                    </g>
 
-const goldColor =
-rootStyles
-.getPropertyValue("--accent")
-.trim() ||
-"#c99127";
 
+                    <g fill="#7f9eff">
 
-const textColor =
-rootStyles
-.getPropertyValue("--text")
-.trim() ||
-"#17202a";
+                      <ellipse
+                        cx="142"
+                        cy="110"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
+                      <ellipse
+                        cx="312"
+                        cy="236"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
-const colorToRgb = color => {
+                      <ellipse
+                        cx="646"
+                        cy="128"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
-const normalized =
-color.trim();
+                      <ellipse
+                        cx="833"
+                        cy="104"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
+                      <ellipse
+                        cx="233"
+                        cy="481"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
-if (
-normalized.startsWith("#")
-) {
+                      <ellipse
+                        cx="675"
+                        cy="459"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
-const hex =
-normalized.slice(1);
+                      <ellipse
+                        cx="1080"
+                        cy="502"
+                        rx="5"
+                        ry="3"
+                      ></ellipse>
 
+                    </g>
 
-if (
-hex.length === 3
-) {
 
-return {
+                  </g>
 
-red:
-parseInt(
-hex[0] + hex[0],
-16
-),
 
-green:
-parseInt(
-hex[1] + hex[1],
-16
-),
+                </g>
 
-blue:
-parseInt(
-hex[2] + hex[2],
-16
-)
 
-};
+                <!-- =================================================
+                     OSTEOBLASTS
+                ================================================== -->
 
-}
+                <g
+                  class="
+                    future-micro-population
+                    future-micro-ob
+                  "
+                  filter="url(#futureMicroFineGlow)"
+                >
 
 
-if (
-hex.length >= 6
-) {
+                  <!--
+                    Cuboidal lining osteoblasts
+                  -->
 
-return {
+                  <g
+                    fill="#72e29a"
+                    stroke="#b8ffd0"
+                    stroke-width="1.3"
+                  >
 
-red:
-parseInt(
-hex.slice(0, 2),
-16
-),
 
-green:
-parseInt(
-hex.slice(2, 4),
-16
-),
+                    <path
+                      d="
+                        M182 83
+                        l24 -4
+                        l11 18
+                        l-20 12
+                        l-20 -8
+                        Z
+                      "
+                    ></path>
 
-blue:
-parseInt(
-hex.slice(4, 6),
-16
-)
 
-};
+                    <path
+                      d="
+                        M211 99
+                        l25 -2
+                        l9 19
+                        l-21 11
+                        l-20 -9
+                        Z
+                      "
+                    ></path>
 
-}
 
-}
+                    <path
+                      d="
+                        M239 122
+                        l24 3
+                        l5 20
+                        l-23 7
+                        l-17 -12
+                        Z
+                      "
+                    ></path>
 
 
-const rgbMatch =
-normalized.match(
-/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/
-);
+                    <path
+                      d="
+                        M264 151
+                        l23 5
+                        l3 20
+                        l-23 5
+                        l-16 -13
+                        Z
+                      "
+                    ></path>
 
 
-if (
-rgbMatch
-) {
+                    <path
+                      d="
+                        M288 181
+                        l22 6
+                        l2 19
+                        l-22 5
+                        l-15 -13
+                        Z
+                      "
+                    ></path>
 
-return {
 
-red:
-Number(rgbMatch[1]),
+                    <path
+                      d="
+                        M742 153
+                        l21 -8
+                        l15 15
+                        l-15 17
+                        l-21 -3
+                        Z
+                      "
+                    ></path>
 
-green:
-Number(rgbMatch[2]),
 
-blue:
-Number(rgbMatch[3])
+                    <path
+                      d="
+                        M772 142
+                        l22 -6
+                        l13 16
+                        l-16 16
+                        l-21 -4
+                        Z
+                      "
+                    ></path>
 
-};
 
-}
+                    <path
+                      d="
+                        M804 137
+                        l22 -3
+                        l11 18
+                        l-18 14
+                        l-20 -7
+                        Z
+                      "
+                    ></path>
 
 
-return {
+                    <path
+                      d="
+                        M837 140
+                        l22 1
+                        l7 19
+                        l-20 11
+                        l-19 -10
+                        Z
+                      "
+                    ></path>
 
-red: 138,
-green: 31,
-blue: 45
 
-};
+                    <path
+                      d="
+                        M869 151
+                        l22 4
+                        l4 20
+                        l-21 7
+                        l-17 -13
+                        Z
+                      "
+                    ></path>
 
-};
 
+                    <path
+                      d="
+                        M536 432
+                        l22 -7
+                        l13 16
+                        l-17 16
+                        l-20 -5
+                        Z
+                      "
+                    ></path>
 
-const primaryRgb =
-colorToRgb(primaryColor);
 
-const goldRgb =
-colorToRgb(goldColor);
+                    <path
+                      d="
+                        M565 418
+                        l22 -5
+                        l12 17
+                        l-18 15
+                        l-20 -7
+                        Z
+                      "
+                    ></path>
 
-const textRgb =
-colorToRgb(textColor);
 
+                    <path
+                      d="
+                        M596 409
+                        l22 -2
+                        l9 18
+                        l-19 13
+                        l-20 -8
+                        Z
+                      "
+                    ></path>
 
-const rgba =
-(color, alpha) => (
-`rgba(${color.red}, ${color.green}, ${color.blue}, ${alpha})`
-);
 
+                    <path
+                      d="
+                        M628 407
+                        l22 1
+                        l7 19
+                        l-20 11
+                        l-19 -10
+                        Z
+                      "
+                    ></path>
 
-let width = 0;
-let height = 0;
 
-let pixelRatio = 1;
+                    <path
+                      d="
+                        M660 413
+                        l22 4
+                        l4 19
+                        l-21 8
+                        l-17 -13
+                        Z
+                      "
+                    ></path>
 
-let animationFrame = null;
 
-let isVisible = true;
+                  </g>
 
-let lastFrameTime = 0;
 
+                  <!-- OSTEOBLAST NUCLEI -->
 
-const cells = [];
+                  <g fill="#7f9eff">
 
-const nodules = [];
 
+                    <ellipse
+                      cx="197"
+                      cy="94"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-const pointer = {
+                    <ellipse
+                      cx="225"
+                      cy="111"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-x: 0,
-y: 0,
-active: false
+                    <ellipse
+                      cx="250"
+                      cy="138"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-};
+                    <ellipse
+                      cx="274"
+                      cy="166"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="297"
+                      cy="196"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-const settings = {
+                    <ellipse
+                      cx="759"
+                      cy="160"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-maximumNodules: 6,
+                    <ellipse
+                      cx="788"
+                      cy="153"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-connectionDistance: 82,
+                    <ellipse
+                      cx="819"
+                      cy="151"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-pointerDistance: 145,
+                    <ellipse
+                      cx="850"
+                      cy="155"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-attractionDistance: 310,
+                    <ellipse
+                      cx="881"
+                      cy="166"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-targetFrameInterval:
-1000 / 45
+                    <ellipse
+                      cx="551"
+                      cy="441"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-};
+                    <ellipse
+                      cx="580"
+                      cy="432"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="610"
+                      cy="424"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-const randomBetween =
-(minimum, maximum) => (
-minimum +
-Math.random() *
-(maximum - minimum)
-);
+                    <ellipse
+                      cx="641"
+                      cy="422"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="672"
+                      cy="428"
+                      rx="5"
+                      ry="4"
+                    ></ellipse>
 
-const getCellCount = () => {
 
-const area =
-width * height;
+                  </g>
 
 
-return Math.max(
-52,
-Math.min(
-110,
-Math.floor(
-area / 7800
-)
-)
-);
+                  <!-- OSTEOID SEAMS -->
 
-};
+                  <path
+                    d="
+                      M168 100
+                      C220 102 258 137 305 201
+                    "
+                    fill="none"
+                    stroke="#bdf8cc"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    opacity="0.5"
+                  ></path>
 
 
-class Cell {
+                  <path
+                    d="
+                      M738 174
+                      C792 153 838 155 894 187
+                    "
+                    fill="none"
+                    stroke="#bdf8cc"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    opacity="0.5"
+                  ></path>
 
 
-constructor(
-x = Math.random() * width,
-y = Math.random() * height
-) {
+                  <path
+                    d="
+                      M528 449
+                      C584 421 638 417 692 440
+                    "
+                    fill="none"
+                    stroke="#bdf8cc"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    opacity="0.5"
+                  ></path>
 
-this.x = x;
-this.y = y;
 
-this.vx =
-randomBetween(
--0.35,
-0.35
-);
+                </g>
 
-this.vy =
-randomBetween(
--0.35,
-0.35
-);
 
-this.radius =
-randomBetween(
-2.2,
-4.1
-);
+                <!-- =================================================
+                     OSTEOCLASTS
+                ================================================== -->
 
-this.phase =
-Math.random() *
-Math.PI *
-2;
+                <g
+                  class="
+                    future-micro-population
+                    future-micro-oc
+                  "
+                  filter="url(#futureMicroSoftGlow)"
+                >
 
-this.opacity =
-randomBetween(
-0.34,
-0.68
-);
 
-this.aggregation = 0;
+                  <!-- OC 01 -->
 
-}
+                  <path
+                    d="
+                      M375 230
+                      C392 207 418 198 443 205
+                      C465 211 480 228 482 248
+                      C483 265 473 278 456 286
+                      C440 294 416 293 398 285
+                      C378 276 366 260 368 246
+                      C369 240 371 235 375 230
+                      Z
+                    "
+                    fill="url(#futureOcGradient)"
+                    stroke="#ffb0c7"
+                    stroke-width="1.5"
+                  ></path>
 
 
-update() {
+                  <!-- RUFFLED BORDER -->
 
-this.phase += 0.018;
+                  <path
+                    d="
+                      M382 266
+                      C391 272 397 265 405 272
+                      C413 279 420 269 428 276
+                      C437 283 444 271 453 277
+                      C461 282 467 276 473 270
+                    "
+                    fill="none"
+                    stroke="#ffd0dc"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  ></path>
 
 
-this.vx +=
-randomBetween(
--0.012,
-0.012
-);
+                  <!-- MULTIPLE NUCLEI -->
 
-this.vy +=
-randomBetween(
--0.012,
-0.012
-);
+                  <g
+                    fill="#7f9eff"
+                    stroke="#c2d1ff"
+                    stroke-width="1"
+                  >
 
+                    <ellipse
+                      cx="402"
+                      cy="236"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-let nearestNodule = null;
+                    <ellipse
+                      cx="423"
+                      cy="225"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-let nearestDistance =
-Infinity;
+                    <ellipse
+                      cx="446"
+                      cy="235"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="430"
+                      cy="253"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-for (
-const nodule of nodules
-) {
+                  </g>
 
-const horizontalDistance =
-nodule.x -
-this.x;
 
-const verticalDistance =
-nodule.y -
-this.y;
+                  <!-- OC 02 -->
 
+                  <path
+                    d="
+                      M915 486
+                      C933 463 959 455 985 462
+                      C1008 468 1023 486 1024 505
+                      C1025 522 1015 536 998 544
+                      C981 551 958 550 940 542
+                      C920 533 908 518 909 503
+                      C910 497 912 491 915 486
+                      Z
+                    "
+                    fill="url(#futureOcGradient)"
+                    stroke="#ffb0c7"
+                    stroke-width="1.5"
+                  ></path>
 
-const distance =
-Math.hypot(
-horizontalDistance,
-verticalDistance
-);
 
+                  <path
+                    d="
+                      M922 523
+                      C930 530 938 522 946 530
+                      C954 537 962 527 970 534
+                      C978 541 987 529 995 535
+                      C1003 541 1010 534 1016 528
+                    "
+                    fill="none"
+                    stroke="#ffd0dc"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                  ></path>
 
-if (
-distance <
-nearestDistance &&
-distance <
-settings.attractionDistance
-) {
 
-nearestDistance =
-distance;
+                  <g
+                    fill="#7f9eff"
+                    stroke="#c2d1ff"
+                    stroke-width="1"
+                  >
 
-nearestNodule =
-nodule;
+                    <ellipse
+                      cx="941"
+                      cy="493"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-}
+                    <ellipse
+                      cx="963"
+                      cy="481"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-}
+                    <ellipse
+                      cx="987"
+                      cy="492"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="971"
+                      cy="512"
+                      rx="8"
+                      ry="6"
+                    ></ellipse>
 
-if (
-nearestNodule
-) {
+                  </g>
 
-const horizontalDistance =
-nearestNodule.x -
-this.x;
 
-const verticalDistance =
-nearestNodule.y -
-this.y;
+                </g>
 
 
-const safeDistance =
-Math.max(
-nearestDistance,
-0.01
-);
+                <!-- =================================================
+                     MARROW / STROMAL SPACE
+                ================================================== -->
 
+                <g opacity="0.62">
 
-const directionX =
-horizontalDistance /
-safeDistance;
 
-const directionY =
-verticalDistance /
-safeDistance;
+                  <g fill="#385264">
 
+                    <ellipse
+                      cx="102"
+                      cy="309"
+                      rx="15"
+                      ry="5"
+                      transform="rotate(-25 102 309)"
+                    ></ellipse>
 
-const attraction =
-0.0018 +
-nearestNodule.maturity *
-0.0034;
+                    <ellipse
+                      cx="180"
+                      cy="343"
+                      rx="17"
+                      ry="5"
+                      transform="rotate(18 180 343)"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="279"
+                      cy="345"
+                      rx="14"
+                      ry="5"
+                      transform="rotate(-12 279 345)"
+                    ></ellipse>
 
-this.vx +=
-directionX *
-attraction;
+                    <ellipse
+                      cx="352"
+                      cy="362"
+                      rx="18"
+                      ry="5"
+                      transform="rotate(29 352 362)"
+                    ></ellipse>
 
-this.vy +=
-directionY *
-attraction;
+                    <ellipse
+                      cx="782"
+                      cy="298"
+                      rx="16"
+                      ry="5"
+                      transform="rotate(-22 782 298)"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="859"
+                      cy="324"
+                      rx="15"
+                      ry="5"
+                      transform="rotate(13 859 324)"
+                    ></ellipse>
 
-const aggregationRadius =
-nearestNodule.radius +
-22 +
-Math.sin(
-this.phase
-) *
-4;
+                    <ellipse
+                      cx="1084"
+                      cy="324"
+                      rx="18"
+                      ry="5"
+                      transform="rotate(-18 1084 324)"
+                    ></ellipse>
 
+                  </g>
 
-if (
-nearestDistance <
-aggregationRadius
-) {
 
-this.aggregation =
-Math.min(
-1,
-this.aggregation +
-0.008
-);
+                  <g fill="#7f9eff">
 
+                    <ellipse
+                      cx="102"
+                      cy="309"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
-nearestNodule.recruitment =
-Math.min(
-1,
-nearestNodule.recruitment +
-0.0005
-);
+                    <ellipse
+                      cx="180"
+                      cy="343"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="279"
+                      cy="345"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
-const tangentX =
--directionY;
+                    <ellipse
+                      cx="352"
+                      cy="362"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
-const tangentY =
-directionX;
+                    <ellipse
+                      cx="782"
+                      cy="298"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
+                    <ellipse
+                      cx="859"
+                      cy="324"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
-this.vx +=
-tangentX *
-0.0035;
+                    <ellipse
+                      cx="1084"
+                      cy="324"
+                      rx="4"
+                      ry="3"
+                    ></ellipse>
 
-this.vy +=
-tangentY *
-0.0035;
+                  </g>
 
 
-this.vx *= 0.955;
-this.vy *= 0.955;
+                </g>
 
-}
 
-}
+              </g>
 
 
-if (
-pointer.active
-) {
+              <!-- =================================================
+                   SOFT MICROSCOPE ILLUMINATION
 
-const horizontalDistance =
-pointer.x -
-this.x;
+                   No dashed circle.
+                   No center pointer.
+              ================================================== -->
 
-const verticalDistance =
-pointer.y -
-this.y;
+              <circle
+                id="future-micro-beam"
+                cx="600"
+                cy="310"
+                r="205"
+                fill="url(#futureMicroBeamGradient)"
+                pointer-events="none"
+              ></circle>
 
 
-const distance =
-Math.hypot(
-horizontalDistance,
-verticalDistance
-);
+              <text
+                x="31"
+                y="44"
+                class="future-micro-scan-label"
+              >
+                FLUORESCENCE-STYLE BONE MICROENVIRONMENT
+              </text>
 
 
-if (
-distance > 0 &&
-distance <
-settings.pointerDistance
-) {
+            </svg>
 
-const force =
-(
-1 -
-distance /
-settings.pointerDistance
-) *
-0.015;
 
+            <div class="future-micro-hint">
+              Move to scan
+            </div>
 
-this.vx +=
-(
-horizontalDistance /
-distance
-) *
-force;
 
+          </div>
 
-this.vy +=
-(
-verticalDistance /
-distance
-) *
-force;
 
-}
+          <!-- =====================================================
+               MICROSCOPY LEGEND
+          ====================================================== -->
 
-}
+          <div
+            class="future-micro-legend"
+            aria-label="Microscopy legend"
+          >
 
 
-const speed =
-Math.hypot(
-this.vx,
-this.vy
-);
+            <span class="future-micro-legend-item">
 
+              <span
+                class="
+                  future-micro-legend-dot
+                  ob
+                "
+              ></span>
 
-const maximumSpeed =
-this.aggregation >
-0.4
-?
-0.55
-:
-0.82;
+              <strong>
+                OB
+              </strong>
 
+              Osteoblast
 
-if (
-speed >
-maximumSpeed
-) {
+            </span>
 
-this.vx =
-(
-this.vx /
-speed
-) *
-maximumSpeed;
 
-this.vy =
-(
-this.vy /
-speed
-) *
-maximumSpeed;
+            <span class="future-micro-legend-item">
 
-}
+              <span
+                class="
+                  future-micro-legend-dot
+                  oc
+                "
+              ></span>
 
+              <strong>
+                OC
+              </strong>
 
-this.x +=
-this.vx;
+              Osteoclast
 
-this.y +=
-this.vy;
+            </span>
 
 
-this.vx *=
-0.993;
+            <span class="future-micro-legend-item">
 
-this.vy *=
-0.993;
+              <span
+                class="
+                  future-micro-legend-dot
+                  matrix
+                "
+              ></span>
 
+              Matrix / SHG-like signal
 
-const margin =
-18;
+            </span>
 
 
-if (
-this.x <
--margin
-) {
+            <span class="future-micro-legend-item">
 
-this.x =
-width +
-margin;
+              <span
+                class="
+                  future-micro-legend-dot
+                  nuclei
+                "
+              ></span>
 
-}
+              Nuclei
 
+            </span>
 
-if (
-this.x >
-width +
-margin
-) {
 
-this.x =
--margin;
+          </div>
 
-}
 
+          <p class="future-micro-note">
+            Conceptual fluorescence-style visualization. Matrix, osteoblast,
+            osteoclast, and nuclear channels are simplified for interactive display.
+          </p>
 
-if (
-this.y <
--margin
-) {
 
-this.y =
-height +
-margin;
+        </div>
 
-}
 
+      </div>
 
-if (
-this.y >
-height +
-margin
-) {
+    </section>
 
-this.y =
--margin;
 
-}
+  </main>
 
-}
 
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
 
-draw() {
+  <footer class="site-footer">
 
-const pulse =
-Math.sin(
-this.phase
-) *
-0.22;
+    <div class="container footer-grid">
 
+      <span>
+        © <span data-year></span> Designed and coded entirely by Ahmed E. Elshal
+      </span>
 
-const membraneRadius =
-this.radius +
-pulse;
 
+      <div class="footer-links">
 
-context.beginPath();
+        <a href="index.html">
+          Home
+        </a>
 
+        <a href="publications.html">
+          Publications
+        </a>
 
-context.arc(
-this.x,
-this.y,
-membraneRadius,
-0,
-Math.PI * 2
-);
+        <a href="gallery.html">
+          Gallery
+        </a>
 
+        <a href="about.html">
+          About
+        </a>
 
-context.fillStyle =
-rgba(
-primaryRgb,
-this.opacity *
-0.12
-);
+        <a href="journey.html">
+          My Journey
+        </a>
 
+      </div>
 
-context.fill();
 
+    </div>
 
-context.strokeStyle =
-rgba(
-primaryRgb,
-this.opacity *
-0.58
-);
+  </footer>
 
 
-context.lineWidth =
-0.85;
+  <script src="script.js?v=5"></script>
+  <script src="bone-chimes.js?v=7"></script>
 
 
-context.stroke();
+  <!-- =========================================================
+       RESEARCH HERO ANIMATION
+  ========================================================= -->
 
+  <script>
 
-context.beginPath();
+    (() => {
 
 
-context.arc(
-this.x,
-this.y,
-Math.max(
-0.9,
-this.radius *
-0.35
-),
-0,
-Math.PI * 2
-);
+      const hero =
+        document.getElementById(
+          "interactive-research-hero"
+        );
 
 
-context.fillStyle =
-rgba(
-goldRgb,
-this.opacity *
-0.82
-);
+      const canvas =
+        document.getElementById(
+          "research-cell-background"
+        );
 
 
-context.fill();
+      if (
+        !hero ||
+        !canvas
+      ) {
+        return;
+      }
 
-}
 
-}
+      const ctx =
+        canvas.getContext(
+          "2d",
+          {
+            alpha: true
+          }
+        );
 
 
-class BoneNodule {
+      if (!ctx) {
+        return;
+      }
 
 
-constructor(
-x,
-y,
-initialMaturity = 0
-) {
+      const reduceMotion =
+        window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
 
-this.x = x;
 
-this.y = y;
+      const root =
+        getComputedStyle(
+          document.documentElement
+        );
 
-this.radius =
-8 +
-initialMaturity *
-18;
 
+      const primary =
+        root
+          .getPropertyValue("--primary")
+          .trim() ||
+        "#8a1f2d";
 
-this.targetRadius =
-randomBetween(
-34,
-58
-);
 
+      const accent =
+        root
+          .getPropertyValue("--accent")
+          .trim() ||
+        "#c99127";
 
-this.maturity =
-initialMaturity;
 
+      const hexToRgb =
+        hex => {
 
-this.recruitment =
-initialMaturity *
-0.45;
 
+          const clean =
+            hex
+              .replace("#", "")
+              .trim();
 
-this.phase =
-Math.random() *
-Math.PI *
-2;
 
+          if (
+            clean.length !== 6
+          ) {
 
-this.points =
-this.createShape();
+            return {
+              r: 138,
+              g: 31,
+              b: 45
+            };
 
-}
+          }
 
 
-createShape() {
+          return {
 
-const points = [];
+            r:
+              parseInt(
+                clean.slice(0, 2),
+                16
+              ),
 
-const pointCount =
-24;
+            g:
+              parseInt(
+                clean.slice(2, 4),
+                16
+              ),
 
+            b:
+              parseInt(
+                clean.slice(4, 6),
+                16
+              )
 
-for (
-let index = 0;
-index <
-pointCount;
-index += 1
-) {
+          };
 
-points.push({
+        };
 
-angle:
-(
-index /
-pointCount
-) *
-Math.PI *
-2,
 
-variation:
-randomBetween(
-0.8,
-1.17
-)
+      const primaryRgb =
+        hexToRgb(primary);
 
-});
 
-}
+      const accentRgb =
+        hexToRgb(accent);
 
 
-return points;
+      const rgba =
+        (
+          color,
+          alpha
+        ) => (
+          `rgba(
+            ${color.r},
+            ${color.g},
+            ${color.b},
+            ${alpha}
+          )`
+        );
 
-}
 
+      let width = 0;
+      let height = 0;
 
-update() {
+      let frame = null;
 
-this.phase +=
-0.008;
+      let visible = true;
 
 
-const maturationRate =
-0.00016 +
-this.recruitment *
-0.00036;
+      const pointer = {
 
+        x: 0,
+        y: 0,
 
-this.maturity =
-Math.min(
-1,
-this.maturity +
-maturationRate
-);
+        active: false
 
+      };
 
-const growthTarget =
-8 +
-this.targetRadius *
-(
-this.maturity *
-0.62 +
-this.recruitment *
-0.38
-);
 
+      const cells = [];
 
-this.radius +=
-(
-growthTarget -
-this.radius
-) *
-0.011;
+      const nodules = [];
 
-}
 
+      const random =
+        (
+          minimum,
+          maximum
+        ) => (
+          minimum +
+          Math.random() *
+          (
+            maximum -
+            minimum
+          )
+        );
 
-drawHalo() {
 
-const haloRadius =
-this.radius *
-(
-1.65 +
-Math.sin(
-this.phase
-) *
-0.035
-);
+      /* ======================================================
+         CELL
+      ====================================================== */
 
+      class Cell {
 
-const gradient =
-context.createRadialGradient(
-this.x,
-this.y,
-this.radius * 0.15,
-this.x,
-this.y,
-haloRadius
-);
 
+        constructor(
+          x = Math.random() * width,
+          y = Math.random() * height
+        ) {
 
-gradient.addColorStop(
-0,
-rgba(
-goldRgb,
-0.11 +
-this.maturity *
-0.12
-)
-);
 
+          this.x = x;
+          this.y = y;
 
-gradient.addColorStop(
-0.58,
-rgba(
-primaryRgb,
-0.045 +
-this.maturity *
-0.05
-)
-);
 
+          this.vx =
+            random(
+              -0.35,
+              0.35
+            );
 
-gradient.addColorStop(
-1,
-rgba(
-primaryRgb,
-0
-)
-);
 
+          this.vy =
+            random(
+              -0.35,
+              0.35
+            );
 
-context.beginPath();
 
+          this.r =
+            random(
+              2.2,
+              4.1
+            );
 
-context.arc(
-this.x,
-this.y,
-haloRadius,
-0,
-Math.PI *
-2
-);
 
+          this.phase =
+            Math.random() *
+            Math.PI *
+            2;
 
-context.fillStyle =
-gradient;
 
+        }
 
-context.fill();
 
-}
+        update() {
 
 
-drawBody() {
+          this.phase +=
+            0.018;
 
-if (
-!this.points.length
-) {
-return;
-}
 
+          this.vx +=
+            random(
+              -0.012,
+              0.012
+            );
 
-const firstPoint =
-this.points[0];
 
+          this.vy +=
+            random(
+              -0.012,
+              0.012
+            );
 
-const firstRadius =
-this.radius *
-firstPoint.variation;
 
+          /* NODULE ATTRACTION */
 
-context.beginPath();
+          if (
+            nodules.length
+          ) {
 
 
-context.moveTo(
-this.x +
-Math.cos(
-firstPoint.angle
-) *
-firstRadius,
+            let nearest = null;
 
-this.y +
-Math.sin(
-firstPoint.angle
-) *
-firstRadius
-);
+            let nearestDistance =
+              Infinity;
 
 
-for (
-let index = 1;
-index <
-this.points.length;
-index += 1
-) {
+            for (
+              const nodule
+              of nodules
+            ) {
 
-const point =
-this.points[index];
 
+              const distance =
+                Math.hypot(
 
-const currentRadius =
-this.radius *
-point.variation *
-(
-1 +
-Math.sin(
-this.phase +
-point.angle *
-3
-) *
-0.022
-);
+                  nodule.x -
+                  this.x,
 
+                  nodule.y -
+                  this.y
 
-context.lineTo(
+                );
 
-this.x +
-Math.cos(
-point.angle
-) *
-currentRadius,
 
-this.y +
-Math.sin(
-point.angle
-) *
-currentRadius
+              if (
+                distance <
+                nearestDistance &&
+                distance <
+                300
+              ) {
 
-);
 
-}
+                nearest =
+                  nodule;
 
 
-context.closePath();
+                nearestDistance =
+                  distance;
 
 
-const gradient =
-context.createRadialGradient(
+              }
 
-this.x -
-this.radius *
-0.25,
 
-this.y -
-this.radius *
-0.25,
+            }
 
-this.radius *
-0.08,
 
-this.x,
+            if (
+              nearest &&
+              nearestDistance > 0
+            ) {
 
-this.y,
 
-this.radius *
-1.2
+              const force =
+                0.0015 +
+                nearest.maturity *
+                0.003;
 
-);
 
+              this.vx +=
+                (
+                  (
+                    nearest.x -
+                    this.x
+                  ) /
+                  nearestDistance
+                ) *
+                force;
 
-gradient.addColorStop(
-0,
-rgba(
-goldRgb,
-0.15 +
-this.maturity *
-0.34
-)
-);
 
+              this.vy +=
+                (
+                  (
+                    nearest.y -
+                    this.y
+                  ) /
+                  nearestDistance
+                ) *
+                force;
 
-gradient.addColorStop(
-0.48,
-rgba(
-primaryRgb,
-0.08 +
-this.maturity *
-0.25
-)
-);
 
+            }
 
-gradient.addColorStop(
-1,
-rgba(
-primaryRgb,
-0.02 +
-this.maturity *
-0.08
-)
-);
 
+          }
 
-context.fillStyle =
-gradient;
 
+          /* POINTER ATTRACTION */
 
-context.fill();
+          if (
+            pointer.active
+          ) {
 
 
-context.strokeStyle =
-rgba(
-primaryRgb,
-0.16 +
-this.maturity *
-0.28
-);
+            const dx =
+              pointer.x -
+              this.x;
 
 
-context.lineWidth =
-1;
+            const dy =
+              pointer.y -
+              this.y;
 
 
-context.stroke();
+            const distance =
+              Math.hypot(
+                dx,
+                dy
+              );
 
-}
 
+            if (
+              distance > 0 &&
+              distance < 145
+            ) {
 
-drawMineralPoints() {
 
-const pointCount =
-Math.floor(
-4 +
-this.maturity *
-22
-);
+              const force =
+                (
+                  1 -
+                  distance / 145
+                ) *
+                0.014;
 
 
-for (
-let index = 0;
-index <
-pointCount;
-index += 1
-) {
+              this.vx +=
+                (
+                  dx /
+                  distance
+                ) *
+                force;
 
-const angle =
-index *
-2.39996 +
-this.phase *
-0.08;
 
+              this.vy +=
+                (
+                  dy /
+                  distance
+                ) *
+                force;
 
-const radialPosition =
-Math.sqrt(
-index /
-Math.max(
-pointCount,
-1
-)
-);
 
+            }
 
-const pointRadius =
-radialPosition *
-this.radius *
-0.72;
 
+          }
 
-const x =
-this.x +
-Math.cos(
-angle
-) *
-pointRadius;
 
+          const speed =
+            Math.hypot(
+              this.vx,
+              this.vy
+            );
 
-const y =
-this.y +
-Math.sin(
-angle
-) *
-pointRadius;
 
+          if (
+            speed > 0.8
+          ) {
 
-context.beginPath();
 
+            this.vx =
+              (
+                this.vx /
+                speed
+              ) *
+              0.8;
 
-context.arc(
-x,
-y,
-0.65 +
-this.maturity *
-0.95,
-0,
-Math.PI *
-2
-);
 
+            this.vy =
+              (
+                this.vy /
+                speed
+              ) *
+              0.8;
 
-context.fillStyle =
-rgba(
-textRgb,
-0.08 +
-this.maturity *
-0.2
-);
 
+          }
 
-context.fill();
 
-}
+          this.x +=
+            this.vx;
 
-}
 
+          this.y +=
+            this.vy;
 
-draw() {
 
-this.drawHalo();
+          this.vx *=
+            0.993;
 
-this.drawBody();
 
-this.drawMineralPoints();
+          this.vy *=
+            0.993;
 
-}
 
-}
+          if (
+            this.x < -20
+          ) {
 
+            this.x =
+              width + 20;
 
-const synchronizeCells = () => {
+          }
 
-const targetCellCount =
-getCellCount();
 
+          if (
+            this.x >
+            width + 20
+          ) {
 
-while (
-cells.length <
-targetCellCount
-) {
+            this.x =
+              -20;
 
-cells.push(
-new Cell()
-);
+          }
 
-}
 
+          if (
+            this.y < -20
+          ) {
 
-if (
-cells.length >
-targetCellCount
-) {
+            this.y =
+              height + 20;
 
-cells.length =
-targetCellCount;
+          }
 
-}
 
-};
+          if (
+            this.y >
+            height + 20
+          ) {
 
+            this.y =
+              -20;
 
-const positionInitialNodules = () => {
+          }
 
-nodules.length = 0;
 
+        }
 
-nodules.push(
 
-new BoneNodule(
+        draw() {
 
-width *
-0.76,
 
-height *
-0.3,
+          const pulse =
+            Math.sin(
+              this.phase
+            ) *
+            0.2;
 
-0.42
 
-)
+          ctx.beginPath();
 
-);
 
+          ctx.arc(
 
-nodules.push(
+            this.x,
+            this.y,
 
-new BoneNodule(
+            this.r +
+            pulse,
 
-width *
-0.88,
+            0,
 
-height *
-0.72,
+            Math.PI *
+            2
 
-0.18
+          );
 
-)
 
-);
+          ctx.fillStyle =
+            rgba(
+              primaryRgb,
+              0.07
+            );
 
 
-if (
-width >
-860
-) {
+          ctx.fill();
 
-nodules.push(
 
-new BoneNodule(
+          ctx.strokeStyle =
+            rgba(
+              primaryRgb,
+              0.42
+            );
 
-width *
-0.56,
 
-height *
-0.82,
+          ctx.lineWidth =
+            0.8;
 
-0.08
 
-)
+          ctx.stroke();
 
-);
 
-}
+          ctx.beginPath();
 
-};
 
+          ctx.arc(
 
-const resizeCanvas = () => {
+            this.x,
+            this.y,
 
-const bounds =
-hero.getBoundingClientRect();
+            Math.max(
+              0.9,
+              this.r *
+              0.34
+            ),
 
+            0,
 
-width =
-Math.max(
-1,
-bounds.width
-);
+            Math.PI *
+            2
 
+          );
 
-height =
-Math.max(
-1,
-bounds.height
-);
 
+          ctx.fillStyle =
+            rgba(
+              accentRgb,
+              0.68
+            );
 
-pixelRatio =
-Math.min(
-window.devicePixelRatio ||
-1,
-1.75
-);
 
+          ctx.fill();
 
-canvas.width =
-Math.round(
-width *
-pixelRatio
-);
 
+        }
 
-canvas.height =
-Math.round(
-height *
-pixelRatio
-);
 
+      }
 
-canvas.style.width =
-`${width}px`;
 
+      /* ======================================================
+         BONE NODULE
+      ====================================================== */
 
-canvas.style.height =
-`${height}px`;
+      class Nodule {
 
 
-context.setTransform(
-pixelRatio,
-0,
-0,
-pixelRatio,
-0,
-0
-);
+        constructor(
+          x,
+          y,
+          maturity = 0.15
+        ) {
 
 
-pointer.x =
-width *
-0.75;
+          this.x = x;
 
+          this.y = y;
 
-pointer.y =
-height *
-0.5;
 
+          this.maturity =
+            maturity;
 
-synchronizeCells();
 
-positionInitialNodules();
+          this.radius =
+            12 +
+            maturity *
+            28;
 
 
-if (
-reduceMotion
-) {
+          this.target =
+            random(
+              38,
+              58
+            );
 
-drawScene(false);
 
-}
+          this.phase =
+            Math.random() *
+            Math.PI *
+            2;
 
-};
 
+        }
 
-const drawCellConnections = () => {
 
-const maximumDistanceSquared =
-settings.connectionDistance *
-settings.connectionDistance;
+        update() {
 
 
-for (
-let firstIndex = 0;
-firstIndex <
-cells.length;
-firstIndex += 1
-) {
+          this.phase +=
+            0.01;
 
-const firstCell =
-cells[firstIndex];
 
+          this.maturity =
+            Math.min(
+              1,
+              this.maturity +
+              0.00025
+            );
 
-for (
-let secondIndex =
-firstIndex + 1;
-secondIndex <
-cells.length;
-secondIndex += 1
-) {
 
-const secondCell =
-cells[secondIndex];
+          const targetRadius =
+            10 +
+            this.target *
+            this.maturity;
 
 
-const horizontalDistance =
-secondCell.x -
-firstCell.x;
+          this.radius +=
+            (
+              targetRadius -
+              this.radius
+            ) *
+            0.008;
 
 
-const verticalDistance =
-secondCell.y -
-firstCell.y;
+        }
 
 
-const distanceSquared =
-horizontalDistance *
-horizontalDistance +
-verticalDistance *
-verticalDistance;
+        draw() {
 
 
-if (
-distanceSquared <
-maximumDistanceSquared
-) {
+          const halo =
+            ctx.createRadialGradient(
 
-const distance =
-Math.sqrt(
-distanceSquared
-);
+              this.x,
+              this.y,
+              0,
 
+              this.x,
+              this.y,
 
-const opacity =
-(
-1 -
-distance /
-settings.connectionDistance
-) *
-0.075;
+              this.radius *
+              1.8
 
+            );
 
-context.beginPath();
 
+          halo.addColorStop(
 
-context.moveTo(
-firstCell.x,
-firstCell.y
-);
+            0,
 
+            rgba(
+              accentRgb,
+              0.18
+            )
 
-context.lineTo(
-secondCell.x,
-secondCell.y
-);
+          );
 
 
-context.strokeStyle =
-rgba(
-primaryRgb,
-opacity
-);
+          halo.addColorStop(
 
+            1,
 
-context.lineWidth =
-0.6;
+            rgba(
+              primaryRgb,
+              0
+            )
 
+          );
 
-context.stroke();
 
-}
+          ctx.fillStyle =
+            halo;
 
-}
 
-}
+          ctx.beginPath();
 
-};
 
+          ctx.arc(
 
-const drawNoduleConnections = () => {
+            this.x,
+            this.y,
 
-for (
-let firstIndex = 0;
-firstIndex <
-nodules.length;
-firstIndex += 1
-) {
+            this.radius *
+            1.8,
 
-const firstNodule =
-nodules[firstIndex];
+            0,
 
+            Math.PI *
+            2
 
-for (
-let secondIndex =
-firstIndex + 1;
-secondIndex <
-nodules.length;
-secondIndex += 1
-) {
+          );
 
-const secondNodule =
-nodules[secondIndex];
 
+          ctx.fill();
 
-const distance =
-Math.hypot(
 
-secondNodule.x -
-firstNodule.x,
+          ctx.beginPath();
 
-secondNodule.y -
-firstNodule.y
 
-);
+          const points =
+            22;
 
 
-if (
-distance <
-360
-) {
+          for (
+            let index = 0;
+            index <= points;
+            index += 1
+          ) {
 
-const opacity =
-(
-1 -
-distance /
-360
-) *
-0.055 *
-(
-firstNodule.maturity +
-secondNodule.maturity
-);
 
+            const angle =
+              (
+                index /
+                points
+              ) *
+              Math.PI *
+              2;
 
-context.beginPath();
 
+            const radius =
+              this.radius *
+              (
+                0.9 +
+                Math.sin(
+                  angle *
+                  3 +
+                  this.phase
+                ) *
+                0.08
+              );
 
-context.moveTo(
-firstNodule.x,
-firstNodule.y
-);
 
+            const x =
+              this.x +
+              Math.cos(
+                angle
+              ) *
+              radius;
 
-context.lineTo(
-secondNodule.x,
-secondNodule.y
-);
 
+            const y =
+              this.y +
+              Math.sin(
+                angle
+              ) *
+              radius;
 
-context.strokeStyle =
-rgba(
-goldRgb,
-opacity
-);
 
+            if (
+              index === 0
+            ) {
 
-context.lineWidth =
-1.05;
+              ctx.moveTo(
+                x,
+                y
+              );
 
+            } else {
 
-context.stroke();
+              ctx.lineTo(
+                x,
+                y
+              );
 
-}
+            }
 
-}
 
-}
+          }
 
-};
 
+          ctx.closePath();
 
-const drawPointerHalo = () => {
 
-if (
-!pointer.active
-) {
-return;
-}
+          ctx.fillStyle =
+            rgba(
+              primaryRgb,
+              0.08 +
+              this.maturity *
+              0.12
+            );
 
 
-const gradient =
-context.createRadialGradient(
+          ctx.strokeStyle =
+            rgba(
+              primaryRgb,
+              0.16 +
+              this.maturity *
+              0.18
+            );
 
-pointer.x,
-pointer.y,
-0,
 
-pointer.x,
-pointer.y,
-settings.pointerDistance
+          ctx.lineWidth =
+            1;
 
-);
 
+          ctx.fill();
 
-gradient.addColorStop(
-0,
-rgba(
-goldRgb,
-0.055
-)
-);
+          ctx.stroke();
 
 
-gradient.addColorStop(
-1,
-rgba(
-goldRgb,
-0
-)
-);
+        }
 
 
-context.fillStyle =
-gradient;
+      }
 
 
-context.fillRect(
+      /* ======================================================
+         RESIZE
+      ====================================================== */
 
-pointer.x -
-settings.pointerDistance,
+      const resize = () => {
 
-pointer.y -
-settings.pointerDistance,
 
-settings.pointerDistance *
-2,
+        const rect =
+          hero.getBoundingClientRect();
 
-settings.pointerDistance *
-2
 
-);
+        width =
+          Math.max(
+            1,
+            rect.width
+          );
 
-};
 
+        height =
+          Math.max(
+            1,
+            rect.height
+          );
 
-function drawScene(
-shouldUpdate = true
-) {
 
-context.clearRect(
-0,
-0,
-width,
-height
-);
+        const dpr =
+          Math.min(
+            window.devicePixelRatio ||
+            1,
+            1.75
+          );
 
 
-drawPointerHalo();
+        canvas.width =
+          Math.round(
+            width *
+            dpr
+          );
 
-drawNoduleConnections();
 
-drawCellConnections();
+        canvas.height =
+          Math.round(
+            height *
+            dpr
+          );
 
 
-for (
-const nodule of nodules
-) {
+        canvas.style.width =
+          `${width}px`;
 
-if (
-shouldUpdate
-) {
 
-nodule.update();
+        canvas.style.height =
+          `${height}px`;
 
-}
 
-nodule.draw();
+        ctx.setTransform(
 
-}
+          dpr,
+          0,
+          0,
+          dpr,
+          0,
+          0
 
+        );
 
-for (
-const cell of cells
-) {
 
-if (
-shouldUpdate
-) {
+        const target =
+          Math.max(
 
-cell.update();
+            52,
 
-}
+            Math.min(
 
-cell.draw();
+              105,
 
-}
+              Math.floor(
+                (
+                  width *
+                  height
+                ) /
+                8000
+              )
 
-}
+            )
 
+          );
 
-const animate =
-currentTime => {
 
-if (
-!isVisible
-) {
+        while (
+          cells.length <
+          target
+        ) {
 
-animationFrame = null;
+          cells.push(
+            new Cell()
+          );
 
-return;
+        }
 
-}
 
+        if (
+          cells.length >
+          target
+        ) {
 
-const elapsed =
-currentTime -
-lastFrameTime;
+          cells.length =
+            target;
 
+        }
 
-if (
-elapsed >=
-settings.targetFrameInterval
-) {
 
-lastFrameTime =
-currentTime -
-(
-elapsed %
-settings.targetFrameInterval
-);
+        if (
+          !nodules.length
+        ) {
 
 
-drawScene(true);
+          nodules.push(
 
-}
+            new Nodule(
 
+              width *
+              0.76,
 
-animationFrame =
-requestAnimationFrame(
-animate
-);
+              height *
+              0.30,
 
-};
+              0.42
 
+            )
 
-const startAnimation = () => {
+          );
 
-if (
-reduceMotion ||
-animationFrame !== null ||
-!isVisible
-) {
-return;
-}
 
+          nodules.push(
 
-animationFrame =
-requestAnimationFrame(
-animate
-);
+            new Nodule(
 
-};
+              width *
+              0.88,
 
+              height *
+              0.72,
 
-const stopAnimation = () => {
+              0.18
 
-if (
-animationFrame !== null
-) {
+            )
 
-cancelAnimationFrame(
-animationFrame
-);
+          );
 
 
-animationFrame = null;
+          if (
+            width > 860
+          ) {
 
-}
 
-};
+            nodules.push(
 
+              new Nodule(
 
-const createNodule =
-(x, y) => {
+                width *
+                0.56,
 
-nodules.push(
+                height *
+                0.82,
 
-new BoneNodule(
-x,
-y,
-0.02
-)
+                0.08
 
-);
+              )
 
+            );
 
-for (
-let index = 0;
-index < 10;
-index += 1
-) {
 
-const angle =
-Math.random() *
-Math.PI *
-2;
+          }
 
 
-const distance =
-randomBetween(
-55,
-150
-);
+        }
 
 
-cells.push(
+      };
 
-new Cell(
 
-x +
-Math.cos(
-angle
-) *
-distance,
+      /* ======================================================
+         CONNECTIONS
+      ====================================================== */
 
-y +
-Math.sin(
-angle
-) *
-distance
+      const drawConnections = () => {
 
-)
 
-);
+        for (
+          let first = 0;
+          first <
+          cells.length;
+          first += 1
+        ) {
 
-}
 
+          for (
+            let second =
+              first + 1;
+            second <
+            cells.length;
+            second += 1
+          ) {
 
-if (
-nodules.length >
-settings.maximumNodules
-) {
 
-nodules.shift();
+            const cellA =
+              cells[first];
 
-}
 
+            const cellB =
+              cells[second];
 
-if (
-reduceMotion
-) {
 
-drawScene(false);
+            const distance =
+              Math.hypot(
 
-}
+                cellB.x -
+                cellA.x,
 
-};
+                cellB.y -
+                cellA.y
 
+              );
 
-hero.addEventListener(
-"pointermove",
-event => {
 
-const bounds =
-hero.getBoundingClientRect();
+            if (
+              distance < 82
+            ) {
 
 
-pointer.x =
-event.clientX -
-bounds.left;
+              ctx.beginPath();
 
 
-pointer.y =
-event.clientY -
-bounds.top;
+              ctx.moveTo(
+                cellA.x,
+                cellA.y
+              );
 
 
-pointer.active =
-true;
+              ctx.lineTo(
+                cellB.x,
+                cellB.y
+              );
 
-}
-);
 
+              ctx.strokeStyle =
+                rgba(
 
-hero.addEventListener(
-"pointerleave",
-() => {
+                  primaryRgb,
 
-pointer.active =
-false;
+                  (
+                    1 -
+                    distance /
+                    82
+                  ) *
+                  0.07
 
-}
-);
+                );
 
 
-hero.addEventListener(
-"pointerdown",
-event => {
+              ctx.lineWidth =
+                0.6;
 
-if (
-event.target.closest(
-"a, button, input, textarea, select"
-)
-) {
-return;
-}
 
+              ctx.stroke();
 
-const bounds =
-hero.getBoundingClientRect();
 
+            }
 
-createNodule(
 
-event.clientX -
-bounds.left,
+          }
 
-event.clientY -
-bounds.top
 
-);
+        }
 
-}
-);
 
+      };
 
-const resizeObserver =
-new ResizeObserver(
-() => {
 
-resizeCanvas();
+      /* ======================================================
+         DRAW
+      ====================================================== */
 
-}
-);
+      const draw =
+        update => {
 
 
-resizeObserver.observe(
-hero
-);
+          ctx.clearRect(
+            0,
+            0,
+            width,
+            height
+          );
 
 
-const visibilityObserver =
-new IntersectionObserver(
+          drawConnections();
 
-entries => {
 
-isVisible =
-entries[0]?.isIntersecting ??
-true;
+          nodules.forEach(
+            nodule => {
 
 
-if (
-isVisible
-) {
+              if (
+                update
+              ) {
 
-startAnimation();
+                nodule.update();
 
-} else {
+              }
 
-stopAnimation();
 
-}
+              nodule.draw();
 
-},
 
-{
-threshold: 0.02
-}
+            }
+          );
 
-);
 
+          cells.forEach(
+            cell => {
 
-visibilityObserver.observe(
-hero
-);
 
+              if (
+                update
+              ) {
 
-resizeCanvas();
+                cell.update();
 
+              }
 
-if (
-reduceMotion
-) {
 
-drawScene(false);
+              cell.draw();
 
-} else {
 
-startAnimation();
+            }
+          );
 
-}
 
-})();
+        };
 
-</script>
 
+      /* ======================================================
+         ANIMATION
+      ====================================================== */
 
-<!-- =========================================================
-     FUTURE MICROSCOPY INTERACTION
-========================================================= -->
+      const animate =
+        () => {
 
-<script>
 
-(() => {
+          if (
+            !visible ||
+            reduceMotion
+          ) {
 
 
-const explorer =
-document.getElementById(
-"future-microscopy"
-);
+            frame = null;
 
+            return;
 
-if (
-!explorer
-) {
-return;
-}
 
+          }
 
-const stage =
-explorer.querySelector(
-"#future-micro-stage"
-);
 
+          draw(true);
 
-const svg =
-explorer.querySelector(
-"#future-micro-svg"
-);
 
+          frame =
+            requestAnimationFrame(
+              animate
+            );
 
-const mask =
-explorer.querySelector(
-"#future-micro-mask"
-);
 
+        };
 
-const beam =
-explorer.querySelector(
-"#future-micro-beam"
-);
 
+      const start =
+        () => {
 
-const reticle =
-explorer.querySelector(
-"#future-micro-reticle"
-);
 
+          if (
+            !reduceMotion &&
+            visible &&
+            frame === null
+          ) {
 
-const center =
-explorer.querySelector(
-"#future-micro-center"
-);
 
+            frame =
+              requestAnimationFrame(
+                animate
+              );
 
-const controls =
-explorer.querySelectorAll(
-"[data-future-micro-mode]"
-);
 
+          }
 
-if (
-!stage ||
-!svg ||
-!mask ||
-!beam ||
-!reticle ||
-!center
-) {
-return;
-}
 
+        };
 
-const populations = {
 
-ob:
-explorer.querySelectorAll(
-".future-micro-ob"
-),
+      const stop =
+        () => {
 
-oc:
-explorer.querySelectorAll(
-".future-micro-oc"
-),
 
-matrix:
-explorer.querySelectorAll(
-".future-micro-matrix"
-)
+          if (
+            frame !== null
+          ) {
 
-};
 
+            cancelAnimationFrame(
+              frame
+            );
 
-const setCirclePosition =
-(
-element,
-x,
-y
-) => {
 
-element.setAttribute(
-"cx",
-x.toFixed(1)
-);
+          }
 
 
-element.setAttribute(
-"cy",
-y.toFixed(1)
-);
+          frame = null;
 
-};
 
+        };
 
-const moveLight =
-event => {
 
+      /* ======================================================
+         POINTER
+      ====================================================== */
 
-const bounds =
-svg.getBoundingClientRect();
+      hero.addEventListener(
+        "pointermove",
+        event => {
 
 
-if (
-bounds.width <= 0 ||
-bounds.height <= 0
-) {
-return;
-}
+          const rect =
+            hero.getBoundingClientRect();
 
 
-const x =
-Math.max(
-0,
-Math.min(
-1200,
-(
-event.clientX -
-bounds.left
-) *
-(
-1200 /
-bounds.width
-)
-)
-);
+          pointer.x =
+            event.clientX -
+            rect.left;
 
 
-const y =
-Math.max(
-0,
-Math.min(
-620,
-(
-event.clientY -
-bounds.top
-) *
-(
-620 /
-bounds.height
-)
-)
-);
+          pointer.y =
+            event.clientY -
+            rect.top;
 
 
-setCirclePosition(
-mask,
-x,
-y
-);
+          pointer.active =
+            true;
 
 
-setCirclePosition(
-beam,
-x,
-y
-);
+        }
+      );
 
 
-setCirclePosition(
-reticle,
-x,
-y
-);
+      hero.addEventListener(
+        "pointerleave",
+        () => {
 
 
-setCirclePosition(
-center,
-x,
-y
-);
+          pointer.active =
+            false;
 
 
-stage.classList.add(
-"is-scanning"
-);
+        }
+      );
 
-};
 
+      hero.addEventListener(
+        "pointerdown",
+        event => {
 
-const setMode =
-mode => {
 
+          if (
+            event.target.closest(
+              "a, button, input, textarea, select"
+            )
+          ) {
 
-Object.entries(
-populations
-).forEach(
-(
-[name, elements]
-) => {
+            return;
 
+          }
 
-const visible =
-mode === "all" ||
-mode === name;
 
+          const rect =
+            hero.getBoundingClientRect();
 
-elements.forEach(
-element => {
 
-element.classList.toggle(
-"is-hidden",
-!visible
-);
+          nodules.push(
 
-}
-);
+            new Nodule(
 
-}
-);
+              event.clientX -
+              rect.left,
 
+              event.clientY -
+              rect.top,
 
-controls.forEach(
-button => {
+              0.03
 
+            )
 
-const active =
-button.dataset.futureMicroMode ===
-mode;
+          );
 
 
-button.classList.toggle(
-"is-active",
-active
-);
+          if (
+            nodules.length > 6
+          ) {
 
+            nodules.shift();
 
-button.setAttribute(
-"aria-pressed",
-active
-?
-"true"
-:
-"false"
-);
+          }
 
-}
-);
 
-};
+        }
+      );
 
 
-controls.forEach(
-button => {
+      new ResizeObserver(
+        resize
+      ).observe(
+        hero
+      );
 
-button.addEventListener(
-"click",
-() => {
 
-setMode(
-button.dataset.futureMicroMode ||
-"all"
-);
+      new IntersectionObserver(
 
-}
-);
+        entries => {
 
-}
-);
 
+          visible =
+            entries[0]?.isIntersecting ??
+            true;
 
-stage.addEventListener(
-"pointermove",
-moveLight
-);
 
+          if (
+            visible
+          ) {
 
-stage.addEventListener(
-"pointerdown",
-event => {
+            start();
 
-moveLight(
-event
-);
+          } else {
 
-}
-);
+            stop();
 
+          }
 
-stage.addEventListener(
-"pointerleave",
-() => {
 
-stage.classList.remove(
-"is-scanning"
-);
+        },
 
-}
-);
+        {
+          threshold: 0.02
+        }
 
+      ).observe(
+        hero
+      );
 
-setMode(
-"all"
-);
 
+      resize();
 
-})();
 
-</script>
+      if (
+        reduceMotion
+      ) {
+
+        draw(false);
+
+      } else {
+
+        start();
+
+      }
+
+
+    })();
+
+  </script>
+
+
+  <!-- =========================================================
+       MICROSCOPY INTERACTION
+  ========================================================= -->
+
+  <script>
+
+    (() => {
+
+
+      const explorer =
+        document.getElementById(
+          "future-microscopy"
+        );
+
+
+      if (
+        !explorer
+      ) {
+        return;
+      }
+
+
+      const stage =
+        explorer.querySelector(
+          "#future-micro-stage"
+        );
+
+
+      const svg =
+        explorer.querySelector(
+          "#future-micro-svg"
+        );
+
+
+      const mask =
+        explorer.querySelector(
+          "#future-micro-mask"
+        );
+
+
+      const beam =
+        explorer.querySelector(
+          "#future-micro-beam"
+        );
+
+
+      const controls =
+        explorer.querySelectorAll(
+          "[data-future-micro-mode]"
+        );
+
+
+      if (
+        !stage ||
+        !svg ||
+        !mask ||
+        !beam
+      ) {
+        return;
+      }
+
+
+      const populations = {
+
+
+        ob:
+          explorer.querySelectorAll(
+            ".future-micro-ob"
+          ),
+
+
+        oc:
+          explorer.querySelectorAll(
+            ".future-micro-oc"
+          ),
+
+
+        matrix:
+          explorer.querySelectorAll(
+            ".future-micro-matrix"
+          )
+
+
+      };
+
+
+      /* ======================================================
+         MOVE ILLUMINATION
+      ====================================================== */
+
+      const moveLight =
+        event => {
+
+
+          const rect =
+            svg.getBoundingClientRect();
+
+
+          if (
+            !rect.width ||
+            !rect.height
+          ) {
+
+            return;
+
+          }
+
+
+          const x =
+            Math.max(
+
+              0,
+
+              Math.min(
+
+                1200,
+
+                (
+                  event.clientX -
+                  rect.left
+                ) *
+                1200 /
+                rect.width
+
+              )
+
+            );
+
+
+          const y =
+            Math.max(
+
+              0,
+
+              Math.min(
+
+                620,
+
+                (
+                  event.clientY -
+                  rect.top
+                ) *
+                620 /
+                rect.height
+
+              )
+
+            );
+
+
+          mask.setAttribute(
+            "cx",
+            x.toFixed(1)
+          );
+
+
+          mask.setAttribute(
+            "cy",
+            y.toFixed(1)
+          );
+
+
+          beam.setAttribute(
+            "cx",
+            x.toFixed(1)
+          );
+
+
+          beam.setAttribute(
+            "cy",
+            y.toFixed(1)
+          );
+
+
+          stage.classList.add(
+            "is-scanning"
+          );
+
+
+        };
+
+
+      /* ======================================================
+         CHANNEL FILTER
+      ====================================================== */
+
+      const setMode =
+        mode => {
+
+
+          Object.entries(
+            populations
+          ).forEach(
+            (
+              [
+                name,
+                nodes
+              ]
+            ) => {
+
+
+              const visible =
+                mode === "all" ||
+                mode === name;
+
+
+              nodes.forEach(
+                node => {
+
+
+                  node.classList.toggle(
+                    "is-hidden",
+                    !visible
+                  );
+
+
+                }
+              );
+
+
+            }
+          );
+
+
+          controls.forEach(
+            button => {
+
+
+              const active =
+                button
+                  .dataset
+                  .futureMicroMode ===
+                mode;
+
+
+              button.classList.toggle(
+                "is-active",
+                active
+              );
+
+
+              button.setAttribute(
+
+                "aria-pressed",
+
+                active
+                  ? "true"
+                  : "false"
+
+              );
+
+
+            }
+          );
+
+
+        };
+
+
+      /* ======================================================
+         BUTTONS
+      ====================================================== */
+
+      controls.forEach(
+        button => {
+
+
+          button.addEventListener(
+            "click",
+            () => {
+
+
+              setMode(
+
+                button
+                  .dataset
+                  .futureMicroMode ||
+
+                "all"
+
+              );
+
+
+            }
+          );
+
+
+        }
+      );
+
+
+      /* ======================================================
+         POINTER EVENTS
+      ====================================================== */
+
+      stage.addEventListener(
+        "pointermove",
+        moveLight
+      );
+
+
+      stage.addEventListener(
+        "pointerdown",
+        moveLight
+      );
+
+
+      stage.addEventListener(
+        "pointerleave",
+        () => {
+
+
+          stage.classList.remove(
+            "is-scanning"
+          );
+
+
+        }
+      );
+
+
+      setMode(
+        "all"
+      );
+
+
+    })();
+
+  </script>
 
 
 </body>
