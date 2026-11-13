@@ -28,6 +28,31 @@
 
   <style>
 
+/* PERSONAL BANNER: Full Original Aspect Ratio */
+
+.campus-image-section {
+    display: block;
+    width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible;
+    padding: 0;
+    margin: 0;
+}
+
+.campus-image-section .campus-image {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center;
+}
+
     /* =========================
        HERO
     ========================= */
@@ -164,8 +189,6 @@
 
   </header>
 
-
-
   <main id="main">
 
 <!-- PERSONAL ANIMATED BANNER -->
@@ -176,7 +199,7 @@
   <img
     class="campus-image"
     src="Website main personal Banner.gif"
-    alt="AWebsite main personal Banner"
+    alt="Website main personal Banner"
     loading="eager"
     decoding="async"
     fetchpriority="high"
